@@ -1,10 +1,14 @@
 import Head from "next/head";
-import Image from "next/image";
-import { Inter } from "@next/font/google";
+import Container from "@material-ui/core/Container";
+import { incremented } from "../store/features/counter/counter-slice";
 
-const inter = Inter({ subsets: ["latin"] });
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { Box } from "@material-ui/core";
 
 export default function Home() {
+  const counter = useAppSelector((state) => state.counter.value);
+
+  const dispatch = useAppDispatch();
   return (
     <>
       <Head>
@@ -14,6 +18,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>Welcome to next.js</div>
+      <Box bgcolor="primary">
+        {counter}
+        <button onClick={() => dispatch(incremented())}> increase</button>
+      </Box>
     </>
   );
 }
