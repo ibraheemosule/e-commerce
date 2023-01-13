@@ -6,7 +6,6 @@ import theme, { roboto } from "../utils/theme";
 import createEmotionCache from "../utils/createEmotionCache";
 import { EmotionCache } from "@emotion/utils";
 
-// eslint-disable-next-line @typescript-eslint/unbound-method
 export default class MyDocument extends Document {
   render() {
     return (
@@ -26,18 +25,15 @@ export default class MyDocument extends Document {
     );
   }
 }
-// eslint-disable-next-line @typescript-eslint/unbound-method
+
 MyDocument.getInitialProps = async (ctx) => {
-  // eslint-disable-next-line @typescript-eslint/unbound-method
   const { renderPage: originalRenderPage } = ctx;
 
   const cache = createEmotionCache() as unknown as EmotionCache;
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/unbound-method
   const { extractCriticalToChunks } = createEmotionServer(cache);
 
-  // eslint-disable-next-line @typescript-eslint/unbound-method
   ctx.renderPage = () =>
-    // eslint-disable-next-line @typescript-eslint/unbound-method
     originalRenderPage({
       enhanceApp: (App) =>
         function EnhanceApp(props) {
@@ -45,7 +41,7 @@ MyDocument.getInitialProps = async (ctx) => {
           return <App emotionCache={cache} {...props} />;
         },
     });
-  // eslint-disable-next-line @typescript-eslint/unbound-method
+
   const initialProps = await Document.getInitialProps(ctx);
   const emotionStyles = extractCriticalToChunks(initialProps.html);
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
