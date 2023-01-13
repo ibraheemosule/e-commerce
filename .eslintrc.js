@@ -13,11 +13,13 @@ module.exports = {
   overrides: [],
   parser: "@typescript-eslint/parser",
   parserOptions: {
-    project: "./tsconfig.json",
+    project: "tsconfig.json",
     ecmaVersion: "latest",
     sourceType: "module",
   },
   rules: {
     "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/restrict-template-expressions": "off",
   },
 };

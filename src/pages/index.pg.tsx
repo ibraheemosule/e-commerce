@@ -1,9 +1,8 @@
 import Head from "next/head";
-import Container from "@material-ui/core/Container";
 import { incremented } from "../store/features/counter/counter-slice";
 
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { Box } from "@material-ui/core";
+import Box from "@mui/material/Box";
 
 export default function Home() {
   const counter = useAppSelector((state) => state.counter.value);
@@ -18,7 +17,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>Welcome to next.js</div>
-      <Box bgcolor="primary">
+      <Box bgcolor="primary.main">
         {counter}
         <button onClick={() => dispatch(incremented())}> increase</button>
       </Box>
