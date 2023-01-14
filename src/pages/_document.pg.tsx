@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
+/*@typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import createEmotionServer from "@emotion/server/create-instance";
@@ -30,7 +31,7 @@ MyDocument.getInitialProps = async (ctx) => {
   const { renderPage: originalRenderPage } = ctx;
 
   const cache = createEmotionCache() as unknown as EmotionCache;
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/unbound-method
+  // eslint-disable-next-line  @typescript-eslint/unbound-method
   const { extractCriticalToChunks } = createEmotionServer(cache);
 
   ctx.renderPage = () =>
@@ -44,14 +45,11 @@ MyDocument.getInitialProps = async (ctx) => {
 
   const initialProps = await Document.getInitialProps(ctx);
   const emotionStyles = extractCriticalToChunks(initialProps.html);
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+
   const emotionStyleTags = emotionStyles.styles.map((style) => (
     <style
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       data-emotion={`${style.key} ${style.ids.join(" ")}`}
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       key={style.key}
-      // eslint-disable-next-line react/no-danger, @typescript-eslint/no-unsafe-member-access
       dangerouslySetInnerHTML={{ __html: style.css }}
     />
   ));
