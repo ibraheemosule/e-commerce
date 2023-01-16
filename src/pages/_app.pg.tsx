@@ -1,6 +1,6 @@
 import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
-import { store } from "../store";
+import { store } from "../store/store";
 import { useEffect } from "react";
 
 export default function App({ Component, pageProps }: AppProps) {
