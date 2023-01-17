@@ -1,17 +1,23 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import counterReducer from "./features/counter/counter-slice";
 import { apiSlice } from "./features/dogs/dogs-api-slice";
+import type { PreloadedState } from "@reduxjs/toolkit";
 
-export const store = configureStore({
-  reducer: {
-    counter: counterReducer,
-    [apiSlice.reducerPath]: apiSlice.reducer,
-  },
-
-  middleware(getDefaultMiddleware) {
-    return getDefaultMiddleware().concat(apiSlice.middleware);
-  },
+const rootReducer = combineReducers({
+  counter: counterReducer,
+  [apiSlice.reducerPath]: apiSlice.reducer,
 });
 
-export type AppDispatch = typeof store.dispatch;
-export type RootState = ReturnType<typeof store.getState>;
+export const store = (preloadedState?: PreloadedState<RootState>) =>
+  configureStore({
+    reducer: rootReducer,
+    preloadedState,
+
+    middleware(getDefaultMiddleware) {
+      return getDefaultMiddleware().concat(apiSlice.middleware);
+    },
+  });
+
+export type RootState = ReturnType<typeof rootReducer>;
+export type StoreType = ReturnType<typeof store>;
+export type AppDispatch = StoreType["dispatch"];

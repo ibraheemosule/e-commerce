@@ -2,6 +2,7 @@ import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 import { store } from "../store/store";
 import { useEffect } from "react";
+import Layout from "../components/reusables/Layout";
 
 export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
@@ -10,8 +11,10 @@ export default function App({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <Provider store={store}>
-      <Component {...pageProps} />
+    <Provider store={store()}>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </Provider>
   );
 }
