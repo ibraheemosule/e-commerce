@@ -1,20 +1,39 @@
 import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 import { store } from "../store/store";
-import { useEffect } from "react";
 import Layout from "../components/reusables/Layout";
+import * as React from "react";
+import Head from "next/head";
+import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import { CacheProvider, EmotionCache } from "@emotion/react";
+import theme from "../utils/theme";
+import createEmotionCache from "../utils/createEmotionCache";
 
-export default function App({ Component, pageProps }: AppProps) {
-  useEffect(() => {
-    const jssStyles = document.querySelector("#jss-server-side");
-    if (jssStyles) jssStyles.parentElement?.removeChild(jssStyles);
-  }, []);
+const clientSideEmotionCache = createEmotionCache();
 
+interface MyAppProps extends AppProps {
+  emotionCache?: EmotionCache;
+}
+
+export default function MyApp(props: MyAppProps) {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   return (
     <Provider store={store()}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <CacheProvider value={emotionCache}>
+        <Head>
+          <meta name="viewport" content="initial-scale=1, width=device-width" />
+        </Head>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Layout>
+            <>
+              <Component {...pageProps} />
+            </>
+          </Layout>
+        </ThemeProvider>
+      </CacheProvider>
     </Provider>
   );
 }
