@@ -14,7 +14,7 @@ export default function AppHeader() {
           sx={{
             backgroundColor: "primary.dark",
             color: "primary.light",
-            p: ".5rem 0 1rem",
+            pt: ".5rem",
           }}
         >
           <Toolbar>

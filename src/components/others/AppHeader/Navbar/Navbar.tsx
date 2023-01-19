@@ -9,6 +9,7 @@ import UserMenu from "../UserMenu/UserMenu";
 import Cart from "../Cart/Cart";
 import SideNavList from "./SideNavList/SideNavList";
 import Link from "next/link";
+import useScrollToTrigger from "@mui/material/useScrollTrigger";
 
 const drawerWidth = 240,
   mainNavList = ["Home", "Corporate Shoes", "Belts", "Purses"];
@@ -16,17 +17,23 @@ const drawerWidth = 240,
 export default memo(function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
 
+  const trigger = useScrollToTrigger({
+    threshold: 150,
+    disableHysteresis: true,
+  });
+
   const handleDrawerToggle = () => setShowMenu(!showMenu);
 
   return (
     <>
       <AppBar
-        position="static"
+        position={trigger ? "fixed" : "static"}
         component="section"
         elevation={0}
         sx={{
           backgroundColor: "primary.dark",
           color: "primary.main",
+          pt: "1rem",
         }}
       >
         <Toolbar

@@ -13,7 +13,6 @@ export default function Layout({ children }: ILayout) {
         component="header"
         sx={{
           boxShadow: 2,
-          backgroundColor: "red",
         }}
       >
         <AppHeader />
