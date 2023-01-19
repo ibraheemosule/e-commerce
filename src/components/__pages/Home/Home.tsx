@@ -11,7 +11,7 @@ export default function Home() {
     <>
       <div>Welcome to next.js</div>
       <Container>
-        <Box bgcolor="secondary.main">
+        <Box bgcolor="secondary.main" sx={{ minHeight: "1000px" }}>
           <>
             {counter}
             <button onClick={() => dispatch(incremented())}> increase</button>
