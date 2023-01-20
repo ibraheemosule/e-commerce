@@ -10,6 +10,7 @@ import Cart from "../Cart/Cart";
 import SideNavList from "./SideNavList/SideNavList";
 import Link from "next/link";
 import useScrollToTrigger from "@mui/material/useScrollTrigger";
+import { linkWrapperStyles } from "./s_navbar";
 
 const drawerWidth = 240,
   mainNavList = ["Home", "Corporate Shoes", "Belts", "Purses"];
@@ -55,25 +56,7 @@ export default memo(function Navbar() {
           >
             <MenuIcon />
           </IconButton>
-          <Box
-            sx={{
-              display: { xs: "none", md: "flex" },
-              flexGrow: 1,
-              justifyContent: "center",
-              gap: "2rem",
-
-              "& a": {
-                textDecoration: "none",
-                fontSize: ".8rem",
-                fontWeight: "bold",
-                color: "primary.main",
-
-                "&:hover": {
-                  color: "primary.light",
-                },
-              },
-            }}
-          >
+          <Box sx={linkWrapperStyles}>
             {mainNavList.map((text) => (
               <Link key={text} href="/">
                 {text}
