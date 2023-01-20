@@ -5,19 +5,19 @@ const nextConfig = {
     return [
       {
         source: "/:path1",
-        destination: "/:path1/:path1",
+        destination: "/:path1/:path1/",
       },
       {
         source: "/",
-        destination: "/home/home",
+        destination: "/home/home/",
       },
     ];
   },
   async redirects() {
     return [
       {
-        source: "/:path1/:path2",
-        destination: "/:path2",
+        source: "/:path1/:path2/",
+        destination: "/:path2/",
         permanent: true,
       },
     ];
