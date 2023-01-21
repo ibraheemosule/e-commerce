@@ -6,8 +6,8 @@ export const linkWrapperStyles = {
 
   "& a": {
     textDecoration: "none",
-    fontSize: ".8rem",
-    fontWeight: "bold",
+    fontSize: "1rem",
+    fontWeight: "500",
     color: "primary.main",
 
     "&:hover": {

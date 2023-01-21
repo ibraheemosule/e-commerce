@@ -1,19 +1,25 @@
 import { FC, memo, SetStateAction } from "react";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import List from "@mui/material/List";
 import { StyledListItem } from "./s_sideNavList";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import MailIcon from "@mui/icons-material/Mail";
 import Toolbar from "@mui/material/Toolbar";
+import HomeIcon from "@mui/icons-material/Home";
+import AccountIcon from "@mui/icons-material/ManageAccounts";
+import LoginIcon from "@mui/icons-material/Login";
+import LogoutIcon from "@mui/icons-material/Logout";
+import PersonIcon from "@mui/icons-material/Person";
+import BeltsIcon from "@mui/icons-material/Commit";
+import ShoesIcon from "@mui/icons-material/DoNotStep";
+import PursesIcon from "@mui/icons-material/BusinessCenter";
 import Link from "next/link";
 
 const drawerWidth = 240;
-const mainNavList = ["Home", "Corporate Shoes", "Belts", "Purses"];
-const userNavList = ["Profile", "Account", "Sign In"];
+const mainNavList = ["Home", "Shoes", "Belts", "Purses"];
+const userNavList = ["Profile", "Account", "Login", "Logout"];
 
 const SideNavList: FC<ISideNavList> = ({ showMenu, handleDrawerToggle }) => {
   return (
@@ -35,12 +41,19 @@ const SideNavList: FC<ISideNavList> = ({ showMenu, handleDrawerToggle }) => {
         <Toolbar />
         <Divider />
         <List>
-          {mainNavList.map((text, index) => (
+          {mainNavList.map((text) => (
             <StyledListItem key={text} disablePadding>
               <Link href="/">
                 <ListItemButton>
                   <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                    {
+                      {
+                        Home: <HomeIcon />,
+                        Shoes: <ShoesIcon />,
+                        Belts: <BeltsIcon />,
+                        Purses: <PursesIcon />,
+                      }[text]
+                    }
                   </ListItemIcon>
 
                   <ListItemText primary={text} />
@@ -51,12 +64,19 @@ const SideNavList: FC<ISideNavList> = ({ showMenu, handleDrawerToggle }) => {
         </List>
         <Divider />
         <List>
-          {userNavList.map((text, index) => (
+          {userNavList.map((text) => (
             <StyledListItem key={text} disablePadding>
               <Link href="/about">
                 <ListItemButton>
                   <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                    {
+                      {
+                        Account: <AccountIcon />,
+                        Profile: <PersonIcon />,
+                        Login: <LoginIcon />,
+                        Logout: <LogoutIcon />,
+                      }[text]
+                    }
                   </ListItemIcon>
 
                   <ListItemText primary={text} />

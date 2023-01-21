@@ -13,7 +13,7 @@ import useScrollToTrigger from "@mui/material/useScrollTrigger";
 import { linkWrapperStyles } from "./s_navbar";
 
 const drawerWidth = 240,
-  mainNavList = ["Home", "Corporate Shoes", "Belts", "Purses"];
+  mainNavList = ["Home", "Shoes", "Belts", "Purses"];
 
 export default memo(function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
@@ -62,7 +62,6 @@ export default memo(function Navbar() {
                 {text}
               </Link>
             ))}
-            <Link href="/about">About</Link>
           </Box>
           <Box sx={{ display: "flex", gap: { xs: "1rem", md: "2rem" } }}>
             <SearchBar />
