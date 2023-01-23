@@ -1,5 +1,5 @@
 import ListItem from "@mui/material/ListItem";
-import { withStyles } from "@mui/styles";
+import withStyles from "@mui/styles/withStyles";
 import { Theme } from "@mui/material";
 
 export const StyledListItem = withStyles((theme: Theme) => ({

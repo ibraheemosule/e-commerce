@@ -10,7 +10,7 @@ import Cart from "../Cart/Cart";
 import SideNavList from "./SideNavList/SideNavList";
 import Link from "next/link";
 import useScrollToTrigger from "@mui/material/useScrollTrigger";
-import { linkWrapperStyles } from "./s_navbar";
+import { linkWrapperStyles } from "./u_navbar";
 
 const drawerWidth = 240,
   mainNavList = ["Home", "Shoes", "Belts", "Purses"];

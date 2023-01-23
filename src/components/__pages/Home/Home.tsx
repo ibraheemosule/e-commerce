@@ -10,8 +10,8 @@ export default function Home() {
   return (
     <>
       <div>Welcome to next.js</div>
-      <Container>
-        <Box bgcolor="secondary.main" sx={{ minHeight: "1000px" }}>
+      <Container maxWidth="lg">
+        <Box bgcolor="secondary.main" sx={{ minHeight: "10px" }}>
           <>
             {counter}
             <button onClick={() => dispatch(incremented())}> increase</button>

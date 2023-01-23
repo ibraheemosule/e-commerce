@@ -2,7 +2,7 @@ import { FC, memo, SetStateAction } from "react";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
-import { StyledListItem } from "./s_sideNavList";
+import { StyledListItem } from "./u_sideNavList";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";

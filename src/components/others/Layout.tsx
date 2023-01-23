@@ -1,6 +1,7 @@
 import Box from "@mui/material/Box";
 import { ReactElement } from "react";
 import AppHeader from "./AppHeader/AppHeader";
+import AppFooter from "./AppFooter/AppFooter";
 
 interface ILayout {
   children: ReactElement;
@@ -8,7 +9,14 @@ interface ILayout {
 
 export default function Layout({ children }: ILayout) {
   return (
-    <Box>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+      }}
+    >
       <Box
         component="header"
         sx={{
@@ -17,14 +25,11 @@ export default function Layout({ children }: ILayout) {
       >
         <AppHeader />
       </Box>
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          p: 3,
-        }}
-      >
+      <Box component="main" sx={{ flexGrow: 1 }}>
         {children}
+      </Box>
+      <Box component="footer">
+        <AppFooter />
       </Box>
     </Box>
   );
