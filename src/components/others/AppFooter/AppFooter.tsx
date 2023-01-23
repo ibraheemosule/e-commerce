@@ -85,17 +85,17 @@ const AppFooter = () => {
                   <Facebook />
                 </Link>
               </StyledListItem>
-              <StyledListItem sx={{ mr: 3, color: "#1DA1F2" }}>
+              <StyledListItem sx={{ mr: { sm: 2, md: 3 }, color: "#1DA1F2" }}>
                 <Link href="/about">
                   <Twitter />
                 </Link>
               </StyledListItem>
-              <StyledListItem sx={{ mr: 3, color: "#E4405F" }}>
+              <StyledListItem sx={{ mr: { sm: 2, md: 3 }, color: "#E4405F" }}>
                 <Link href="/about">
                   <Instagram />
                 </Link>
               </StyledListItem>
-              <StyledListItem sx={{ mr: 3, color: "#00C300" }}>
+              <StyledListItem sx={{ mr: { sm: 2, md: 3 }, color: "#00C300" }}>
                 <Link href="/about">
                   <Phone />
                 </Link>
