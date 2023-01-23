@@ -48,7 +48,7 @@ export const textFieldStyles = (mode?: "dark") => {
         borderColor: mode ? "primary.main" : "primary.dark",
       },
 
-    ".css-p8oq15-MuiInputBase-root-MuiInput-root:hover:not(.Mui-disabled, .Mui-error):before, .css-tssygb-MuiInputBase-root-MuiInput-root:hover:not(.Mui-disabled, .Mui-error):before":
+    ".css-1p84xpi:hover:not(.Mui-disabled, .Mui-error):before, .css-p8oq15-MuiInputBase-root-MuiInput-root:hover:not(.Mui-disabled, .Mui-error):before, .css-tssygb-MuiInputBase-root-MuiInput-root:hover:not(.Mui-disabled, .Mui-error):before":
       {
         borderBottom: "1px solid",
         borderColor: mode ? "primary.light" : "#000000",
