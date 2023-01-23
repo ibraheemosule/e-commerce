@@ -42,7 +42,7 @@ export const textFieldStyles = (mode?: "dark") => {
       },
     },
 
-    ".css-38xitx, .css-p8oq15-MuiInputBase-root-MuiInput-root:before, .css-tssygb-MuiInputBase-root-MuiInput-root:before ":
+    ".css-38xitx, .css-1p84xpi:before, .css-p8oq15-MuiInputBase-root-MuiInput-root:before, .css-tssygb-MuiInputBase-root-MuiInput-root:before ":
       {
         borderBottom: `2px solid`,
         borderColor: mode ? "primary.main" : "primary.dark",
