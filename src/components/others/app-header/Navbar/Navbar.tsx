@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
-import SearchBar from "../../SearchBar/SearchBar";
+import SearchBar from "../../search-bar/SearchBar";
 import UserMenu from "../UserMenu/UserMenu";
 import Cart from "../Cart/Cart";
 import SideNavList from "./SideNavList/SideNavList";

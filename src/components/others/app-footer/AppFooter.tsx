@@ -7,7 +7,7 @@ import Facebook from "@mui/icons-material/Facebook";
 import Twitter from "@mui/icons-material/Twitter";
 import Instagram from "@mui/icons-material/Instagram";
 import Phone from "@mui/icons-material/Phone";
-import InputField from "../InputField/InputField";
+import InputField from "../input-field/InputField";
 import Link from "next/link";
 import { StyledListItem } from "./u_appFooter";
 
@@ -24,7 +24,7 @@ const AppFooter = () => {
     >
       <Container maxWidth="lg">
         <Grid container justifyContent="space-between" spacing={3}>
-          <Grid item xs={12} sm={5} lg={4}>
+          <Grid item xs={12} sm={5} lg={3.5}>
             <Typography
               component="h4"
               variant="h5"

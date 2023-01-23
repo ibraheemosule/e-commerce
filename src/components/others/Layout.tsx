@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import { ReactElement } from "react";
-import AppHeader from "./AppHeader/AppHeader";
-import AppFooter from "./AppFooter/AppFooter";
+import AppHeader from "./app-header/AppHeader";
+import AppFooter from "./app-footer/AppFooter";
 
 interface ILayout {
   children: ReactElement;
