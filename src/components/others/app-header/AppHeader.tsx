@@ -2,7 +2,7 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Navbar from "./Navbar/Navbar";
+import Navbar from "./navbar/Navbar";
 
 export default function AppHeader() {
   return (

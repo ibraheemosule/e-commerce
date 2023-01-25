@@ -26,16 +26,17 @@ export default memo(function MyApp(props: MyAppProps) {
         <Head>
           <meta name="viewport" content="initial-scale=1, width=device-width" />
         </Head>
-        <StyledEngineProvider injectFirst>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
+
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <StyledEngineProvider injectFirst>
             <Layout>
               <>
                 <Component {...pageProps} />
               </>
             </Layout>
-          </ThemeProvider>
-        </StyledEngineProvider>
+          </StyledEngineProvider>
+        </ThemeProvider>
       </CacheProvider>
     </Provider>
   );

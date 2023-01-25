@@ -2,12 +2,12 @@ import Box from "@mui/material/Box";
 import { ReactElement } from "react";
 import AppHeader from "./app-header/AppHeader";
 import AppFooter from "./app-footer/AppFooter";
+import dynamic from "next/dynamic";
 
 interface ILayout {
   children: ReactElement;
 }
-
-export default function Layout({ children }: ILayout) {
+function Layout({ children }: ILayout) {
   return (
     <Box
       sx={{
@@ -34,3 +34,5 @@ export default function Layout({ children }: ILayout) {
     </Box>
   );
 }
+
+export default dynamic(() => Promise.resolve(Layout), { ssr: false });

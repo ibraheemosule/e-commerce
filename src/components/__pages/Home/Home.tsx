@@ -10,7 +10,6 @@ export default function Home() {
 
   return (
     <>
-      <div>Welcome to next.js</div>
       <Hero />
       <Container maxWidth="lg">
         <Box bgcolor="primary.main" sx={{ minHeight: "10px" }}>

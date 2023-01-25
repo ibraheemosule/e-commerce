@@ -9,17 +9,21 @@ export const roboto = Roboto({
   fallback: ["Helvetica", "Arial", "sans-serif"],
 });
 
+export const primaryMain = "#e5e5e5",
+  primaryDark = "#14213d",
+  secondaryMain = "#fca311";
+
 // Create a theme instance.
 const theme = createTheme({
   palette: {
     primary: {
       light: "#fff",
-      main: "#e5e5e5",
-      dark: "#14213d",
+      main: primaryMain,
+      dark: primaryDark,
       contrastText: "#000",
     },
     secondary: {
-      main: "#fca311",
+      main: secondaryMain,
       contrastText: "#14213d",
     },
 
