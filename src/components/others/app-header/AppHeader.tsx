@@ -3,8 +3,14 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Navbar from "./navbar/Navbar";
+import useScrollToTrigger from "@mui/material/useScrollTrigger";
 
 export default function AppHeader() {
+  const trigger = useScrollToTrigger({
+    threshold: 150,
+    disableHysteresis: true,
+  });
+
   return (
     <>
       <Box>
@@ -15,6 +21,7 @@ export default function AppHeader() {
             backgroundColor: "primary.dark",
             color: "primary.light",
             pt: ".5rem",
+            borderBottom: "1px solid #80808038",
           }}
         >
           <Toolbar>
@@ -27,9 +34,10 @@ export default function AppHeader() {
               MUI
             </Typography>
           </Toolbar>
+          <Toolbar sx={{ display: trigger ? "block" : "none" }} />
         </AppBar>
       </Box>
-      <Navbar />
+      <Navbar offScreen={trigger} />
     </>
   );
 }

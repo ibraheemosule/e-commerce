@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { FC, memo, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -7,28 +7,23 @@ import Toolbar from "@mui/material/Toolbar";
 import SearchBar from "../../search-bar/SearchBar";
 import UserMenu from "../user-menu/UserMenu";
 import Cart from "../cart/Cart";
-import SideNavList from "./SideNavList/SideNavList";
+import SideNavList from "./side-nav-list/SideNavList";
 import Link from "next/link";
-import useScrollToTrigger from "@mui/material/useScrollTrigger";
+
 import { linkWrapperStyles } from "./u_navbar";
 
 const drawerWidth = 240,
   mainNavList = ["Home", "Shoes", "Belts", "Purses"];
 
-export default memo(function Navbar() {
+const Navbar: FC<NavbarProps> = ({ offScreen }) => {
   const [showMenu, setShowMenu] = useState(false);
-
-  const trigger = useScrollToTrigger({
-    threshold: 150,
-    disableHysteresis: true,
-  });
 
   const handleDrawerToggle = () => setShowMenu(!showMenu);
 
   return (
     <>
       <AppBar
-        position={trigger ? "fixed" : "static"}
+        position={offScreen ? "fixed" : "static"}
         component="section"
         elevation={0}
         sx={{
@@ -94,4 +89,9 @@ export default memo(function Navbar() {
       </Box>
     </>
   );
-});
+};
+
+interface NavbarProps {
+  offScreen: boolean;
+}
+export default memo(Navbar);

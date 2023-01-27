@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box";
-import { memo } from "react";
+import { FC, memo } from "react";
 import Image from "next/image";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
@@ -8,7 +8,7 @@ import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
 import ArrowRightAlt from "@mui/icons-material/ArrowRightAlt";
 
-const SlideCard = () => {
+const SlideCard: FC<SlideCardProps> = ({ title, img }) => {
   return (
     <>
       <Box
@@ -16,28 +16,33 @@ const SlideCard = () => {
           height: { xs: "250px", sm: "350px", md: "calc(100vh - 300px)" },
           position: "relative",
           display: "flex",
-          alignItems: "center",
+          alignItems: "flex-end",
           backgroundColor: "rgba(20,33,61,1)",
         }}
       >
         <Image
-          src="/images/belts.jpg"
+          src={img}
           alt="belt selections"
           fill={true}
+          sizes="
+          100vw"
           priority={true}
           style={{ objectFit: "cover", opacity: 0.25 }}
         />
         <Container
-          // maxWidth={false}
           sx={{
             color: "primary.main",
             width: "max-content",
-            maxWidth: "400px",
-            ml: 0,
+            position: "absolute",
+            bottom: "20%",
           }}
         >
-          <Typography component="h3" variant="h4">
-            authentic leather belt
+          <Typography
+            component="h3"
+            variant="h4"
+            sx={{ textTransform: "capitalize" }}
+          >
+            {title}
           </Typography>
 
           <Box
@@ -67,24 +72,13 @@ const SlideCard = () => {
                 bgcolor: "secondary.main",
                 position: "absolute",
                 left: "50%",
-
-                //mb: "2px",
+                transform: "translate(-50%)",
               }}
-            ></Box>
-            {/* <Divider
-              sx={{
-                display: "inline-block",
-                flexGrow: 0,
-                width: { xs: "15%", sm: "8%" },
-                border: `1px solid ${primaryMain}`,
-                borderRadius: " 0 50%  50% 0",
-              }}
-            /> */}
+            />
           </Box>
           <Box sx={{ mt: "25px" }}>
             <Button
               variant="contained"
-              size="large"
               endIcon={<ArrowRightAlt />}
               sx={{
                 bgcolor: "secondary.main",
@@ -101,5 +95,10 @@ const SlideCard = () => {
     </>
   );
 };
+
+interface SlideCardProps {
+  title: string;
+  img: string;
+}
 
 export default memo(SlideCard);

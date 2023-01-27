@@ -16,4 +16,9 @@ module.exports = {
       statements: -10,
     },
   },
+  moduleNameMapper: {
+    "@next/font/(.*)": require.resolve(
+      "next/dist/build/jest/__mocks__/nextFontMock.js"
+    ),
+  },
 };
