@@ -6,6 +6,9 @@ export const ImgBtn = styled(ButtonBase)(({ theme }) => ({
   position: "relative",
   height: 450,
   width: "100%",
+  [theme.breakpoints.down("lg")]: {
+    height: 375,
+  },
   [theme.breakpoints.down("md")]: {
     height: 350,
   },

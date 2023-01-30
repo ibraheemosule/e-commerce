@@ -11,7 +11,7 @@ export default function About() {
         container
         bgcolor="primary.light"
         alignItems="center"
-        spacing={4}
+        columnSpacing={4}
         sx={{ py: { xs: 4, sm: 6 } }}
       >
         <Grid item xs={12} md={6}>
@@ -32,14 +32,19 @@ export default function About() {
             eos qui ratione voluptatem sequi nesciunt.
           </Typography>
         </Grid>
-        <Grid item xs={12} md={6} sx={{ pt: { xs: 4, sm: 6 } }}>
+        <Grid item xs={12} md={6} sx={{ mt: { xs: 4, sm: 6 } }}>
           <Box
             sx={{
               height: { xs: "300px", lg: "400px" },
               position: "relative",
             }}
           >
-            <Image src="/images/shoe.jpg" alt="about" fill={true} />
+            <Image
+              src="/images/shoe.jpg"
+              alt="about"
+              fill={true}
+              style={{ objectFit: "cover" }}
+            />
           </Box>
         </Grid>
       </Grid>

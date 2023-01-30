@@ -59,7 +59,7 @@ const AppFooter = () => {
             </Typography>
             <List aria-labelledby="cutomer service">
               <StyledListItem>
-                <Link href="/about">faqs </Link>
+                <Link href="/#faq">faqs </Link>
               </StyledListItem>
               <StyledListItem>
                 <Link href="/about">return policy</Link>

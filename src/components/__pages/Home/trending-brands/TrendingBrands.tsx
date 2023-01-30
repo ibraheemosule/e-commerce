@@ -38,10 +38,16 @@ export default function TrendingBrands() {
               sm={5.5}
               md={2.5}
               mx="auto"
-              position="relative"
-              sx={{ height: { xs: 200, sm: 200, md: 150, lg: 200 } }}
+              sx={{
+                textAlign: "center",
+              }}
             >
-              <Image src={imageSrc} alt="nike brand logo" fill={true} />
+              <Image
+                src={imageSrc}
+                alt="nike brand logo"
+                width={150}
+                height={100}
+              />
             </Grid>
           ))}
         </Grid>

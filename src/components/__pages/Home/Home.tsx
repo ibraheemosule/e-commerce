@@ -8,6 +8,7 @@ import FeaturedProducts from "./featured-products/FeaturedProducts";
 import TrendingBrands from "./trending-brands/TrendingBrands";
 import Grid from "@mui/material/Grid";
 import About from "./about/About";
+import Faq from "./faq/Faq";
 
 const Home = () => {
   const counter = useAppSelector((state) => state.counter.value),
@@ -16,9 +17,14 @@ const Home = () => {
   return (
     <>
       <Hero />
-      <Box bgcolor="primary.main" py={15}>
+      <Box bgcolor="primary.main" py={{ xs: 9, sm: 12, lg: 15 }}>
         <Container>
-          <Grid container maxWidth="lg" mx="auto" rowGap={15}>
+          <Grid
+            container
+            maxWidth="lg"
+            mx="auto"
+            rowGap={{ xs: 9, sm: 12, lg: 15 }}
+          >
             <Grid item xs={12}>
               <FeaturedProducts />
             </Grid>
@@ -27,6 +33,9 @@ const Home = () => {
             </Grid>
             <Grid item xs={12}>
               <About />
+            </Grid>
+            <Grid item xs={12}>
+              <Faq />
             </Grid>
           </Grid>
         </Container>
