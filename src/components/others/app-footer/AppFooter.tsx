@@ -10,6 +10,7 @@ import Phone from "@mui/icons-material/Phone";
 import InputField from "../input-field/InputField";
 import Link from "next/link";
 import { StyledListItem } from "./u_appFooter";
+import Button from "@mui/material/Button";
 
 const AppFooter = () => {
   return (
@@ -46,6 +47,18 @@ const AppFooter = () => {
                   textarea={true}
                 />
               </Box>
+              <Button
+                sx={{
+                  bgcolor: "secondary.main",
+                  color: "primary.dark",
+                  mt: 2,
+                  "&:hover": {
+                    bgcolor: "secondary.dark",
+                  },
+                }}
+              >
+                Submit
+              </Button>
             </Box>
           </Grid>
           <Grid item xs={12} sm={3.5} lg={3}>

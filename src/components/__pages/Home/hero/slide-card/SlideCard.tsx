@@ -83,7 +83,7 @@ const SlideCard: FC<SlideCardProps> = ({ title, img }) => {
               sx={{
                 bgcolor: "secondary.main",
                 "&:hover": {
-                  bgcolor: "red",
+                  bgcolor: "secondary.dark",
                 },
               }}
             >
