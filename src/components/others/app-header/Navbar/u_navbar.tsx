@@ -8,10 +8,10 @@ export const linkWrapperStyles = {
     textDecoration: "none",
     fontSize: "1rem",
     fontWeight: "500",
-    color: "primary.main",
+    color: "secondary.main",
 
     "&:hover": {
-      color: "primary.light",
+      color: "secondary.dark",
     },
   },
 };

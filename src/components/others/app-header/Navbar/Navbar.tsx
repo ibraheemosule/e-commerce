@@ -41,7 +41,7 @@ const Navbar: FC<NavbarProps> = ({ offScreen }) => {
           }}
         >
           <IconButton
-            color="inherit"
+            color="secondary"
             aria-label="open side menu"
             edge="start"
             onClick={handleDrawerToggle}
@@ -65,6 +65,7 @@ const Navbar: FC<NavbarProps> = ({ offScreen }) => {
                 display: "flex",
                 gap: "1rem",
                 mr: ".5rem",
+                color: "secondary.main",
               }}
             >
               <Box sx={{ display: { xs: "none", md: "block" } }}>

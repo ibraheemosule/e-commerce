@@ -7,10 +7,10 @@ export default memo(function UserMenu() {
   return (
     <IconButton
       sx={{
-        color: "primary.main",
+        color: "inherit",
         padding: 0,
         "&:hover": {
-          color: "primary.light",
+          opacity: 0.5,
         },
       }}
     >
