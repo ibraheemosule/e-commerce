@@ -16,7 +16,7 @@ const InputField: FC<IInputField> = ({
           label={placeholder}
           size="small"
           multiline={textarea}
-          rows={textarea && 4}
+          rows={textarea && 3}
           sx={textFieldStyles()}
         />
       ) : (

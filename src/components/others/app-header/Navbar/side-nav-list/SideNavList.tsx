@@ -16,6 +16,7 @@ import BeltsIcon from "@mui/icons-material/Commit";
 import ShoesIcon from "@mui/icons-material/DoNotStep";
 import PursesIcon from "@mui/icons-material/BusinessCenter";
 import Link from "next/link";
+import Image from "next/image";
 
 const drawerWidth = 240;
 const mainNavList = ["Home", "Shoes", "Belts", "Purses"];
@@ -38,7 +39,9 @@ const SideNavList: FC<ISideNavList> = ({ showMenu, handleDrawerToggle }) => {
       }}
     >
       <div>
-        <Toolbar />
+        <Toolbar sx={{ backgroundColor: "primary.dark" }}>
+          <Image src="/images/logo.png" alt="logo" width={100} height={25} />
+        </Toolbar>
         <Divider />
         <List>
           {mainNavList.map((text) => (

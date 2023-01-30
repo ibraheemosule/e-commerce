@@ -3,22 +3,36 @@ import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Hero from "./hero/Hero";
+import { memo } from "react";
+import FeaturedProducts from "./featured-products/FeaturedProducts";
+import TrendingBrands from "./trending-brands/TrendingBrands";
+import Grid from "@mui/material/Grid";
+import About from "./about/About";
 
-export default function Home() {
+const Home = () => {
   const counter = useAppSelector((state) => state.counter.value),
     dispatch = useAppDispatch();
 
   return (
     <>
       <Hero />
-      <Container maxWidth="lg">
-        <Box bgcolor="primary.main" sx={{ minHeight: "10px" }}>
-          <>
-            {counter}
-            <button onClick={() => dispatch(incremented())}> increase</button>
-          </>
-        </Box>
-      </Container>
+      <Box bgcolor="primary.main" py={15}>
+        <Container>
+          <Grid container maxWidth="lg" mx="auto" rowGap={15}>
+            <Grid item xs={12}>
+              <FeaturedProducts />
+            </Grid>
+            <Grid item xs={12}>
+              <TrendingBrands />
+            </Grid>
+            <Grid item xs={12}>
+              <About />
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
     </>
   );
-}
+};
+
+export default memo(Home);

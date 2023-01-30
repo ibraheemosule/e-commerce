@@ -4,17 +4,6 @@ import { memo } from "react";
 import Carousel from "react-material-ui-carousel";
 import SlideCard from "./slide-card/SlideCard";
 
-const items = [
-  {
-    name: "Random Name #1",
-    description: "Probably the most random thing you have ever seen!",
-  },
-  {
-    name: "Random Name #2",
-    description: "Hello World!",
-  },
-];
-
 const sliderDetails = [
   { title: "authentic leather belt", img: "/images/belts.jpg" },
   { title: "bespoke coporate shoes", img: "/images/shoe.jpg" },

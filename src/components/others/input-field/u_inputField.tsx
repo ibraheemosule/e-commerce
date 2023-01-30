@@ -1,14 +1,17 @@
 export const textFieldStyles = (mode?: "dark") => {
   return {
     my: 1,
-    color: "red",
-    maxWidth: "30ch",
+    width: "100%",
+    maxWidth: "25ch",
 
     "#standard-size-small-label": {
       color: mode ? "primary.main" : "primary.dark",
     },
 
     div: {
+      borderBottom: "1px solid",
+      borderColor: mode ? "primary.main" : "primary.dark",
+
       fieldset: {
         borderColor: mode ? "primary.main" : "primary.dark",
 
@@ -27,6 +30,8 @@ export const textFieldStyles = (mode?: "dark") => {
       // },
 
       "&:hover": {
+        borderBottom: "1px solid",
+        borderColor: mode ? "primary.main" : "primary.dark",
         ".MuiOutlinedInput-notchedOutline": {
           borderColor: mode ? "primary.light" : "#000000",
         },

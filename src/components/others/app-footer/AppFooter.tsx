@@ -18,13 +18,12 @@ const AppFooter = () => {
         backgroundColor: "primary.dark",
         boxShadow: "1px -15px 18px -21px rgba(0,0,0,0.56)",
         color: "primary.main",
-        mt: "3rem",
         py: { xs: "2rem", sm: "3rem" },
       }}
     >
       <Container maxWidth="lg">
-        <Grid container justifyContent="space-between" spacing={3}>
-          <Grid item xs={12} sm={5} lg={3.5}>
+        <Grid container justifyContent="space-between" rowGap={6}>
+          <Grid item xs={12} sm={4} lg={3.5}>
             <Typography
               component="h4"
               variant="h5"

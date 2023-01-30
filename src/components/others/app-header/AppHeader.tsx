@@ -1,9 +1,9 @@
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import Navbar from "./navbar/Navbar";
 import useScrollToTrigger from "@mui/material/useScrollTrigger";
+import Image from "next/image";
 
 export default function AppHeader() {
   const trigger = useScrollToTrigger({
@@ -25,14 +25,7 @@ export default function AppHeader() {
           }}
         >
           <Toolbar>
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ flexGrow: 1 }}
-            >
-              MUI
-            </Typography>
+            <Image src="/images/logo.png" alt="logo" width={100} height={25} />
           </Toolbar>
           <Toolbar sx={{ display: trigger ? "block" : "none" }} />
         </AppBar>

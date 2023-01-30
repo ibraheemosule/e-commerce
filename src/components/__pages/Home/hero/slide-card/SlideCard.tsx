@@ -59,7 +59,7 @@ const SlideCard: FC<SlideCardProps> = ({ title, img }) => {
                 flexGrow: 0,
                 width: { xs: "100%", sm: "100%" },
                 border: `1px solid ${primaryMain}`,
-                borderRadius: "50% 0 0 50%",
+                borderRadius: "50%",
               }}
             />
             <Box
