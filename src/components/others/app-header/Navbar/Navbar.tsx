@@ -53,7 +53,7 @@ const Navbar: FC<NavbarProps> = ({ offScreen }) => {
           </IconButton>
           <Box sx={linkWrapperStyles}>
             {mainNavList.map((text) => (
-              <Link key={text} href="/">
+              <Link key={text} href="/login">
                 {text}
               </Link>
             ))}

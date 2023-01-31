@@ -13,6 +13,8 @@ const products = [
   {
     url: "/images/purse.jpg",
     title: "Purses",
+    description:
+      "hered fdsaf dfasf dlfs ldfkas fv dlsflsk ;sd fs; sdf ;lasl; sv fds",
   },
 ];
 

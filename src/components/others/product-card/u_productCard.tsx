@@ -6,6 +6,12 @@ export const ImgBtn = styled(ButtonBase)(({ theme }) => ({
   position: "relative",
   height: 450,
   width: "100%",
+  overflow: "hidden",
+
+  "& aside": {
+    backgroundColor: "rgba(20,33,61,0.5)",
+    transition: [theme.transitions.create("background-color")],
+  },
   [theme.breakpoints.down("lg")]: {
     height: 375,
   },
@@ -13,7 +19,7 @@ export const ImgBtn = styled(ButtonBase)(({ theme }) => ({
     height: 350,
   },
   [theme.breakpoints.down("sm")]: {
-    width: "100% !important", // Overrides inline-style
+    width: "100% !important",
     height: 300,
   },
   borderColor: theme.palette.secondary.main,
@@ -25,8 +31,12 @@ export const ImgBtn = styled(ButtonBase)(({ theme }) => ({
     "& .MuiImageMarked-root": {
       opacity: 0,
     },
-    "& .MuiTypography-root": {
+    "& .title": {
       border: `4px solid ${theme.palette.secondary.main}`,
+    },
+    "& aside": {
+      bottom: "0%",
+      backgroundColor: theme.palette.primary.dark,
     },
   },
 }));
