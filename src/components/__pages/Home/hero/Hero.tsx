@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box";
-import { title } from "process";
+
 import { memo } from "react";
 import Carousel from "react-material-ui-carousel";
 import SlideCard from "./slide-card/SlideCard";
