@@ -3,7 +3,7 @@ export const textFieldStyles = (mode?: "dark", password?: string) => {
   return {
     my: 1,
     width: "100%",
-    maxWidth: "25ch",
+    // maxWidth: "25ch",
 
     "#standard-size-small-label": {
       color: mode ? "primary.main" : "primary.dark",

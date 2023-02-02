@@ -7,6 +7,7 @@ import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import { FC, memo } from "react";
 
 import Grid from "@mui/material/Grid";
+import { Container } from "@mui/material";
 
 const ForgotPassword: FC<ForgotPasswordProps> = ({ routeToPasswordPage }) => {
   return (
@@ -37,9 +38,9 @@ const ForgotPassword: FC<ForgotPasswordProps> = ({ routeToPasswordPage }) => {
         </ButtonBase>
       </Grid>
       <Grid item xs={12} textAlign="center">
-        <Box sx={{ display: "block", mt: 3 }}>
+        <Container maxWidth="xs" sx={{ display: "block", mt: 3 }}>
           <InputField placeholder="Email" />
-        </Box>
+        </Container>
         <Box sx={{ display: "block" }}>
           <Button
             sx={{
@@ -60,7 +61,7 @@ const ForgotPassword: FC<ForgotPasswordProps> = ({ routeToPasswordPage }) => {
               fontSize: 14,
               mt: 3,
               mx: "auto",
-              maxWidth: "30ch",
+              maxWidth: "50ch",
             }}
           >
             A new password will be sent to your email to login. You are advised

@@ -34,13 +34,13 @@ const AppFooter = () => {
               Contact Form
             </Typography>
             <Box component="form" noValidate autoComplete="off">
-              <Box>
+              <Box sx={{ maxWidth: "25ch" }}>
                 <InputField darkBg="dark" placeholder="Full Name" />
               </Box>
-              <Box>
+              <Box sx={{ maxWidth: "25ch" }}>
                 <InputField darkBg="dark" placeholder="Email" />
               </Box>
-              <Box>
+              <Box sx={{ maxWidth: "25ch" }}>
                 <InputField
                   darkBg="dark"
                   placeholder="Message"
