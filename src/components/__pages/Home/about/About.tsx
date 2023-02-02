@@ -32,7 +32,7 @@ export default function About() {
             eos qui ratione voluptatem sequi nesciunt.
           </Typography>
         </Grid>
-        <Grid item xs={12} md={6} sx={{ mt: { xs: 4, sm: 6 } }}>
+        <Grid item xs={12} md={6} sx={{ mt: { xs: 4, sm: 6, md: 0 } }}>
           <Box
             sx={{
               height: { xs: "300px", lg: "400px" },

@@ -2,6 +2,8 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import ProductCard from "../../others/product-card/ProductCard";
 import { productsList } from "./u_products";
+import SelectField from "../../others/select-field/SelectField";
+import SearchBar from "../../others/search-bar/SearchBar";
 
 import { memo } from "react";
 
@@ -14,9 +16,44 @@ const Products = () => {
         <Container>
           <Grid container maxWidth="lg" bgcolor="primary.light" py={6}>
             <Grid item xs={12}>
-              <Container></Container>
+              <Container
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  rowGap: 1,
+                  flexWrap: "wrap",
+                }}
+              >
+                <Box
+                  sx={{
+                    alignSelf: "flex-end",
+                    justifySelf: "flex-start",
+
+                    "& > div": {
+                      bgcolor: "primary.main",
+                      "&:hover": {
+                        bgcolor: "primary.main",
+                      },
+                    },
+                  }}
+                >
+                  <SearchBar />
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    gap: 2,
+                    flexWrap: "wrap",
+                    justifyContent: "space-between",
+                    flexGrow: 1,
+                  }}
+                >
+                  <SelectField />
+                  <SelectField />
+                </Box>
+              </Container>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} mt={3}>
               <Grid container justifyContent="center" gap={5}>
                 {productsList.map((product, i) => (
                   <Grid item xs={10} sm={5} md={3.5} key={i}>

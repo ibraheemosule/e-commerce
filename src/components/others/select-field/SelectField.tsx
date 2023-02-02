@@ -1,11 +1,11 @@
+import * as React from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import Box from "@mui/material/Box";
+import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { memo, useState } from "react";
 
-const SelectField = () => {
-  const [age, setAge] = useState("");
+export default function SelectVariants() {
+  const [age, setAge] = React.useState("");
 
   const handleChange = (event: SelectChangeEvent) => {
     setAge(event.target.value);
@@ -13,7 +13,7 @@ const SelectField = () => {
 
   return (
     <div>
-      <Box sx={{ minWidth: 120 }}>
+      <FormControl variant="standard" sx={{ m: 1, minWidth: 100 }}>
         <InputLabel id="demo-simple-select-standard-label">Age</InputLabel>
         <Select
           labelId="demo-simple-select-standard-label"
@@ -26,12 +26,10 @@ const SelectField = () => {
             <em>None</em>
           </MenuItem>
           <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={20}>Twenty djfksflks slkfjasf k</MenuItem>
           <MenuItem value={30}>Thirty</MenuItem>
         </Select>
-      </Box>
+      </FormControl>
     </div>
   );
-};
-
-export default memo(SelectField);
+}
