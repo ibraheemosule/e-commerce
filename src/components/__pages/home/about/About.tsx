@@ -44,6 +44,7 @@ export default function About() {
               alt="about"
               fill={true}
               style={{ objectFit: "cover" }}
+              sizes="25%"
             />
           </Box>
         </Grid>

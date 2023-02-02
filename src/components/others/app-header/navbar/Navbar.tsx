@@ -9,14 +9,14 @@ import UserMenu from "../user-menu/UserMenu";
 import Cart from "../cart/Cart";
 import SideNavList from "./side-nav-list/SideNavList";
 import Link from "next/link";
-
 import { linkWrapperStyles } from "./u_navbar";
 
 const drawerWidth = 240,
   mainNavList = ["Home", "Shoes", "Belts", "Purses"];
 
 const Navbar: FC<NavbarProps> = ({ offScreen }) => {
-  const [showMenu, setShowMenu] = useState(false);
+  const [showMenu, setShowMenu] = useState(false),
+    [active, setActive] = useState(1);
 
   const handleDrawerToggle = () => setShowMenu(!showMenu);
 
@@ -51,9 +51,9 @@ const Navbar: FC<NavbarProps> = ({ offScreen }) => {
           >
             <MenuIcon />
           </IconButton>
-          <Box sx={linkWrapperStyles}>
-            {mainNavList.map((text) => (
-              <Link key={text} href="/login">
+          <Box sx={linkWrapperStyles(active)}>
+            {mainNavList.map((text, i) => (
+              <Link onClick={() => setActive(i + 1)} key={text} href="/login">
                 {text}
               </Link>
             ))}

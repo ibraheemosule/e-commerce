@@ -43,9 +43,9 @@ const Products = () => {
                   sx={{
                     display: "flex",
                     gap: 2,
+                    width: { xs: "100%", sm: "auto" },
                     flexWrap: "wrap",
-                    justifyContent: "space-between",
-                    flexGrow: 1,
+                    justifyContent: { sm: "space-between" },
                   }}
                 >
                   <SelectField />

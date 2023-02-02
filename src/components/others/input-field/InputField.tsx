@@ -22,7 +22,6 @@ const InputField: FC<IInputField> = (props) => {
     <Box position="relative">
       {border ? (
         <TextField
-          id="outlined-size-small"
           label={placeholder}
           size="small"
           multiline={textarea}
@@ -32,7 +31,6 @@ const InputField: FC<IInputField> = (props) => {
       ) : (
         <TextField
           label={placeholder}
-          id="standard-size-small"
           size="small"
           multiline={textarea}
           maxRows={textarea && 3}

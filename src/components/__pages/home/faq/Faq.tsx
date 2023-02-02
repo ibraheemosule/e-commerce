@@ -28,13 +28,12 @@ export default function Faq() {
         </Grid>
         <Grid item xs={12} sx={{ pt: { xs: 2, sm: 3 } }}>
           {a.map((val, i) => (
-            <>
-              <CustomAccordion
-                expanded={expanded}
-                setExpanded={setExpanded}
-                id={i + 1}
-              />
-            </>
+            <CustomAccordion
+              key={i}
+              expanded={expanded}
+              setExpanded={setExpanded}
+              id={i + 1}
+            />
           ))}
         </Grid>
       </Grid>

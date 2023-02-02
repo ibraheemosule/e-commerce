@@ -54,6 +54,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
               >
                 Description:{" "}
                 <Typography
+                  component="span"
                   sx={{
                     display: "inline",
                   }}
