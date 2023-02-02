@@ -25,7 +25,7 @@ const LoginForm: FC<LoginFormProps> = ({ routeToPasswordPage }) => {
           <Box>
             <InputField placeholder="Email" />
           </Box>
-          <Box sx={{ display: "block", mt: 3 }}>
+          <Box sx={{ display: "block", mt: 2 }}>
             <InputField placeholder="Password" type="password" />
 
             <ButtonBase onClick={routeToPasswordPage}>
@@ -57,19 +57,21 @@ const LoginForm: FC<LoginFormProps> = ({ routeToPasswordPage }) => {
             >
               Submit
             </Button>
-            <Typography
-              component="p"
-              sx={{
-                fontSize: 18,
-                mt: 6,
-                color: "secondary.main",
-                "&:hover": {
-                  color: "secondary.dark",
-                },
-              }}
-            >
-              Create an account
-            </Typography>
+            <ButtonBase sx={{ display: "flex" }} onClick={routeToPasswordPage}>
+              <Typography
+                component="p"
+                sx={{
+                  fontSize: 18,
+                  mt: 6,
+                  color: "secondary.main",
+                  "&:hover": {
+                    color: "secondary.dark",
+                  },
+                }}
+              >
+                Create an account
+              </Typography>
+            </ButtonBase>
           </Box>
         </Container>
       </Grid>

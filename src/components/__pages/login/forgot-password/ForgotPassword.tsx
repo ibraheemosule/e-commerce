@@ -38,7 +38,7 @@ const ForgotPassword: FC<ForgotPasswordProps> = ({ routeToPasswordPage }) => {
         </ButtonBase>
       </Grid>
       <Grid item xs={12} textAlign="center">
-        <Container maxWidth="xs" sx={{ display: "block", mt: 3 }}>
+        <Container maxWidth="xs" sx={{ display: "block" }}>
           <InputField placeholder="Email" />
         </Container>
         <Box sx={{ display: "block" }}>

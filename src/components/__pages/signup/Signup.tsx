@@ -1,20 +1,10 @@
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import LoginForm from "./login-form/LoginForm";
-import { memo, useState } from "react";
-
+import { memo } from "react";
 import Grid from "@mui/material/Grid";
-import dynamic from "next/dynamic";
+import SignupForm from "./signup-form/SignupForm";
 
-const ForgotPassword = dynamic(
-  () => import("./forgot-password/ForgotPassword")
-);
-
-const Login = () => {
-  const [showPasswordPage, setShowPasswordPage] = useState(false),
-    routeToPasswordPage = () => setShowPasswordPage((prev) => !prev),
-    PageJsx = showPasswordPage ? ForgotPassword : LoginForm;
-
+const Signup = () => {
   return (
     <>
       <Box bgcolor="primary.main" py={{ xs: 9, sm: 12, lg: 15 }}>
@@ -32,7 +22,7 @@ const Login = () => {
               boxShadow: "1px 2px 8px -4px rgba(0,0,0,0.75)",
             }}
           >
-            {<PageJsx routeToPasswordPage={routeToPasswordPage} />}
+            <SignupForm />
           </Grid>
         </Container>
       </Box>
@@ -40,4 +30,4 @@ const Login = () => {
   );
 };
 
-export default memo(Login);
+export default memo(Signup);
