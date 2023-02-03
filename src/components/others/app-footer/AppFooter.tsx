@@ -52,6 +52,7 @@ const AppFooter = () => {
                   bgcolor: "secondary.main",
                   color: "primary.dark",
                   mt: 2,
+                  px: 3,
                   "&:hover": {
                     bgcolor: "secondary.dark",
                   },
