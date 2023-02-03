@@ -1,8 +1,9 @@
 import Typography from "@mui/material/Typography";
 import { FC, memo } from "react";
 import Link from "next/link";
-import { ImgBtn, ImgSrc, Img, ImgBackdrop, ImgMarked } from "./u_productCard";
+import { ImgBtn, Img, ImgBackdrop, ImgMarked } from "./u_productCard";
 import Box from "@mui/material/Box";
+import Image from "next/image";
 
 const ProductCard: FC<ProductCardProps> = ({ product }) => {
   const { url, title, description } = product;
@@ -13,7 +14,13 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
       style={{ textDecoration: "none", color: "inherit", display: "block" }}
     >
       <ImgBtn focusRipple>
-        <ImgSrc style={{ backgroundImage: `url(${url})` }} />
+        <Image
+          src={url}
+          fill={true}
+          sizes="(min-width: 600px) 33vw, 100vw"
+          alt="product"
+          style={{ objectFit: "cover" }}
+        />
         <ImgBackdrop className="MuiImageBackdrop-root" />
 
         <Img>
