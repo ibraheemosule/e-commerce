@@ -24,8 +24,8 @@ const SlideCard: FC<SlideCardProps> = ({ title, img }) => {
           src={img}
           alt="belt selections"
           fill={true}
-          sizes="
-          100vw"
+          sizes="100%"
+          quality={40}
           priority={true}
           style={{ objectFit: "cover", opacity: 0.25 }}
         />
