@@ -1,9 +1,9 @@
 export const textFieldStyles = (mode?: "dark", password?: string) => {
   const paddingRight = password ? 3 : "";
+
   return {
     my: 1,
     width: "100%",
-    // maxWidth: "25ch",
 
     "#standard-size-small-label": {
       color: mode ? "primary.main" : "primary.dark",
@@ -15,20 +15,16 @@ export const textFieldStyles = (mode?: "dark", password?: string) => {
 
       fieldset: {
         borderColor: mode ? "primary.main" : "primary.dark",
-
         "&:focus-visible": {
           outline: "none",
         },
       },
 
-      // ".css-p8oq15-MuiInputBase-root-MuiInput-root:hover:not(.Mui-disabled, .Mui-error):before":
-      //   {
-      //     borderBottom: "2px solid primary.main",
-      //   },
-
-      // ".css-p8oq15-MuiInputBase-root-MuiInput-root:before": {
-      //   borderBottom: "1px solid primary.main",
-      // },
+      ".MuiInputBase-root": {
+        backgroundColor: "red !important",
+        height: 50,
+        width: 50,
+      },
 
       "&:hover": {
         borderBottom: "1px solid",
@@ -37,29 +33,23 @@ export const textFieldStyles = (mode?: "dark", password?: string) => {
         ".MuiOutlinedInput-notchedOutline": {
           borderColor: mode ? "primary.light" : "primary.dark",
         },
-
-        // ".css-p8oq15-MuiInputBase-root-MuiInput-root:hover:not(.Mui-disabled, .Mui-error):before":
-        //   {
-        //     borderBottom: "2px solid white",
-        //   },
-
-        // ".css-p8oq15-MuiInputBase-root-MuiInput-root:before": {
-        //   borderBottom: "1px solid white",
-        // },
       },
     },
 
-    ".css-38xitx, .css-1p84xpi:before, .css-p8oq15-MuiInputBase-root-MuiInput-root:before, .css-tssygb-MuiInputBase-root-MuiInput-root:before ":
-      {
-        //borderBottom: `2px solid`,
-        borderColor: mode ? "primary.main" : "primary.dark",
+    ".MuiInputBase-root": {
+      "&:before": {
+        display: "none",
       },
+    },
 
-    ".css-1p84xpi:hover:not(.Mui-disabled, .Mui-error):before, .css-p8oq15-MuiInputBase-root-MuiInput-root:hover:not(.Mui-disabled, .Mui-error):before, .css-tssygb-MuiInputBase-root-MuiInput-root:hover:not(.Mui-disabled, .Mui-error):before":
-      {
-        // borderBottom: "1px solid",
-        // borderColor: mode ? "primary.light" : "#000000",
-      },
+    ".css-2tbih4-MuiFormLabel-root-MuiInputLabel-root": {
+      color: mode ? "primary.main" : "primary.dark",
+    },
+
+    // ".css-38xitx, .css-1p84xpi:before, .css-p8oq15-MuiInputBase-root-MuiInput-root:before, .css-tssygb-MuiInputBase-root-MuiInput-root:before ":
+    //   {
+    //     borderColor: mode ? "primary.main" : "primary.dark",
+    //   },
 
     ".css-p8oq15-MuiInputBase-root-MuiInput-root:after": {
       borderColor: mode ? "primary.main" : "primary.dark",
