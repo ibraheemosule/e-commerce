@@ -5,7 +5,7 @@ export const textFieldStyles = (mode?: "dark", password?: string) => {
     my: 1,
     width: "100%",
 
-    "#standard-size-small-label": {
+    "#standard-size-small-label, .css-ifo6to": {
       color: mode ? "primary.main" : "primary.dark",
     },
 
@@ -20,10 +20,8 @@ export const textFieldStyles = (mode?: "dark", password?: string) => {
         },
       },
 
-      ".MuiInputBase-root": {
-        backgroundColor: "red !important",
-        height: 50,
-        width: 50,
+      "&:after": {
+        borderColor: mode ? "primary.main" : "primary.dark",
       },
 
       "&:hover": {
