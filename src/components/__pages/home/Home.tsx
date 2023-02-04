@@ -17,7 +17,7 @@ const Home = () => {
   return (
     <>
       <Hero />
-      <Box bgcolor="primary.main" py={{ xs: 9, sm: 12, lg: 15 }}>
+      <Box py={{ xs: 9, sm: 12, lg: 15 }}>
         <Container>
           <Grid
             container

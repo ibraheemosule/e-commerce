@@ -25,7 +25,7 @@ function Layout({ children }: ILayout) {
       >
         <AppHeader />
       </Box>
-      <Box component="main" sx={{ flexGrow: 1 }}>
+      <Box component="main" sx={{ flexGrow: 1, bgcolor: "primary.main" }}>
         {children}
       </Box>
       <Box component="footer">

@@ -6,7 +6,7 @@ import { memo } from "react";
 const Product = () => {
   return (
     <>
-      <Box bgcolor="primary.main" py={{ xs: 9, sm: 12, lg: 15 }}>
+      <Box py={{ xs: 9, sm: 12, lg: 15 }}>
         <Container>
           <Grid container maxWidth="lg" bgcolor="primary.light" py={6}></Grid>
         </Container>
