@@ -5,12 +5,12 @@ import { memo, useState } from "react";
 import Image from "next/image";
 import ButtonBase from "@mui/material/ButtonBase";
 import Typography from "@mui/material/Typography";
-import { CustomDivider as Divider } from "./u_productstyles";
+import { CustomDivider as Divider } from "./u_product";
 import SelectField from "../../others/select-field/SelectField";
-import ButtonGroup from "@mui/material/ButtonGroup";
 import Button from "@mui/material/Button";
 import ArrowRight from "@mui/icons-material/ArrowRight";
 import ShoppingCart from "@mui/icons-material/ShoppingCart";
+import Quantity from "../../others/quantity/Quantity";
 
 const Product = () => {
   const [showDescription, setShowDescription] = useState(false),
@@ -124,68 +124,7 @@ const Product = () => {
                   justifyContent: "space-between",
                 }}
               >
-                <Box
-                  sx={{
-                    alignSelf: "flex-end",
-                    color: "primary.dark",
-                  }}
-                >
-                  <strong>Quality:</strong>
-                  <ButtonGroup
-                    variant="outlined"
-                    disableElevation
-                    aria-label="select product quantity"
-                    size="small"
-                    disableRipple
-                    sx={{ mx: 2, mt: 2 }}
-                  >
-                    <Button
-                      onClick={() => setQuantity((prev) => prev - 1)}
-                      disabled={quantity === 1 ? true : false}
-                      sx={{
-                        border: "1px solid",
-                        borderRight: 0,
-                        color: "primary.dark",
-                        borderColor: "primary.main",
-
-                        "&:hover": {
-                          borderRight: 0,
-                          borderColor: "primary.main",
-                          transform: "translate(1px)",
-                        },
-                      }}
-                    >
-                      -
-                    </Button>
-                    <Button
-                      disabled
-                      sx={{
-                        border: "1px solid",
-                        borderColor: "primary.main",
-                        borderWidth: "0 1px 0 1px",
-                        width: 20,
-                      }}
-                    >
-                      {quantity}
-                    </Button>
-                    <Button
-                      onClick={() => setQuantity((prev) => prev + 1)}
-                      disabled={quantity === 50 ? true : false}
-                      sx={{
-                        border: "1px solid",
-                        borderLeft: 1,
-                        color: "primary.dark",
-                        borderColor: "primary.main",
-
-                        "&:hover": {
-                          transform: "translate(-1px)",
-                        },
-                      }}
-                    >
-                      +
-                    </Button>
-                  </ButtonGroup>
-                </Box>
+                <Quantity quantity={quantity} setQuantity={setQuantity} />
                 <Box sx={{ display: "flex", gap: 3 }}>
                   <SelectField />
                   <SelectField />
