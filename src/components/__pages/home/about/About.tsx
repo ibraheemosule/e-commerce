@@ -9,7 +9,6 @@ export default function About() {
     <Container sx={{ bgcolor: "primary.light" }}>
       <Grid
         container
-        bgcolor="primary.light"
         alignItems="center"
         columnSpacing={4}
         sx={{ py: { xs: 4, sm: 6 } }}
@@ -42,7 +41,7 @@ export default function About() {
             <Image
               src="/images/shoe.jpg"
               alt="about"
-              fill={true}
+              fill
               style={{ objectFit: "cover" }}
               sizes="25%"
             />
