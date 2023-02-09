@@ -1,10 +1,10 @@
 import Box from "@mui/material/Box";
 import InputField from "../../../others/input-field/InputField";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import ButtonBase from "@mui/material/ButtonBase";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import { FC, memo } from "react";
+import Btn from "../../../others/btn/Btn";
 
 import Grid from "@mui/material/Grid";
 import { Container } from "@mui/material";
@@ -42,19 +42,14 @@ const ForgotPassword: FC<ForgotPasswordProps> = ({ routeToPasswordPage }) => {
           <InputField placeholder="Email" />
         </Container>
         <Box sx={{ display: "block" }}>
-          <Button
+          <Btn
             sx={{
-              bgcolor: "secondary.main",
-              color: "primary.dark",
               mt: 3,
               px: 6,
-              "&:hover": {
-                bgcolor: "secondary.dark",
-              },
             }}
           >
             Submit
-          </Button>
+          </Btn>
           <Typography
             component="p"
             sx={{

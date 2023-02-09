@@ -7,10 +7,10 @@ import ButtonBase from "@mui/material/ButtonBase";
 import Typography from "@mui/material/Typography";
 import { CustomDivider as Divider } from "./u_product";
 import SelectField from "../../others/select-field/SelectField";
-import Button from "@mui/material/Button";
 import ArrowRight from "@mui/icons-material/ArrowRight";
 import ShoppingCart from "@mui/icons-material/ShoppingCart";
 import Quantity from "../../others/quantity/Quantity";
+import Btn from "../../others/btn/Btn";
 
 const Product = () => {
   const [showDescription, setShowDescription] = useState(false),
@@ -124,27 +124,24 @@ const Product = () => {
                   justifyContent: "space-between",
                 }}
               >
-                <Quantity quantity={quantity} setQuantity={setQuantity} />
+                <Box sx={{ mr: 1 }}>
+                  <Quantity quantity={quantity} setQuantity={setQuantity} />
+                </Box>
                 <Box sx={{ display: "flex", gap: 3 }}>
                   <SelectField />
                   <SelectField />
                 </Box>
               </Box>
-              <Button
+              <Btn
                 size="large"
                 variant="contained"
                 endIcon={<ShoppingCart />}
                 sx={{
-                  bgcolor: "secondary.main",
                   my: 4,
-
-                  "&:hover": {
-                    bgcolor: "secondary.dark",
-                  },
                 }}
               >
                 Add to Cart
-              </Button>
+              </Btn>
             </Grid>
           </Grid>
         </Container>

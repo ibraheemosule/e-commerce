@@ -11,14 +11,14 @@ const Quantity: FC<QuantityProps> = ({ quantity, setQuantity }) => (
       color: "primary.dark",
     }}
   >
-    <strong>Quality:</strong>
+    <strong style={{ marginRight: 12 }}>Quantity:</strong>
     <ButtonGroup
       variant="outlined"
       disableElevation
       aria-label="select product quantity"
       size="small"
       disableRipple
-      sx={{ mx: 2, mt: 2 }}
+      sx={{ mt: 2 }}
     >
       <Button
         onClick={() => setQuantity((prev) => prev - 1)}

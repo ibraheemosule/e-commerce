@@ -1,10 +1,10 @@
 import Box from "@mui/material/Box";
 import InputField from "../../../others/input-field/InputField";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import { memo } from "react";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
+import Btn from "../../../others/btn/Btn";
 
 const LoginForm = () => {
   return (
@@ -35,19 +35,14 @@ const LoginForm = () => {
             <InputField placeholder="Password" type="password" />
           </Box>
           <Box sx={{ display: "block" }}>
-            <Button
+            <Btn
               sx={{
-                bgcolor: "secondary.main",
-                color: "primary.dark",
                 mt: 3,
                 px: 6,
-                "&:hover": {
-                  bgcolor: "secondary.dark",
-                },
               }}
             >
               Submit
-            </Button>
+            </Btn>
           </Box>
         </Container>
       </Grid>

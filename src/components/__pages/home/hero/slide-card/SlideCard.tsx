@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { primaryMain } from "../../../../../utils/theme";
 import Divider from "@mui/material/Divider";
-import Button from "@mui/material/Button";
+import Btn from "../../../../others/btn/Btn";
 import ArrowRightAlt from "@mui/icons-material/ArrowRightAlt";
 
 const SlideCard: FC<SlideCardProps> = ({ title, img }) => {
@@ -77,18 +77,9 @@ const SlideCard: FC<SlideCardProps> = ({ title, img }) => {
             />
           </Box>
           <Box sx={{ mt: "25px" }}>
-            <Button
-              variant="contained"
-              endIcon={<ArrowRightAlt />}
-              sx={{
-                bgcolor: "secondary.main",
-                "&:hover": {
-                  bgcolor: "secondary.dark",
-                },
-              }}
-            >
+            <Btn variant="contained" endIcon={<ArrowRightAlt />}>
               Shop Here
-            </Button>
+            </Btn>
           </Box>
         </Container>
       </Box>

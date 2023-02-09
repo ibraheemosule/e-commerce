@@ -1,11 +1,12 @@
 import Box from "@mui/material/Box";
 import InputField from "../../../others/input-field/InputField";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
+
 import ButtonBase from "@mui/material/ButtonBase";
 import { FC, memo } from "react";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
+import Btn from "../../../others/btn/Btn";
 
 const LoginForm: FC<LoginFormProps> = ({ routeToPasswordPage }) => {
   return (
@@ -44,33 +45,28 @@ const LoginForm: FC<LoginFormProps> = ({ routeToPasswordPage }) => {
             </ButtonBase>
           </Box>
           <Box sx={{ display: "block" }}>
-            <Button
+            <Btn
               sx={{
-                bgcolor: "secondary.main",
-                color: "primary.dark",
                 mt: 3,
                 px: 6,
-                "&:hover": {
-                  bgcolor: "secondary.dark",
-                },
               }}
             >
               Submit
-            </Button>
-            <ButtonBase sx={{ display: "flex" }} onClick={routeToPasswordPage}>
-              <Typography
-                component="p"
-                sx={{
-                  fontSize: 18,
-                  mt: 6,
-                  color: "secondary.main",
-                  "&:hover": {
-                    color: "secondary.dark",
-                  },
-                }}
-              >
-                Create an account
-              </Typography>
+            </Btn>
+            <ButtonBase
+              sx={{
+                display: "flex",
+                mx: "auto",
+                fontSize: 18,
+                mt: 6,
+                color: "secondary.main",
+                "&:hover": {
+                  color: "secondary.dark",
+                },
+              }}
+              onClick={routeToPasswordPage}
+            >
+              Create an account
             </ButtonBase>
           </Box>
         </Container>
