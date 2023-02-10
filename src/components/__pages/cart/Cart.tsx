@@ -15,10 +15,10 @@ const Cart = () => {
             <CartProductCard />
             <Grid
               item
-              xs={12}
-              sm={4}
+              xs="auto"
+              sm="auto"
               md="auto"
-              mx={{ md: "auto" }}
+              ml={{ xs: "auto", md: 0 }}
               mt={{ md: 6 }}
             >
               <Box

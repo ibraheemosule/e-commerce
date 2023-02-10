@@ -78,7 +78,7 @@ const CartProductCard = () => {
         </Box>
       </Grid>
       <Divider
-        sx={{ display: { xs: "none", md: "block" }, mx: 2 }}
+        sx={{ display: { xs: "none", md: "block" }, mx: "auto" }}
         orientation="vertical"
         flexItem
       />
