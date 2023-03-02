@@ -13,12 +13,14 @@ const Cart = () => {
         <Container sx={{ bgcolor: "primary.light", pb: { xs: 6, md: 0 } }}>
           <Grid container>
             <CartProductCard />
+            <CartProductCard />
+            <CartProductCard />
+            <CartProductCard />
             <Grid
               item
               xs="auto"
-              sm="auto"
-              md="auto"
-              ml={{ xs: "auto", md: 0 }}
+              mx={{ md: "auto" }}
+              ml={{ xs: "auto" }}
               mt={{ md: 6 }}
             >
               <Box
