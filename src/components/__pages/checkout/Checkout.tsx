@@ -3,7 +3,7 @@ import Container from "@mui/material/Container";
 import Box from "@mui/system/Box";
 import { memo } from "react";
 import Typography from "@mui/material/Typography";
-import Btn, { btnClasses } from "../../others/btn/Btn";
+import { btnClasses } from "../../others/btn/Btn";
 import CheckoutAddress from "./checkout-address/CheckoutAddress";
 import { PaystackButton } from "react-paystack";
 
@@ -63,9 +63,8 @@ const Checkout = () => {
                   >
                     &#8358;22, 000
                   </Typography>
-                  {/* <Btn variant="contained" disableElevation sx={{ mr: 2 }}> */}
+
                   <PaystackButton className={btnClasses} {...props} />
-                  {/* </Btn> */}
                 </Box>
               </Container>
             </Grid>

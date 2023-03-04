@@ -8,8 +8,10 @@ import InputLabel from "@mui/material/InputLabel";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import AddressForm from "./address-form/AddressForm";
 import { formControlStyle } from "./u_checkout-address";
+import dynamic from "next/dynamic";
+
+const AddressForm = dynamic(() => import("./address-form/AddressForm"));
 
 const CheckoutAddress = () => {
   const [addressOption, setAddressOption] = useState("default");

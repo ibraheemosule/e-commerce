@@ -6,6 +6,7 @@ export const formControlStyle = {
   ".MuiFormLabel-root": {
     color: "primary.dark",
   },
+  ".css-gj1jc1-MuiFormLabel-root.Mui-focused": { color: "primary.darl" },
   ".MuiFormControlLabel-label": {
     fontWeight: 600,
   },

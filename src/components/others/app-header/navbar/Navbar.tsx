@@ -1,4 +1,4 @@
-import { FC, memo, useState } from "react";
+import { FC, memo, useState, MouseEvent } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -9,14 +9,25 @@ import UserMenu from "../user-menu/UserMenu";
 import Cart from "../cart/Cart";
 import SideNavList from "./side-nav-list/SideNavList";
 import Link from "next/link";
-import { linkWrapperStyles } from "./u_navbar";
+import { linkWrapperStyles, productsNavStyle } from "./u_navbar";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 
 const drawerWidth = 240,
-  mainNavList = ["Home", "Shoes", "Belts", "Purses"];
+  mainNavList = ["home", "products", "about us", "contact"],
+  navProductsList = ["shoes", "belts", "purses"];
 
 const Navbar: FC<NavbarProps> = ({ offScreen }) => {
   const [showMenu, setShowMenu] = useState(false),
     [active, setActive] = useState(1);
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+
+  const openUserMenu = (event: MouseEvent<HTMLElement>, i: number) => {
+    setAnchorElUser(event.currentTarget);
+    setActive(() => i + 1);
+  };
+
+  const handleCloseUserMenu = () => setAnchorElUser(null);
 
   const handleDrawerToggle = () => setShowMenu(!showMenu);
 
@@ -52,11 +63,54 @@ const Navbar: FC<NavbarProps> = ({ offScreen }) => {
             <MenuIcon />
           </IconButton>
           <Box sx={linkWrapperStyles(active)}>
-            {mainNavList.map((text, i) => (
-              <Link onClick={() => setActive(i + 1)} key={text} href="/login">
-                {text}
-              </Link>
-            ))}
+            {mainNavList.map((text, i) =>
+              text === "products" ? (
+                <>
+                  <a
+                    key={text}
+                    className="nav-item"
+                    onClick={(e) => openUserMenu(e, i)}
+                  >
+                    {text}
+                  </a>
+
+                  <Menu
+                    sx={{ mt: "45px" }}
+                    elevation={3}
+                    id="menu-appbar"
+                    anchorEl={anchorElUser}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    open={Boolean(anchorElUser)}
+                    onClose={handleCloseUserMenu}
+                  >
+                    {navProductsList.map((product) => (
+                      <MenuItem key={product} onClick={handleCloseUserMenu}>
+                        <Link style={productsNavStyle} href="/products">
+                          {product}
+                        </Link>
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                </>
+              ) : (
+                <Link
+                  className="nav-item"
+                  onClick={() => setActive(i + 1)}
+                  key={text}
+                  href="/login"
+                >
+                  {text}
+                </Link>
+              )
+            )}
           </Box>
           <Box sx={{ display: "flex", gap: { xs: "1rem", md: "2rem" } }}>
             <SearchBar />
