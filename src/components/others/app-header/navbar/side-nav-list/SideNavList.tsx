@@ -1,8 +1,8 @@
-import { FC, memo, SetStateAction } from "react";
+import { FC, memo, SetStateAction, useState, MouseEvent } from "react";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
-import { StyledListItem } from "./u_sideNavList";
+import { StyledListItem, productLinkStyle } from "./u_sideNavList";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
@@ -12,17 +12,28 @@ import AccountIcon from "@mui/icons-material/ManageAccounts";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PersonIcon from "@mui/icons-material/Person";
-import BeltsIcon from "@mui/icons-material/Commit";
 import ShoesIcon from "@mui/icons-material/DoNotStep";
-import PursesIcon from "@mui/icons-material/BusinessCenter";
 import Link from "next/link";
 import Image from "next/image";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import AboutIcon from "@mui/icons-material/PsychologyAlt";
+import ContactIcon from "@mui/icons-material/Call";
+import navWrapper from "../wrapper/wrapper";
 
 const drawerWidth = 240;
-const mainNavList = ["Home", "Shoes", "Belts", "Purses"];
-const userNavList = ["Profile", "Account", "Login", "Logout"];
+const mainNavList = ["home", "products", "about", "contact"];
+const userNavList = ["profile", "account", "login", "logout"],
+  navProductsList = ["shoes", "belts", "purses"];
 
 const SideNavList: FC<ISideNavList> = ({ showMenu, handleDrawerToggle }) => {
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+
+  const openUserMenu = (event: MouseEvent<HTMLElement>) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => setAnchorElUser(null);
   return (
     <Drawer
       open={showMenu}
@@ -46,22 +57,60 @@ const SideNavList: FC<ISideNavList> = ({ showMenu, handleDrawerToggle }) => {
         <List>
           {mainNavList.map((text) => (
             <StyledListItem key={text} disablePadding>
-              <Link href="/">
-                <ListItemButton>
-                  <ListItemIcon>
-                    {
-                      {
-                        Home: <HomeIcon />,
-                        Shoes: <ShoesIcon />,
-                        Belts: <BeltsIcon />,
-                        Purses: <PursesIcon />,
-                      }[text]
-                    }
-                  </ListItemIcon>
+              {text === "products" ? (
+                <>
+                  <a key={text} onClick={(e) => openUserMenu(e)}>
+                    <ListItemButton>
+                      <ListItemIcon>
+                        <ShoesIcon />
+                      </ListItemIcon>
+                      <ListItemText primary={text} />
+                    </ListItemButton>
+                  </a>
 
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </Link>
+                  <Menu
+                    sx={{ mt: "10px" }}
+                    elevation={3}
+                    id="menu-appbar"
+                    anchorEl={anchorElUser}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    open={Boolean(anchorElUser)}
+                    onClose={handleCloseUserMenu}
+                  >
+                    {navProductsList.map((product) => (
+                      <MenuItem key={product} onClick={handleCloseUserMenu}>
+                        <Link style={productLinkStyle} href="/products">
+                          {product}
+                        </Link>
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                </>
+              ) : (
+                <Link href="/">
+                  <ListItemButton>
+                    <ListItemIcon>
+                      {
+                        {
+                          home: <HomeIcon />,
+                          "about us": <AboutIcon />,
+                          "contact us": <ContactIcon />,
+                        }[text]
+                      }
+                    </ListItemIcon>
+
+                    <ListItemText primary={text} />
+                  </ListItemButton>
+                </Link>
+              )}
             </StyledListItem>
           ))}
         </List>
@@ -74,10 +123,10 @@ const SideNavList: FC<ISideNavList> = ({ showMenu, handleDrawerToggle }) => {
                   <ListItemIcon>
                     {
                       {
-                        Account: <AccountIcon />,
-                        Profile: <PersonIcon />,
-                        Login: <LoginIcon />,
-                        Logout: <LogoutIcon />,
+                        account: <AccountIcon />,
+                        profile: <PersonIcon />,
+                        login: <LoginIcon />,
+                        logout: <LogoutIcon />,
                       }[text]
                     }
                   </ListItemIcon>

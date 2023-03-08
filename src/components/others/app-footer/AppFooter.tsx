@@ -22,7 +22,7 @@ const AppFooter = () => {
         py: { xs: "2rem", sm: "3rem" },
       }}
     >
-      <Container maxWidth="lg">
+      <Container id="contact" maxWidth="lg">
         <Grid container justifyContent="space-between" rowGap={6}>
           <Grid item xs={12} sm={4} lg={3.5}>
             <Typography

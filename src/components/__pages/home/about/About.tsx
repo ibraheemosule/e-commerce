@@ -6,7 +6,7 @@ import Box from "@mui/system/Box";
 
 export default function About() {
   return (
-    <Container sx={{ bgcolor: "primary.light" }}>
+    <Container id="about" sx={{ bgcolor: "primary.light" }}>
       <Grid
         container
         alignItems="center"

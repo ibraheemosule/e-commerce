@@ -10,6 +10,7 @@ interface ILayout {
 function Layout({ children }: ILayout) {
   return (
     <Box
+      className="layout"
       sx={{
         minHeight: "100vh",
         display: "flex",

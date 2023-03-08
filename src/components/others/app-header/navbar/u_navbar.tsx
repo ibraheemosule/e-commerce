@@ -40,3 +40,8 @@ export const productsNavStyle = {
   textDecoration: "none",
   display: "block",
 };
+
+export const drawerWidth = 240,
+  mainNavList = ["home", "products", "about", "contact"],
+  userNavList = ["profile", "account", "login", "logout"],
+  navProductsList = ["shoes", "belts", "purses"];
