@@ -15,7 +15,6 @@ const navWrapper = (Nav: React.ComponentType<NavbarProps>) => {
 
     const openUserMenu = (event: MouseEvent<HTMLElement>, index?: number) => {
       setAnchorElUser(event.currentTarget);
-      console.log(signin);
       if (!index) return;
       setActive(() => index + 1);
     };

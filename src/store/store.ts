@@ -3,10 +3,11 @@ import counterReducer from "./features/counter/counter-slice";
 import { apiSlice } from "./features/dogs/dogs-api-slice";
 import type { PreloadedState } from "@reduxjs/toolkit";
 import userSliceReducer from "./features/user/user-slice";
+import productSlice from "./features/product/product-slice";
 
 const rootReducer = combineReducers({
-  counter: counterReducer,
   user: userSliceReducer,
+  product: productSlice,
   [apiSlice.reducerPath]: apiSlice.reducer,
 });
 

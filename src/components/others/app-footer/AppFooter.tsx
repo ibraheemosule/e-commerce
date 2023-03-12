@@ -3,34 +3,11 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import List from "@mui/material/List";
-import Facebook from "@mui/icons-material/Facebook";
-import Twitter from "@mui/icons-material/Twitter";
-import Instagram from "@mui/icons-material/Instagram";
-import Phone from "@mui/icons-material/Phone";
-import InputField from "../input-field/InputField";
 import Link from "next/link";
-import { StyledListItem } from "./u_appFooter";
-import Btn from "../btn/Btn";
-import useFillForm from "../hooks/fill-form/useFillForm";
-import { FormEvent, useEffect } from "react";
-
-const formField = {
-  fullName: "",
-  email: "",
-  message: "",
-};
+import { StyledListItem, socialContact, customerService } from "./u_appFooter";
+import ContactForm from "./contact-form/ContactForm";
 
 const AppFooter = () => {
-  const [contactForm, dispatch] = useFillForm(formField);
-
-  const updateForm = (inputValue: { [key: string]: string }) => {
-    dispatch({ payload: inputValue });
-  };
-
-  const submitForm = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  };
-
   return (
     <Box
       sx={{
@@ -42,52 +19,7 @@ const AppFooter = () => {
     >
       <Container id="contact" maxWidth="lg">
         <Grid container justifyContent="space-between" rowGap={6}>
-          <Grid item xs={12} sm={4} lg={3.5}>
-            <Typography
-              component="h4"
-              variant="h5"
-              color="secondary.main"
-              mt={2}
-            >
-              Contact Form
-            </Typography>
-            <Box component="form" onSubmit={submitForm} autoComplete="off">
-              <Box sx={{ maxWidth: "25ch" }}>
-                <InputField
-                  onChange={updateForm}
-                  darkBg="dark"
-                  name="fullName"
-                  placeholder="Full Name"
-                />
-              </Box>
-              <Box sx={{ maxWidth: "25ch" }}>
-                <InputField
-                  onChange={updateForm}
-                  darkBg="dark"
-                  name="email"
-                  placeholder="Email"
-                />
-              </Box>
-              <Box sx={{ maxWidth: "25ch" }}>
-                <InputField
-                  onChange={updateForm}
-                  name="message"
-                  darkBg="dark"
-                  placeholder="Message"
-                  textarea={true}
-                />
-              </Box>
-              <Btn
-                type="submit"
-                sx={{
-                  mt: 2,
-                  px: 3,
-                }}
-              >
-                Submit
-              </Btn>
-            </Box>
-          </Grid>
+          <ContactForm />
           <Grid item xs={12} sm={3.5} lg={3}>
             <Typography
               component="h4"
@@ -98,15 +30,11 @@ const AppFooter = () => {
               Customer Service
             </Typography>
             <List aria-labelledby="cutomer service">
-              <StyledListItem>
-                <Link href="/#faq">faqs </Link>
-              </StyledListItem>
-              <StyledListItem>
-                <Link href="/about">return policy</Link>
-              </StyledListItem>
-              <StyledListItem>
-                <Link href="/about">size guide </Link>
-              </StyledListItem>
+              {customerService.map(({ name, href }) => (
+                <StyledListItem key={name}>
+                  <Link href={href}>{name}</Link>
+                </StyledListItem>
+              ))}
             </List>
           </Grid>
           <Grid item xs={12} sm={3.5} lg={3}>
@@ -119,26 +47,16 @@ const AppFooter = () => {
               Contact Us
             </Typography>
             <Box sx={{ display: "inline-flex", mt: 2 }}>
-              <StyledListItem sx={{ mr: { xs: 2, md: 3 }, color: "#1877F2" }}>
-                <Link href="/about">
-                  <Facebook />
-                </Link>
-              </StyledListItem>
-              <StyledListItem sx={{ mr: { xs: 2, md: 3 }, color: "#1DA1F2" }}>
-                <Link href="/about">
-                  <Twitter />
-                </Link>
-              </StyledListItem>
-              <StyledListItem sx={{ mr: { xs: 2, md: 3 }, color: "#E4405F" }}>
-                <Link href="/about">
-                  <Instagram />
-                </Link>
-              </StyledListItem>
-              <StyledListItem sx={{ mr: { xs: 2, md: 3 }, color: "#00C300" }}>
-                <Link href="/about">
-                  <Phone />
-                </Link>
-              </StyledListItem>
+              {socialContact.map(({ color, Icon, href }) => (
+                <StyledListItem
+                  key={color}
+                  sx={{ mr: { xs: 2, md: 3 }, color: color }}
+                >
+                  <Link href={href}>
+                    <Icon />
+                  </Link>
+                </StyledListItem>
+              ))}
             </Box>
           </Grid>
         </Grid>

@@ -1,15 +1,15 @@
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import CustomAccordion from "../../../others/accordion/Accordion";
-import { useState } from "react";
+import { useState, memo } from "react";
 
 const a = ["d", "d", "d"];
 
-export default function Faq() {
+export default memo(function Faqs() {
   const [expanded, setExpanded] = useState<number | false>(false);
 
   return (
-    <div id="faq">
+    <div id="faqs">
       <Grid
         container
         mx="auto"
@@ -39,4 +39,4 @@ export default function Faq() {
       </Grid>
     </div>
   );
-}
+});

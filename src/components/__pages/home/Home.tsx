@@ -6,7 +6,7 @@ import FeaturedProducts from "./featured-products/FeaturedProducts";
 import TrendingBrands from "./trending-brands/TrendingBrands";
 import Grid from "@mui/material/Grid";
 import About from "./about/About";
-import Faq from "./faq/Faq";
+import Faq from "./faqs/Faqs";
 
 const Home = () => {
   return (
