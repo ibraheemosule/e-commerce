@@ -11,8 +11,26 @@ import InputField from "../input-field/InputField";
 import Link from "next/link";
 import { StyledListItem } from "./u_appFooter";
 import Btn from "../btn/Btn";
+import useFillForm from "../hooks/fill-form/useFillForm";
+import { FormEvent, useEffect } from "react";
+
+const formField = {
+  fullName: "",
+  email: "",
+  message: "",
+};
 
 const AppFooter = () => {
+  const [contactForm, dispatch] = useFillForm(formField);
+
+  const updateForm = (inputValue: { [key: string]: string }) => {
+    dispatch({ payload: inputValue });
+  };
+
+  const submitForm = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
   return (
     <Box
       sx={{
@@ -33,21 +51,34 @@ const AppFooter = () => {
             >
               Contact Form
             </Typography>
-            <Box component="form" noValidate autoComplete="off">
+            <Box component="form" onSubmit={submitForm} autoComplete="off">
               <Box sx={{ maxWidth: "25ch" }}>
-                <InputField darkBg="dark" placeholder="Full Name" />
-              </Box>
-              <Box sx={{ maxWidth: "25ch" }}>
-                <InputField darkBg="dark" placeholder="Email" />
+                <InputField
+                  onChange={updateForm}
+                  darkBg="dark"
+                  name="fullName"
+                  placeholder="Full Name"
+                />
               </Box>
               <Box sx={{ maxWidth: "25ch" }}>
                 <InputField
+                  onChange={updateForm}
+                  darkBg="dark"
+                  name="email"
+                  placeholder="Email"
+                />
+              </Box>
+              <Box sx={{ maxWidth: "25ch" }}>
+                <InputField
+                  onChange={updateForm}
+                  name="message"
                   darkBg="dark"
                   placeholder="Message"
                   textarea={true}
                 />
               </Box>
               <Btn
+                type="submit"
                 sx={{
                   mt: 2,
                   px: 3,

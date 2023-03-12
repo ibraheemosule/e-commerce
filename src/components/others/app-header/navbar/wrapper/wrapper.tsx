@@ -1,4 +1,5 @@
 import { useState, FC, MouseEvent, Dispatch, SetStateAction } from "react";
+import { useAppSelector } from "../../../../../store/hooks";
 
 const navWrapper = (Nav: React.ComponentType<NavbarProps>) => {
   const Navbar: FC<{
@@ -6,15 +7,17 @@ const navWrapper = (Nav: React.ComponentType<NavbarProps>) => {
     showMenu: boolean;
     setShowMenu: Dispatch<SetStateAction<boolean>>;
   }> = (props) => {
+    const { signin } = useAppSelector((state) => state.user);
+
     const [showMenu, setShowMenu] = useState(false),
       [active, setActive] = useState(1);
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
-    const openUserMenu = (event: MouseEvent<HTMLElement>, i?: number) => {
+    const openUserMenu = (event: MouseEvent<HTMLElement>, index?: number) => {
       setAnchorElUser(event.currentTarget);
-
-      if (!i) return;
-      setActive(() => i + 1);
+      console.log(signin);
+      if (!index) return;
+      setActive(() => index + 1);
     };
 
     const handleCloseUserMenu = () => setAnchorElUser(null);
@@ -22,6 +25,7 @@ const navWrapper = (Nav: React.ComponentType<NavbarProps>) => {
     const handleDrawerToggle = () => {
       setShowMenu(!showMenu);
     };
+
     return (
       <>
         <Nav
@@ -34,6 +38,7 @@ const navWrapper = (Nav: React.ComponentType<NavbarProps>) => {
           anchorElUser={anchorElUser}
           showMenu={props.showMenu}
           setShowMenu={props.setShowMenu}
+          signin={signin}
         />
       </>
     );
@@ -41,8 +46,6 @@ const navWrapper = (Nav: React.ComponentType<NavbarProps>) => {
 
   return Navbar;
 };
-
-export default navWrapper;
 
 export interface NavbarProps {
   offScreen: boolean;
@@ -54,5 +57,7 @@ export interface NavbarProps {
   showMenu: boolean;
   setShowMenu: Dispatch<SetStateAction<boolean>>;
   setActive: Dispatch<SetStateAction<number>>;
+  signin: boolean;
 }
-// export default memo(Navbar);
+
+export default navWrapper;

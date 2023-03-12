@@ -1,5 +1,3 @@
-import { incremented } from "../../../store/features/counter/counter-slice";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Hero from "./hero/Hero";
@@ -11,9 +9,6 @@ import About from "./about/About";
 import Faq from "./faq/Faq";
 
 const Home = () => {
-  const counter = useAppSelector((state) => state.counter.value),
-    dispatch = useAppDispatch();
-
   return (
     <>
       <Hero />

@@ -1,3 +1,13 @@
+import HomeIcon from "@mui/icons-material/Home";
+import AccountIcon from "@mui/icons-material/ManageAccounts";
+import SignInIcon from "@mui/icons-material/Login";
+import SignOutIcon from "@mui/icons-material/Logout";
+import PersonIcon from "@mui/icons-material/Person";
+import ShoesIcon from "@mui/icons-material/DoNotStep";
+import AboutIcon from "@mui/icons-material/PsychologyAlt";
+import ContactIcon from "@mui/icons-material/Call";
+import SignUpIcon from "@mui/icons-material/PersonAdd";
+
 const borderBottom = {
   content: "''",
   position: "absolute",
@@ -43,5 +53,37 @@ export const productsNavStyle = {
 
 export const drawerWidth = 240,
   mainNavList = ["home", "products", "about", "contact"],
-  userNavList = ["profile", "account", "login", "logout"],
   navProductsList = ["shoes", "belts", "purses"];
+//signedInMenu = ["profile", "account", "sign out"],
+// notSignedInMenu = ["sign in", "sign up"];
+
+export const signedInMenu = [
+  {
+    name: "profile",
+    href: "/cart",
+    Icon: PersonIcon,
+  },
+  {
+    name: "account",
+    href: "/cart",
+    Icon: AccountIcon,
+  },
+  {
+    name: "sign out",
+    href: "/cart",
+    Icon: SignOutIcon,
+  },
+];
+
+export const notSignedInMenu = [
+  {
+    name: "sign in",
+    href: "/cart",
+    Icon: SignInIcon,
+  },
+  {
+    name: "sign up",
+    href: "/cart",
+    Icon: SignUpIcon,
+  },
+];

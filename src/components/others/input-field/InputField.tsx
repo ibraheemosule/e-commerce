@@ -5,23 +5,32 @@ import { FC, memo, useState } from "react";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import ButtonBase from "@mui/material/ButtonBase";
+import { ChangeEvent } from "react";
 
-const InputField: FC<IInputField> = (props) => {
-  const [showText, setShowText] = useState("");
-  const { border, darkBg, placeholder, textarea, type } = props;
+const InputField: FC<InputFieldProps> = (props) => {
+  const [showPassword, setShowPassword] = useState("");
+  const { border, darkBg, placeholder, textarea, type, name, onChange } = props;
 
-  const handleShowText = () => {
-    if (!showText) {
-      setShowText("text");
+  const handleShowPassword = () => {
+    if (!showPassword) {
+      setShowPassword("text");
       return;
     }
-    setShowText("");
+    setShowPassword("");
+  };
+
+  const getFieldValue = (
+    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    onChange({ [e.target.name]: e.target.value });
   };
 
   return (
     <Box position="relative">
       {border ? (
         <TextField
+          name={name || ""}
+          onChange={(e) => getFieldValue(e)}
           label={placeholder}
           size="small"
           multiline={textarea}
@@ -30,21 +39,23 @@ const InputField: FC<IInputField> = (props) => {
         />
       ) : (
         <TextField
+          name={name || ""}
+          onChange={(e) => getFieldValue(e)}
           label={placeholder}
           size="small"
           multiline={textarea}
           maxRows={textarea && 3}
           variant="standard"
           sx={textFieldStyles(darkBg, type)}
-          type={showText || type || "text"}
+          type={showPassword || type || "text"}
         />
       )}
       {type === "password" && (
         <ButtonBase
-          onClick={handleShowText}
+          onClick={handleShowPassword}
           sx={{ position: "absolute", mt: 3, ml: -2 }}
         >
-          {showText ? (
+          {showPassword ? (
             <VisibilityOutlinedIcon />
           ) : (
             <VisibilityOffOutlinedIcon />
@@ -55,12 +66,14 @@ const InputField: FC<IInputField> = (props) => {
   );
 };
 
-interface IInputField {
+interface InputFieldProps {
   border?: true;
   darkBg?: "dark";
   placeholder: string;
   textarea?: true;
   type?: string;
+  name?: string;
+  onChange: (value: { [key: string]: string }) => void;
 }
 
 export default memo(InputField);

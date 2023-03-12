@@ -9,8 +9,8 @@ import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import HomeIcon from "@mui/icons-material/Home";
 import AccountIcon from "@mui/icons-material/ManageAccounts";
-import LoginIcon from "@mui/icons-material/Login";
-import LogoutIcon from "@mui/icons-material/Logout";
+import SignInIcon from "@mui/icons-material/Login";
+import SignOutIcon from "@mui/icons-material/Logout";
 import PersonIcon from "@mui/icons-material/Person";
 import ShoesIcon from "@mui/icons-material/DoNotStep";
 import Link from "next/link";
@@ -19,17 +19,21 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import AboutIcon from "@mui/icons-material/PsychologyAlt";
 import ContactIcon from "@mui/icons-material/Call";
+import SignUpIcon from "@mui/icons-material/PersonAdd";
 import navWrapper from "../wrapper/wrapper";
 import { NavbarProps } from "../wrapper/wrapper";
 import Box from "@mui/material/Box";
+import { useAppSelector } from "../../../../../store/hooks";
 import {
   drawerWidth,
   mainNavList,
-  userNavList,
+  signedInMenu,
+  notSignedInMenu,
   navProductsList,
 } from "../u_navbar";
 
-const mobileNav: FC<NavbarProps> = (props) => {
+const Nav: FC<NavbarProps> = (props) => {
+  const { signin } = useAppSelector((state) => state.user);
   return (
     <Box
       component="nav"
@@ -122,26 +126,21 @@ const mobileNav: FC<NavbarProps> = (props) => {
           </List>
           <Divider />
           <List>
-            {userNavList.map((text) => (
-              <StyledListItem key={text} disablePadding>
-                <Link href="/about">
-                  <ListItemButton>
-                    <ListItemIcon>
-                      {
-                        {
-                          account: <AccountIcon />,
-                          profile: <PersonIcon />,
-                          login: <LoginIcon />,
-                          logout: <LogoutIcon />,
-                        }[text]
-                      }
-                    </ListItemIcon>
+            {(signin ? signedInMenu : notSignedInMenu).map(
+              ({ name, href, Icon }) => (
+                <StyledListItem key={name} disablePadding>
+                  <Link href={href}>
+                    <ListItemButton>
+                      <ListItemIcon>
+                        <Icon />
+                      </ListItemIcon>
 
-                    <ListItemText primary={text} />
-                  </ListItemButton>
-                </Link>
-              </StyledListItem>
-            ))}
+                      <ListItemText primary={name} />
+                    </ListItemButton>
+                  </Link>
+                </StyledListItem>
+              )
+            )}
           </List>
         </div>
       </Drawer>
@@ -149,6 +148,6 @@ const mobileNav: FC<NavbarProps> = (props) => {
   );
 };
 
-const MobileNav = navWrapper(mobileNav);
+const MobileNav = navWrapper(Nav);
 
 export default memo(MobileNav);

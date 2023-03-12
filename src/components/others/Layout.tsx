@@ -7,6 +7,7 @@ import dynamic from "next/dynamic";
 interface ILayout {
   children: ReactElement;
 }
+
 function Layout({ children }: ILayout) {
   return (
     <Box

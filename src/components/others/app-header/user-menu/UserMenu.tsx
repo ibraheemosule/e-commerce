@@ -1,15 +1,17 @@
 import { useState, MouseEvent } from "react";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-
-const settings = ["Profile", "Account", "Login", "Logout"];
+import WindowIcon from "@mui/icons-material/Window";
+import { useAppSelector } from "../../../../store/hooks";
+import Link from "next/link";
+import { signedInMenu, notSignedInMenu } from "../navbar/u_navbar";
 
 export default function UserMenu() {
+  const { signin } = useAppSelector((state) => state.user);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   const openUserMenu = (event: MouseEvent<HTMLElement>) => {
@@ -21,12 +23,24 @@ export default function UserMenu() {
   return (
     <Box sx={{ flexGrow: 0 }}>
       <Tooltip title="Open settings">
-        <IconButton onClick={openUserMenu} sx={{ p: 0 }}>
-          <Avatar
-            sx={{ backgroundColor: "secondary.main", color: "primary.dark" }}
-            alt="Remy Sharp"
-            src="/static/images/avatar/2.jpg"
-          />
+        <IconButton
+          onClick={openUserMenu}
+          sx={{ px: 0, py: signin ? 0 : null }}
+        >
+          {signin ? (
+            <Avatar
+              sx={{ backgroundColor: "secondary.main", color: "primary.dark" }}
+              alt="Remy Sharp"
+              src="/static/images/avatar/2.jpg"
+            />
+          ) : (
+            <WindowIcon
+              sx={{
+                backgroundColor: "primary.dark",
+                color: "secondary.main",
+              }}
+            />
+          )}
         </IconButton>
       </Tooltip>
       <Menu
@@ -46,9 +60,19 @@ export default function UserMenu() {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        {settings.map((setting) => (
-          <MenuItem key={setting} onClick={handleCloseUserMenu}>
-            <Typography textAlign="center">{setting}</Typography>
+        {(signin ? signedInMenu : notSignedInMenu).map(({ name, href }) => (
+          <MenuItem key={name} onClick={handleCloseUserMenu}>
+            <Link
+              href={href}
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+                textAlign: "center",
+                textTransform: "capitalize",
+              }}
+            >
+              {name}
+            </Link>
           </MenuItem>
         ))}
       </Menu>

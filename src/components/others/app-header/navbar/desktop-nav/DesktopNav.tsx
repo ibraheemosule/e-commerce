@@ -14,7 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import navWrapper, { NavbarProps } from "../wrapper/wrapper";
 import { mainNavList, navProductsList } from "../u_navbar";
 
-const desktopNav: FC<NavbarProps> = (props) => {
+const Nav: FC<NavbarProps> = (props) => {
   return (
     <>
       <AppBar
@@ -123,6 +123,6 @@ const desktopNav: FC<NavbarProps> = (props) => {
   );
 };
 
-const DesktopNav = navWrapper(desktopNav);
+const DesktopNav = navWrapper(Nav);
 
 export default DesktopNav;
