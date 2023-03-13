@@ -30,6 +30,7 @@ const InputField: FC<InputFieldProps> = (props) => {
       {border ? (
         <TextField
           name={name || ""}
+          value={props.value}
           onChange={(e) => getFieldValue(e)}
           label={placeholder}
           size="small"
@@ -40,6 +41,7 @@ const InputField: FC<InputFieldProps> = (props) => {
       ) : (
         <TextField
           name={name || ""}
+          value={props.value}
           onChange={(e) => getFieldValue(e)}
           label={placeholder}
           size="small"
@@ -74,6 +76,7 @@ interface InputFieldProps {
   type?: string;
   name?: string;
   onChange: (value: { [key: string]: string }) => void;
+  value: string;
 }
 
 export default memo(InputField);

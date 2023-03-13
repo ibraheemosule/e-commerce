@@ -44,10 +44,9 @@ export const textFieldStyles = (mode?: "dark", password?: string) => {
       color: mode ? "primary.main" : "primary.dark",
     },
 
-    // ".css-38xitx, .css-1p84xpi:before, .css-p8oq15-MuiInputBase-root-MuiInput-root:before, .css-tssygb-MuiInputBase-root-MuiInput-root:before ":
-    //   {
-    //     borderColor: mode ? "primary.main" : "primary.dark",
-    //   },
+    ".css-j07ig8-MuiFormLabel-root-MuiInputLabel-root": {
+      color: mode ? "primary.light" : "primary.dark",
+    },
 
     ".css-p8oq15-MuiInputBase-root-MuiInput-root:after": {
       borderColor: mode ? "primary.main" : "primary.dark",
