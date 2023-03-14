@@ -1,8 +1,8 @@
 import { styled } from "@mui/material/styles";
-
+import Box from "@mui/material/Box";
 import ButtonBase from "@mui/material/ButtonBase";
 
-export const ImgBtn = styled(ButtonBase)(({ theme }) => ({
+export const ImgBtn = styled(Box)(({ theme }) => ({
   position: "relative",
   height: 450,
   width: "100%",
@@ -23,6 +23,16 @@ export const ImgBtn = styled(ButtonBase)(({ theme }) => ({
     height: 300,
   },
   borderColor: theme.palette.secondary.main,
+
+  "& .title": {
+    display: "block",
+    textDecoration: "none",
+    color: "inherit",
+    textTransform: "capitalize",
+    position: "relative",
+    fontSize: theme.spacing(3),
+  },
+
   "&:hover, &.Mui-focusVisible": {
     zIndex: 1,
     "& .MuiImageBackdrop-root": {
@@ -32,6 +42,7 @@ export const ImgBtn = styled(ButtonBase)(({ theme }) => ({
       opacity: 0,
     },
     "& .title": {
+      padding: "0 10px",
       border: `4px solid ${theme.palette.secondary.main}`,
     },
     "& aside": {

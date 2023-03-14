@@ -135,9 +135,10 @@ const Product = () => {
               <Btn
                 size="large"
                 variant="contained"
+                disableElevation
                 endIcon={<ShoppingCart />}
                 sx={{
-                  my: 4,
+                  my: 3,
                 }}
               >
                 Add to Cart

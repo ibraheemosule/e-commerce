@@ -1,4 +1,4 @@
-import { FC, Children } from "react";
+import { FC, Children, useState, useMemo } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -13,10 +13,31 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import navWrapper, { NavbarProps } from "../wrapper/wrapper";
 import { mainNavList, navProductsList } from "../u_navbar";
+import { bags, shoes, belts } from "../../../../../../testData";
 
 const Nav: FC<NavbarProps> = (props) => {
+  const [search, setSearch] = useState("");
+
+  const filteredProducts = useMemo(
+    () =>
+      [...bags, ...shoes, ...belts].filter((prod) =>
+        prod.name.toLowerCase().startsWith(search)
+      ),
+    [search]
+  );
+
   return (
     <>
+      {/* {JSON.stringify(
+        belts.map(val => ({
+          ...val,
+          images: [
+            "/images/shoe.jpg",
+            "/images/belts.jpg",
+            "/images/purse.jpg",
+          ],
+        }))
+      )} */}
       <AppBar
         position={props.offScreen ? "fixed" : "static"}
         component="section"
@@ -102,7 +123,12 @@ const Nav: FC<NavbarProps> = (props) => {
             )}
           </Box>
           <Box sx={{ display: "flex", gap: { xs: "1rem", md: "2rem" } }}>
-            <SearchBar />
+            <SearchBar
+              products={filteredProducts}
+              searchValue={search}
+              setSearchValue={setSearch}
+              type={true}
+            />
             <Box
               sx={{
                 display: "flex",
