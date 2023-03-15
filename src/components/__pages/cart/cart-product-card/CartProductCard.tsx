@@ -1,15 +1,32 @@
 import Grid from "@mui/material/Grid";
 import Box from "@mui/system/Box";
-import { memo, useState } from "react";
+import { memo, useMemo, useState, FC, useEffect } from "react";
 import Image from "next/image";
 import Button from "@mui/material/Button";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import Typography from "@mui/material/Typography";
 import Quantity from "../../../others/quantity/Quantity";
 import Divider from "@mui/material/Divider";
+import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
+import { updateProductInCart } from "../../../../store/features/product/product-slice";
 
-const CartProductCard = () => {
+const CartProductCard: FC<CartProductCardProps> = ({ id }) => {
   const [quantity, setQuantity] = useState(1);
+  const dispatch = useAppDispatch();
+  const { cartList, immutableProducts } = useAppSelector(
+    (state) => state.product
+  );
+
+  useEffect(() => {
+    // const getProductIdInCart = cartList.filter(prod => prod.id === id)
+    dispatch(updateProductInCart({ id, quantity }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [quantity, id]);
+
+  const product = useMemo(() => {
+    return immutableProducts.filter((prod) => prod.id === id)[0];
+  }, []);
+
   return (
     <>
       <Grid
@@ -17,18 +34,17 @@ const CartProductCard = () => {
         columnGap={{ xs: 1.5, sm: 4 }}
         rowGap={2}
         xs={12}
-        md={8.5}
         sx={{
           display: "flex",
           flexWrap: "wrap",
           mt: 6,
-          mb: { xs: 0, md: 6 },
+          mb: { xs: 0, md: 0 },
         }}
       >
         <Box>
           <Image
-            src="/images/purse.jpg"
-            alt="product in the cart"
+            src={product.images[0]}
+            alt={`${product.name}`}
             width={100}
             height={100}
             quality={25}
@@ -59,7 +75,7 @@ const CartProductCard = () => {
               fontWeight="400"
               color="secondary.main"
             >
-              Air Max. Air Max 97
+              {product.name}
             </Typography>
             <Box sx={{ mt: 1 }}>
               <Quantity quantity={quantity} setQuantity={setQuantity} />
@@ -72,21 +88,20 @@ const CartProductCard = () => {
               fontWeight="400"
               color="primary.dark"
             >
-              &#8358;20, 000
+              &#8358;{(quantity * product.price).toLocaleString()}
             </Typography>
           </Box>
         </Box>
       </Grid>
-      <Divider
-        sx={{ display: { xs: "none", md: "block" }, mx: 2 }}
-        orientation="vertical"
-        flexItem
-      />
-      <Grid item xs={12} my={2} sx={{ display: { xs: "block", md: "none" } }}>
+      <Grid item xs={12} my={2} sx={{ display: "block" }}>
         <Divider />
       </Grid>
     </>
   );
 };
+
+interface CartProductCardProps {
+  id: string;
+}
 
 export default memo(CartProductCard);

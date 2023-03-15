@@ -1,15 +1,29 @@
 import Typography from "@mui/material/Typography";
-import { FC, memo } from "react";
+import { FC, memo, useState } from "react";
 import Link from "next/link";
-import { ImgBtn, Img, ImgBackdrop, ImgMarked } from "./u_productCard";
+import {
+  ImgBtn,
+  Img,
+  ImgBackdrop,
+  ImgMarked,
+  genderStyle,
+} from "./u_productCard";
 import Box from "@mui/material/Box";
 import Image from "next/image";
 import Btn from "../btn/Btn";
+import { mutateCartList } from "../../../store/features/product/product-slice";
 import Grid from "@mui/material/Grid";
+import { useAppSelector, useAppDispatch } from "../../../store/hooks";
 
 const ProductCard: FC<ProductCardProps> = (props) => {
   const { product, img, path, cart = true, title = "View" } = props;
-  const { price, tag, name } = product || {};
+  const { price, tag, name, id, gender } = product || {};
+  const { cartList } = useAppSelector((state) => state.product);
+  const dispatch = useAppDispatch();
+
+  const ids = cartList.map((prod) => prod.id);
+
+  const updateCart = () => id && dispatch(mutateCartList({ id }));
 
   return (
     <Box>
@@ -23,18 +37,30 @@ const ProductCard: FC<ProductCardProps> = (props) => {
         />
         <ImgBackdrop className="MuiImageBackdrop-root" />
         {cart && (
-          <Btn
-            size="large"
+          <Box
             sx={{
               position: "absolute",
               top: 0,
-              right: 0,
-              borderRadius: 0,
+              left: 0,
+              width: "100%",
+              display: "flex",
+              justifyContent: "space-between",
               zIndex: 2,
             }}
           >
-            add to cart
-          </Btn>
+            <Box>
+              <Typography sx={genderStyle}>{gender && gender[0]}</Typography>
+            </Box>
+            <Btn
+              size="small"
+              onClick={() => updateCart()}
+              sx={{
+                borderRadius: 0,
+              }}
+            >
+              {ids.includes(id ?? "") ? "remove from cart" : "add to cart"}
+            </Btn>
+          </Box>
         )}
         <Img>
           <Link href={path} className="title">
@@ -57,7 +83,12 @@ const ProductCard: FC<ProductCardProps> = (props) => {
           >
             <Grid container>
               <Grid item xs={12}>
-                <Typography sx={{ fontSize: 16, textTransform: "capitalize" }}>
+                <Typography
+                  sx={{
+                    fontSize: 18,
+                    textTransform: "capitalize",
+                  }}
+                >
                   <strong>{name}</strong>
                 </Typography>
               </Grid>
@@ -72,7 +103,9 @@ const ProductCard: FC<ProductCardProps> = (props) => {
                   mt: 1,
                 }}
               >
-                <Typography variant="h6">&#8358;{price}</Typography>
+                <Typography variant="h6">
+                  &#8358;{price?.toFixed(2).toString()}
+                </Typography>
                 <Box
                   sx={{
                     borderWidth: 2,
@@ -87,7 +120,12 @@ const ProductCard: FC<ProductCardProps> = (props) => {
                     },
                   }}
                 >
-                  <Link href="/products">{tag}</Link>
+                  <Link
+                    href="/products"
+                    style={{ textTransform: "capitalize" }}
+                  >
+                    {tag}
+                  </Link>
                 </Box>
               </Grid>
             </Grid>
@@ -105,6 +143,7 @@ interface ProductCardProps {
     tag: string;
     price: number;
     name: string;
+    gender: string;
   };
   img: string;
   path: string;

@@ -59,48 +59,57 @@ const Nav: FC<NavbarProps> = (props) => {
           <List>
             {mainNavList.map((text) => (
               <StyledListItem key={text} disablePadding>
-                {text === "products" ? (
-                  <>
-                    <a key={text} onClick={(e) => props.openUserMenu(e)}>
-                      <ListItemButton>
-                        <ListItemIcon>
-                          <ShoesIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={text} />
-                      </ListItemButton>
-                    </a>
+                {
+                  // text === "products" ? (
+                  //   <>
+                  //     <a key={text} onClick={e => props.openUserMenu(e)}>
+                  //       <ListItemButton>
+                  //         <ListItemIcon>
+                  //           <ShoesIcon />
+                  //         </ListItemIcon>
+                  //         <ListItemText primary={text} />
+                  //       </ListItemButton>
+                  //     </a>
 
-                    <Menu
-                      sx={{ mt: "10px" }}
-                      elevation={3}
-                      id="menu-appbar"
-                      anchorEl={props.anchorElUser}
-                      anchorOrigin={{
-                        vertical: "top",
-                        horizontal: "right",
-                      }}
-                      keepMounted
-                      transformOrigin={{
-                        vertical: "top",
-                        horizontal: "right",
-                      }}
-                      open={Boolean(props.anchorElUser)}
-                      onClose={props.handleCloseUserMenu}
-                    >
-                      {navProductsList.map((product) => (
-                        <MenuItem
-                          key={product}
-                          onClick={props.handleCloseUserMenu}
-                        >
-                          <Link style={productLinkStyle} href="/products">
-                            {product}
-                          </Link>
-                        </MenuItem>
-                      ))}
-                    </Menu>
-                  </>
-                ) : (
-                  <Link href={text === "home" ? "/" : `/#${text}`}>
+                  //     <Menu
+                  //       sx={{ mt: "10px" }}
+                  //       elevation={3}
+                  //       id="menu-appbar"
+                  //       anchorEl={props.anchorElUser}
+                  //       anchorOrigin={{
+                  //         vertical: "top",
+                  //         horizontal: "right",
+                  //       }}
+                  //       keepMounted
+                  //       transformOrigin={{
+                  //         vertical: "top",
+                  //         horizontal: "right",
+                  //       }}
+                  //       open={Boolean(props.anchorElUser)}
+                  //       onClose={props.handleCloseUserMenu}
+                  //     >
+                  //       {navProductsList.map(product => (
+                  //         <MenuItem
+                  //           key={product}
+                  //           onClick={props.handleCloseUserMenu}
+                  //         >
+                  //           <Link style={productLinkStyle} href="/products">
+                  //             {product}
+                  //           </Link>
+                  //         </MenuItem>
+                  //       ))}
+                  //     </Menu>
+                  //   </>
+                  // ) :
+                  <Link
+                    href={
+                      text === "home"
+                        ? "/"
+                        : text === "products"
+                        ? "/products"
+                        : `/#${text}`
+                    }
+                  >
                     <ListItemButton>
                       <ListItemIcon>
                         {
@@ -108,6 +117,7 @@ const Nav: FC<NavbarProps> = (props) => {
                             home: <HomeIcon />,
                             about: <AboutIcon />,
                             contact: <ContactIcon />,
+                            products: <ShoesIcon />,
                           }[text]
                         }
                       </ListItemIcon>
@@ -115,7 +125,7 @@ const Nav: FC<NavbarProps> = (props) => {
                       <ListItemText primary={text} />
                     </ListItemButton>
                   </Link>
-                )}
+                }
               </StyledListItem>
             ))}
           </List>

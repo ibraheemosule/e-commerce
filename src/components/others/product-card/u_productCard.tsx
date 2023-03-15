@@ -1,6 +1,5 @@
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import ButtonBase from "@mui/material/ButtonBase";
 
 export const ImgBtn = styled(Box)(({ theme }) => ({
   position: "relative",
@@ -9,7 +8,7 @@ export const ImgBtn = styled(Box)(({ theme }) => ({
   overflow: "hidden",
 
   "& aside": {
-    backgroundColor: "rgba(20,33,61,0.5)",
+    backgroundColor: "rgba(20,33,61,0.6)",
     transition: [theme.transitions.create("background-color")],
   },
   [theme.breakpoints.down("lg")]: {
@@ -84,3 +83,16 @@ export const ImgMarked = styled("span")(({ theme }) => ({
   left: "calc(50% - 9px)",
   transition: theme.transitions.create("opacity"),
 }));
+
+export const genderStyle = {
+  minWidth: "unset",
+  textTransform: "uppercase",
+  height: "100%",
+  aspectRatio: "1/1",
+  display: "grid",
+  placeItems: "center",
+  borderRadius: "100%",
+  backgroundColor: "rgba(255,255,255, 0.7)",
+  color: "primary.dark",
+  fontWeight: "bold",
+};

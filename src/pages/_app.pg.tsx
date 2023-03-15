@@ -17,7 +17,7 @@ interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache;
 }
 
-export default memo(function MyApp(props: MyAppProps) {
+const MyApp = (props: MyAppProps) => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   return (
@@ -40,4 +40,6 @@ export default memo(function MyApp(props: MyAppProps) {
       </CacheProvider>
     </Provider>
   );
-});
+};
+
+export default memo(MyApp);

@@ -29,13 +29,9 @@ const Nav: FC<NavbarProps> = (props) => {
   return (
     <>
       {/* {JSON.stringify(
-        belts.map(val => ({
+        shoes.map(val => ({
           ...val,
-          images: [
-            "/images/shoe.jpg",
-            "/images/belts.jpg",
-            "/images/purse.jpg",
-          ],
+          gender: ["male", "female", "unisex"][Math.round(Math.random() * 2)],
         }))
       )} */}
       <AppBar
@@ -69,57 +65,62 @@ const Nav: FC<NavbarProps> = (props) => {
           </IconButton>
           <Box sx={linkWrapperStyles(props.active)}>
             {Children.toArray(
-              mainNavList.map((text, i) =>
-                text === "products" ? (
-                  <>
-                    <a
-                      key={text}
-                      className="nav-item"
-                      onClick={(e) => props.openUserMenu(e, i)}
-                    >
-                      {text}
-                    </a>
+              mainNavList.map((text, i) => (
+                // text === "products" ? (
+                //   <>
+                //     <a
+                //       key={text}
+                //       className="nav-item"
+                //       onClick={e => props.openUserMenu(e, i)}
+                //     >
+                //       {text}
+                //     </a>
 
-                    <Menu
-                      sx={{ mt: "45px" }}
-                      elevation={3}
-                      id="menu-appbar"
-                      anchorEl={props.anchorElUser}
-                      anchorOrigin={{
-                        vertical: "top",
-                        horizontal: "right",
-                      }}
-                      keepMounted
-                      transformOrigin={{
-                        vertical: "top",
-                        horizontal: "right",
-                      }}
-                      open={Boolean(props.anchorElUser)}
-                      onClose={props.handleCloseUserMenu}
-                    >
-                      {navProductsList.map((product) => (
-                        <MenuItem
-                          key={product}
-                          onClick={props.handleCloseUserMenu}
-                        >
-                          <Link style={productsNavStyle} href="/products">
-                            {product}
-                          </Link>
-                        </MenuItem>
-                      ))}
-                    </Menu>
-                  </>
-                ) : (
-                  <Link
-                    className="nav-item"
-                    onClick={() => props.setActive(i + 1)}
-                    key={text}
-                    href={text === "home" ? "/" : `/#${text}`}
-                  >
-                    {text}
-                  </Link>
-                )
-              )
+                //     <Menu
+                //       sx={{ mt: "45px" }}
+                //       elevation={3}
+                //       id="menu-appbar"
+                //       anchorEl={props.anchorElUser}
+                //       anchorOrigin={{
+                //         vertical: "top",
+                //         horizontal: "right",
+                //       }}
+                //       keepMounted
+                //       transformOrigin={{
+                //         vertical: "top",
+                //         horizontal: "right",
+                //       }}
+                //       open={Boolean(props.anchorElUser)}
+                //       onClose={props.handleCloseUserMenu}
+                //     >
+                //       {navProductsList.map(product => (
+                //         <MenuItem
+                //           key={product}
+                //           onClick={props.handleCloseUserMenu}
+                //         >
+                //           <Link style={productsNavStyle} href="/products">
+                //             {product}
+                //           </Link>
+                //         </MenuItem>
+                //       ))}
+                //     </Menu>
+                //   </>
+                // ) :
+                <Link
+                  className="nav-item"
+                  onClick={() => props.setActive(i + 1)}
+                  key={text}
+                  href={
+                    text === "home"
+                      ? "/"
+                      : text === "products"
+                      ? "/products"
+                      : `/#${text}`
+                  }
+                >
+                  {text}
+                </Link>
+              ))
             )}
           </Box>
           <Box sx={{ display: "flex", gap: { xs: "1rem", md: "2rem" } }}>

@@ -1,37 +1,56 @@
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { memo, useState } from "react";
+import Select from "@mui/material/Select";
+import { FC, memo } from "react";
 
-const SelectField = () => {
-  const [age, setAge] = useState("");
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value);
-  };
+const SelectField: FC<SelectFieldProps> = (props) => {
+  const {
+    selectValue,
+    setSelectValue,
+    options,
+    title,
+    enableReset = true,
+  } = props;
 
   return (
     <div>
       <FormControl variant="standard" sx={{ m: 1, width: 100, margin: 0 }}>
-        <InputLabel id="demo-simple-select-standard-label">Age</InputLabel>
+        <InputLabel id="demo-simple-select-standard-label">{title}</InputLabel>
         <Select
-          labelId="demo-simple-select-standard-label"
-          id="demo-simple-select-standard"
-          value={age}
-          onChange={handleChange}
-          label="Age"
+          sx={{ textTransform: "capitalize" }}
+          value={selectValue}
+          onChange={(e) => setSelectValue(e.target.value)}
+          label={title}
         >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty djfksflks slkfjasf k</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          {enableReset && (
+            <MenuItem value="">
+              <b>
+                <em>None</em>
+              </b>
+            </MenuItem>
+          )}
+          {options.map((option) => (
+            <MenuItem
+              sx={{ textTransform: "capitalize" }}
+              key={option}
+              value={option}
+            >
+              {option}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
     </div>
   );
 };
+
+interface SelectFieldProps {
+  selectValue: string;
+  setSelectValue: (value: string) => void;
+  options: string[];
+  title: string;
+  enableReset?: boolean;
+}
 
 export default memo(SelectField);

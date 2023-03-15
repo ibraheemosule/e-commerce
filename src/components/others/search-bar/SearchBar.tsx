@@ -1,6 +1,6 @@
 import SearchIcon from "@mui/icons-material/Search";
 import { Search, SearchIconWrapper, StyledInputBase } from "./s_searchBar";
-import { useState, KeyboardEvent, Dispatch, SetStateAction } from "react";
+import { useState, KeyboardEvent } from "react";
 import { onlyAlphabet } from "../../../utils/utilsFunctions";
 import ListItemText from "@mui/material/ListItemText";
 import List from "@mui/material/List";
@@ -50,14 +50,14 @@ export default function SearchBar(props: Suggestions) {
             position: "absolute",
             maxHeight: "150px",
             overflowY: "scroll",
-            "-ms-overflow-style": "none",
-            "scrollbar-width": "none",
+            msOverflowStyle: "none",
+            scrollbarWidth: "none",
             "&::-webkit-scrollbar": {
               display: "none",
             },
             boxShadow: "2px 5px 46px -14px rgba(0,0,0,1)",
-            "-webkit-box-shadow": "2px 5px 46px -14px rgba(0,0,0,1)",
-            "-moz-box-shadow": "2px 5px 46px -14px rgba(0,0,0,1)",
+            webkitBoxShadow: "2px 5px 46px -14px rgba(0,0,0,1)",
+            mozBoxShadow: "2px 5px 46px -14px rgba(0,0,0,1)",
             ".css-fbv8zl-MuiTypography-root": {
               color: "primary.dark",
             },
@@ -96,6 +96,6 @@ export default function SearchBar(props: Suggestions) {
 interface Suggestions {
   products?: { name: string; tag: string; [key: string]: unknown }[];
   searchValue: string;
-  setSearchValue: Dispatch<SetStateAction<string>>;
+  setSearchValue: (value: string) => void;
   type?: boolean;
 }
