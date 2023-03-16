@@ -1,5 +1,5 @@
 import Typography from "@mui/material/Typography";
-import { FC, memo, useState } from "react";
+import { FC, memo, useState, MouseEvent } from "react";
 import Link from "next/link";
 import {
   ImgBtn,
@@ -11,19 +11,38 @@ import {
 import Box from "@mui/material/Box";
 import Image from "next/image";
 import Btn from "../btn/Btn";
-import { mutateCartList } from "../../../store/features/product/product-slice";
+import {
+  mutateCartList,
+  ProductType,
+} from "../../../store/features/product/product-slice";
 import Grid from "@mui/material/Grid";
 import { useAppSelector, useAppDispatch } from "../../../store/hooks";
+import { nanoid } from "@reduxjs/toolkit";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 
 const ProductCard: FC<ProductCardProps> = (props) => {
   const { product, img, path, cart = true, title = "View" } = props;
-  const { price, tag, name, id, gender } = product || {};
+  const { price, tag, name, id, gender, sizes } = product || {};
   const { cartList } = useAppSelector((state) => state.product);
   const dispatch = useAppDispatch();
-
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const ids = cartList.map((prod) => prod.id);
 
-  const updateCart = () => id && dispatch(mutateCartList({ id }));
+  const addToCart = (size: string | number) => {
+    id && dispatch(mutateCartList({ id, uid: nanoid(), size }));
+    handleCloseUserMenu();
+  };
+
+  const handleCloseUserMenu = () => setAnchorElUser(null);
+
+  const openMenuOrAddToCart = (e: MouseEvent<HTMLButtonElement>) => {
+    if (sizes?.length) {
+      setAnchorElUser(e.currentTarget);
+      return;
+    }
+    id && dispatch(mutateCartList({ id, uid: nanoid() }));
+  };
 
   return (
     <Box>
@@ -44,6 +63,7 @@ const ProductCard: FC<ProductCardProps> = (props) => {
               left: 0,
               width: "100%",
               display: "flex",
+              flexWrap: "wrap",
               justifyContent: "space-between",
               zIndex: 2,
             }}
@@ -53,13 +73,41 @@ const ProductCard: FC<ProductCardProps> = (props) => {
             </Box>
             <Btn
               size="small"
-              onClick={() => updateCart()}
+              onClick={openMenuOrAddToCart}
               sx={{
                 borderRadius: 0,
               }}
             >
-              {ids.includes(id ?? "") ? "remove from cart" : "add to cart"}
+              {ids.includes(id ?? "") && !anchorElUser
+                ? "Buy More"
+                : anchorElUser
+                ? "Select size"
+                : "add to cart"}
             </Btn>
+
+            <Menu
+              sx={{ mt: "30px" }}
+              elevation={3}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {sizes?.map((size) => (
+                <MenuItem key={size} onClick={() => addToCart(size)}>
+                  {size}
+                </MenuItem>
+              ))}
+            </Menu>
           </Box>
         )}
         <Img>
@@ -137,14 +185,7 @@ const ProductCard: FC<ProductCardProps> = (props) => {
 };
 
 interface ProductCardProps {
-  product?: {
-    id: string;
-    images: string[];
-    tag: string;
-    price: number;
-    name: string;
-    gender: string;
-  };
+  product?: ProductType;
   img: string;
   path: string;
   cart?: boolean;

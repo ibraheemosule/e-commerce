@@ -16,30 +16,38 @@ const borderBottom = {
   backgroundColor: "secondary.main",
 };
 
-export const linkWrapperStyles = (active: number) => ({
-  display: { xs: "none", md: "flex" },
-  flexGrow: 1,
-  justifyContent: "center",
-  gap: "2rem",
+export const drawerWidth = 240,
+  mainNavList = ["home", "products", "about", "contact"],
+  navProductsList = ["shoes", "belts", "purses"];
 
-  "& .nav-item": {
-    textDecoration: "none",
-    fontSize: "1rem",
-    fontWeight: "500",
-    color: "primary.main",
-    position: "relative",
-    textTransform: "capitalize",
-    cursor: "pointer",
+export const linkWrapperStyles = (active: string) => {
+  const index = mainNavList.indexOf(active) + 1;
 
-    [`&:nth-of-type(${active}):after`]: borderBottom,
+  return {
+    display: { xs: "none", md: "flex" },
+    flexGrow: 1,
+    justifyContent: "center",
+    gap: "2rem",
 
-    "&:hover": {
-      color: "primary.light",
+    "& .nav-item": {
+      textDecoration: "none",
+      fontSize: "1rem",
+      fontWeight: "500",
+      color: "primary.main",
+      position: "relative",
+      textTransform: "capitalize",
+      cursor: "pointer",
 
-      "&:after": borderBottom,
+      [`&:nth-of-type(${index}):after`]: borderBottom,
+
+      "&:hover": {
+        color: "primary.light",
+
+        "&:after": borderBottom,
+      },
     },
-  },
-});
+  };
+};
 
 export const productsNavStyle = {
   color: "inherit",
@@ -47,9 +55,6 @@ export const productsNavStyle = {
   display: "block",
 };
 
-export const drawerWidth = 240,
-  mainNavList = ["home", "products", "about", "contact"],
-  navProductsList = ["shoes", "belts", "purses"];
 //signedInMenu = ["profile", "account", "sign out"],
 // notSignedInMenu = ["sign in", "sign up"];
 

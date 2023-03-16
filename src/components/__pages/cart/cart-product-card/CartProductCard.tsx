@@ -8,24 +8,30 @@ import Typography from "@mui/material/Typography";
 import Quantity from "../../../others/quantity/Quantity";
 import Divider from "@mui/material/Divider";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
-import { updateProductInCart } from "../../../../store/features/product/product-slice";
+import {
+  mutateCartList,
+  removeFromCartList,
+} from "../../../../store/features/product/product-slice";
+import Link from "next/link";
 
 const CartProductCard: FC<CartProductCardProps> = ({ id }) => {
-  const [quantity, setQuantity] = useState(1);
   const dispatch = useAppDispatch();
-  const { cartList, immutableProducts } = useAppSelector(
+  const { immutableProducts, cartList } = useAppSelector(
     (state) => state.product
   );
+  const cart = cartList.filter((prod) => prod.id === id)[0];
+  const [quantity, setQuantity] = useState(cart.quantity ?? 1);
+
+  const removeFromCart = () => dispatch(removeFromCartList(cart));
 
   useEffect(() => {
-    // const getProductIdInCart = cartList.filter(prod => prod.id === id)
-    dispatch(updateProductInCart({ id, quantity }));
+    dispatch(mutateCartList({ ...cart, quantity }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [quantity, id]);
+  }, [quantity]);
 
   const product = useMemo(() => {
     return immutableProducts.filter((prod) => prod.id === id)[0];
-  }, []);
+  }, [id, immutableProducts]);
 
   return (
     <>
@@ -52,6 +58,7 @@ const CartProductCard: FC<CartProductCardProps> = ({ id }) => {
           />
           <Box sx={{ mt: 1 }}>
             <Button
+              onClick={removeFromCart}
               sx={{ color: "secondary.main", p: 0 }}
               startIcon={<DeleteOutlineIcon />}
             >
@@ -75,10 +82,42 @@ const CartProductCard: FC<CartProductCardProps> = ({ id }) => {
               fontWeight="400"
               color="secondary.main"
             >
-              {product.name}
+              <Link
+                href="/product"
+                style={{ all: "unset", display: "block", cursor: "pointer" }}
+              >
+                {product.name}
+              </Link>
             </Typography>
-            <Box sx={{ mt: 1 }}>
-              <Quantity quantity={quantity} setQuantity={setQuantity} />
+            <Box
+              sx={{
+                mt: 0,
+                textTransform: "capitalize",
+                color: "secondary.light",
+              }}
+            >
+              <small
+                style={{
+                  border: "1px solid lightgray",
+                  padding: ".2rem",
+                  marginRight: "15px",
+                }}
+              >
+                For {product.gender}
+              </small>
+              {cart.size && (
+                <small
+                  style={{
+                    border: "1px solid lightgray",
+                    padding: ".2rem",
+                  }}
+                >
+                  {cart.size}
+                </small>
+              )}
+              <Box sx={{ mt: 2 }}>
+                <Quantity quantity={quantity} setQuantity={setQuantity} />
+              </Box>
             </Box>
           </Box>
           <Box>
@@ -88,7 +127,7 @@ const CartProductCard: FC<CartProductCardProps> = ({ id }) => {
               fontWeight="400"
               color="primary.dark"
             >
-              &#8358;{(quantity * product.price).toLocaleString()}
+              &#8358;{(quantity * product.price).toFixed(2).toLocaleString()}
             </Typography>
           </Box>
         </Box>

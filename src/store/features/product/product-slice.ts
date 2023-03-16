@@ -1,15 +1,25 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { bags, belts, shoes } from "../../../../testData";
 
-type ProductType = (typeof bags)[0] | (typeof shoes)[0] | (typeof belts)[0];
+export type ProductType = {
+  name: string;
+  description: string;
+  price: number;
+  tag: string;
+  id: string;
+  images: string[];
+  sizes?: (string | number)[];
+  gender: string;
+};
 interface ProductSlice {
   immutableProducts: ProductType[];
   products: ProductType[];
-  cartList: { quantity: number; id: string }[];
+  cartList: CartType[];
   searchValue: string;
   filterValue: string;
   sortValue: string;
   genderValue: string;
+  totalPrice: number;
 }
 
 type IMutateProducts = {
@@ -17,6 +27,13 @@ type IMutateProducts = {
   filterValue?: string;
   sortValue?: string;
   genderValue?: string;
+};
+
+type CartType = {
+  quantity?: number;
+  id: string;
+  uid: string;
+  size?: string | number;
 };
 
 const initialState: ProductSlice = {
@@ -27,6 +44,7 @@ const initialState: ProductSlice = {
   filterValue: "",
   sortValue: "",
   genderValue: "",
+  totalPrice: 0,
 };
 
 export const productSlice = createSlice({
@@ -41,28 +59,51 @@ export const productSlice = createSlice({
       );
     },
 
-    mutateCartList(
-      state,
-      { payload }: PayloadAction<{ id: string; quantity?: number }>
-    ) {
-      const { id, quantity = 1 } = payload;
+    mutateCartList(state, { payload }: PayloadAction<CartType>) {
+      const { uid } = payload;
 
-      const ids = state.cartList.map((prod) => prod.id);
+      const uids = state.cartList.map((prod) => prod.uid);
 
-      if (ids.includes(id)) {
-        state.cartList = state.cartList.filter((prod) => prod.id !== id);
+      if (uids.includes(uid)) {
+        state.cartList = state.cartList.map((prod) => {
+          if (prod.uid !== uid) return prod;
+          return Object.assign(prod, payload);
+        });
+
+        state.totalPrice = calculateTotalPrice(state);
         return;
       }
 
-      state.cartList = [
-        ...state.cartList,
-        {
-          id,
-          quantity,
-        },
-      ];
+      const duplicateProduct = state.cartList.some(
+        (prod) => prod.id === payload.id && prod.size === payload.size
+      );
 
-      console.log(state.cartList);
+      if (duplicateProduct) {
+        state.cartList = state.cartList.map((prod) => {
+          const duplicate =
+            prod.id === payload.id && prod.size === payload.size;
+
+          if (duplicate) {
+            return {
+              ...prod,
+              quantity: Number(prod.quantity || 1) + 1,
+            };
+          }
+
+          return prod;
+        });
+        return;
+      }
+
+      state.cartList = [...state.cartList, { ...payload, quantity: 1 }];
+      state.totalPrice = calculateTotalPrice(state);
+    },
+
+    removeFromCartList(state, { payload }: PayloadAction<CartType>) {
+      state.cartList = state.cartList.filter(
+        (prod) => prod.uid !== payload.uid
+      );
+      state.totalPrice = calculateTotalPrice(state);
     },
 
     updateProductInCart(
@@ -71,9 +112,12 @@ export const productSlice = createSlice({
     ) {
       const { id, quantity } = payload;
 
-      const productFromCart = state.cartList.filter((prod) => prod.id !== id);
-
-      state.cartList = [...productFromCart, { id, quantity }];
+      state.cartList = [...state.cartList].map((prod) => {
+        if (prod.id !== id) return prod;
+        prod.quantity = quantity;
+        return prod;
+      });
+      state.totalPrice = calculateTotalPrice(state);
     },
 
     mutateProductsList(state, { payload }: PayloadAction<IMutateProducts>) {
@@ -128,10 +172,23 @@ export const productSlice = createSlice({
   },
 });
 
+function calculateTotalPrice(state: ProductSlice) {
+  const priceSum = state.cartList.reduce((prev, next) => {
+    const product = state.immutableProducts.filter(
+      (prod) => prod.id === next.id
+    )[0];
+
+    return prev + product.price * (next.quantity || 1);
+  }, 0);
+
+  return priceSum;
+}
+
 export const {
   searchProducts,
   mutateCartList,
   mutateProductsList,
   updateProductInCart,
+  removeFromCartList,
 } = productSlice.actions;
 export default productSlice.reducer;

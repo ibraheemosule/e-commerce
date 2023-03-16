@@ -14,9 +14,19 @@ import MenuItem from "@mui/material/MenuItem";
 import navWrapper, { NavbarProps } from "../wrapper/wrapper";
 import { mainNavList, navProductsList } from "../u_navbar";
 import { bags, shoes, belts } from "../../../../../../testData";
+import { useRouter } from "next/router";
 
 const Nav: FC<NavbarProps> = (props) => {
   const [search, setSearch] = useState("");
+  const router = useRouter();
+
+  const activeRoute = useMemo(() => {
+    const path = router.asPath.substring(1).split("#");
+    const activePath = path[path.length - 1];
+    return activePath === "" ? "home" : activePath;
+    // console.log(mainNavList.indexOf(activeRoute), activePath);
+    // return activeRoute;
+  }, [router.asPath]);
 
   const filteredProducts = useMemo(
     () =>
@@ -29,14 +39,15 @@ const Nav: FC<NavbarProps> = (props) => {
   return (
     <>
       {/* {JSON.stringify(
-        shoes.map(val => ({
+        belts.map(val => ({
           ...val,
-          gender: ["male", "female", "unisex"][Math.round(Math.random() * 2)],
+          sizes: ["M", "L", "XL"][Math.round(Math.random() * 2)],
         }))
       )} */}
       <AppBar
         position={props.offScreen ? "fixed" : "static"}
         component="section"
+        onBlur={() => setTimeout(() => setSearch(""), 2000)}
         elevation={0}
         sx={{
           backgroundColor: "primary.dark",
@@ -63,9 +74,9 @@ const Nav: FC<NavbarProps> = (props) => {
           >
             <MenuIcon />
           </IconButton>
-          <Box sx={linkWrapperStyles(props.active)}>
+          <Box sx={linkWrapperStyles(activeRoute)}>
             {Children.toArray(
-              mainNavList.map((text, i) => (
+              mainNavList.map((text) => (
                 // text === "products" ? (
                 //   <>
                 //     <a
@@ -108,7 +119,7 @@ const Nav: FC<NavbarProps> = (props) => {
                 // ) :
                 <Link
                   className="nav-item"
-                  onClick={() => props.setActive(i + 1)}
+                  //onClick={() => props.setActive(activeRouteIndex)}
                   key={text}
                   href={
                     text === "home"

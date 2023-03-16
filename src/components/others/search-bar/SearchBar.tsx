@@ -5,6 +5,8 @@ import { onlyAlphabet } from "../../../utils/utilsFunctions";
 import ListItemText from "@mui/material/ListItemText";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
+import Link from "next/link";
+import { listStyle } from "./s_searchBar";
 
 export default function SearchBar(props: Suggestions) {
   const { products, searchValue, setSearchValue, type } = props;
@@ -17,6 +19,7 @@ export default function SearchBar(props: Suggestions) {
     index: number
   ) => {
     setSelectedIndex(index);
+    setTimeout(() => setSearchValue(""), 100);
   };
 
   const checkTypedKey = (
@@ -42,45 +45,28 @@ export default function SearchBar(props: Suggestions) {
       />
       {!!products && searchValue && (
         <List
-          sx={{
-            zIndex: 2,
-            backgroundColor: "primary.light",
-            color: "primary.dark",
-            borderRadius: 1,
-            position: "absolute",
-            maxHeight: "150px",
-            overflowY: "scroll",
-            msOverflowStyle: "none",
-            scrollbarWidth: "none",
-            "&::-webkit-scrollbar": {
-              display: "none",
-            },
-            boxShadow: "2px 5px 46px -14px rgba(0,0,0,1)",
-            webkitBoxShadow: "2px 5px 46px -14px rgba(0,0,0,1)",
-            mozBoxShadow: "2px 5px 46px -14px rgba(0,0,0,1)",
-            ".css-fbv8zl-MuiTypography-root": {
-              color: "primary.dark",
-            },
-            top: "130%",
-            width: "100%",
-            left: "0%",
-          }}
+          sx={listStyle}
           component="nav"
           aria-label="products suggestion list"
         >
           {products.length ? (
-            products?.map(({ name, tag }) => (
-              <ListItemButton
-                key={name}
-                selected={selectedIndex === 2}
-                onClick={(event) => handleListItemClick(event, 2)}
+            products?.map(({ name, tag, id, gender }) => (
+              <Link
+                key={id}
+                href="/products"
+                style={{ all: "unset", display: "block" }}
               >
-                <ListItemText
-                  sx={{ textTransform: "capitalize" }}
-                  primary={type ? tag : null}
-                  secondary={name}
-                />
-              </ListItemButton>
+                <ListItemButton
+                  selected={selectedIndex === 2}
+                  onClick={(event) => handleListItemClick(event, 2)}
+                >
+                  <ListItemText
+                    sx={{ textTransform: "capitalize" }}
+                    primary={type ? `${tag} (${gender[0]})` : null}
+                    secondary={name}
+                  />
+                </ListItemButton>
+              </Link>
             ))
           ) : (
             <ListItemButton sx={{ textAlign: "center" }} disabled>
@@ -94,7 +80,7 @@ export default function SearchBar(props: Suggestions) {
 }
 
 interface Suggestions {
-  products?: { name: string; tag: string; [key: string]: unknown }[];
+  products?: { name: string; tag: string; id: string; gender: string }[];
   searchValue: string;
   setSearchValue: (value: string) => void;
   type?: boolean;

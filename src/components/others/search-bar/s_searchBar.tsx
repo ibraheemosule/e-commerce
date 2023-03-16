@@ -49,3 +49,27 @@ export const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
+
+export const listStyle = {
+  zIndex: 2,
+  backgroundColor: "primary.light",
+  color: "primary.dark",
+  borderRadius: 1,
+  position: "absolute",
+  maxHeight: "150px",
+  overflowY: "scroll",
+  msOverflowStyle: "none",
+  scrollbarWidth: "none",
+  "&::-webkit-scrollbar": {
+    display: "none",
+  },
+  boxShadow: "2px 5px 46px -14px rgba(0,0,0,1)",
+  webkitBoxShadow: "2px 5px 46px -14px rgba(0,0,0,1)",
+  mozBoxShadow: "2px 5px 46px -14px rgba(0,0,0,1)",
+  ".css-fbv8zl-MuiTypography-root": {
+    color: "primary.dark",
+  },
+  top: "130%",
+  width: "100%",
+  left: "0%",
+};

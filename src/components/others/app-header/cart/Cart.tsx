@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Cart from "@mui/icons-material/ShoppingCart";
@@ -6,8 +6,16 @@ import { useAppSelector } from "../../../../store/hooks";
 import Link from "next/link";
 
 export default memo(function UserMenu() {
-  const { cartList, searchValue } = useAppSelector((state) => state.product);
-  console.log(searchValue, "hre");
+  const { cartList } = useAppSelector((state) => state.product);
+
+  const itemInCart = useMemo(() => {
+    return cartList.reduce(
+      (prev, next) => Number(next.quantity || 0) + prev,
+      0
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [JSON.stringify(cartList)]);
+
   return (
     <IconButton
       sx={{
@@ -23,7 +31,7 @@ export default memo(function UserMenu() {
         href="/cart"
       >
         <Cart />
-        {!!cartList.length && (
+        {!!itemInCart && (
           <Box
             component="span"
             sx={{
@@ -41,7 +49,7 @@ export default memo(function UserMenu() {
               fontWeight: "bold",
             }}
           >
-            {cartList.length}
+            {itemInCart}
           </Box>
         )}
       </Link>

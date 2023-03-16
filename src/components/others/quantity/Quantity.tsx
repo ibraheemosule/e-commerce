@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 const Quantity: FC<QuantityProps> = ({ quantity, setQuantity }) => (
   <Box
     sx={{
-      alignSelf: "flex-end",
+      // alignSelf: "flex-end",
       color: "primary.dark",
     }}
   >
@@ -18,7 +18,7 @@ const Quantity: FC<QuantityProps> = ({ quantity, setQuantity }) => (
       aria-label="select product quantity"
       size="small"
       disableRipple
-      sx={{ mt: 2 }}
+      // sx={{ mt: 2 }}
     >
       <Button
         onClick={() => setQuantity((prev) => prev - 1)}
@@ -28,6 +28,7 @@ const Quantity: FC<QuantityProps> = ({ quantity, setQuantity }) => (
           borderRight: 0,
           color: "primary.dark",
           borderColor: "primary.main",
+          padding: 0,
 
           "&:hover": {
             borderRight: 0,
@@ -45,6 +46,7 @@ const Quantity: FC<QuantityProps> = ({ quantity, setQuantity }) => (
           borderColor: "primary.main",
           borderWidth: "0 1px 0 1px",
           width: 20,
+          padding: 0,
         }}
       >
         {quantity}
@@ -57,6 +59,7 @@ const Quantity: FC<QuantityProps> = ({ quantity, setQuantity }) => (
           borderLeft: 1,
           color: "primary.dark",
           borderColor: "primary.main",
+          padding: 0,
 
           "&:hover": {
             transform: "translate(-1px)",

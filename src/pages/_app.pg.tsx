@@ -1,6 +1,7 @@
 import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
-import { store } from "../store/store";
+import { PersistGate } from "redux-persist/integration/react";
+import { store, persistor } from "../store/store";
 import Layout from "../components/others/Layout";
 import { memo } from "react";
 import Head from "next/head";
@@ -21,23 +22,28 @@ const MyApp = (props: MyAppProps) => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   return (
-    <Provider store={store()}>
-      <CacheProvider value={emotionCache}>
-        <Head>
-          <meta name="viewport" content="initial-scale=1, width=device-width" />
-        </Head>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <CacheProvider value={emotionCache}>
+          <Head>
+            <meta
+              name="viewport"
+              content="initial-scale=1, width=device-width"
+            />
+          </Head>
 
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <StyledEngineProvider injectFirst>
-            <Layout>
-              <>
-                <Component {...pageProps} />
-              </>
-            </Layout>
-          </StyledEngineProvider>
-        </ThemeProvider>
-      </CacheProvider>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <StyledEngineProvider injectFirst>
+              <Layout>
+                <>
+                  <Component {...pageProps} />
+                </>
+              </Layout>
+            </StyledEngineProvider>
+          </ThemeProvider>
+        </CacheProvider>
+      </PersistGate>
     </Provider>
   );
 };

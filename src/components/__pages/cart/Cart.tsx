@@ -1,15 +1,14 @@
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import Box from "@mui/system/Box";
-import { memo } from "react";
+import { Children, memo } from "react";
 import Typography from "@mui/material/Typography";
 import Btn from "../../others/btn/Btn";
 import CartProductCard from "./cart-product-card/CartProductCard";
 import { useAppSelector } from "../../../store/hooks";
 
 const Cart = () => {
-  const { cartList } = useAppSelector((state) => state.product);
-  //  console.log(cartList);
+  const { cartList, totalPrice } = useAppSelector((state) => state.product);
 
   return (
     <>
@@ -32,9 +31,9 @@ const Cart = () => {
               }}
             >
               <Grid container>
-                {cartList.map((prod) => (
-                  <CartProductCard key={prod.id} id={prod.id} />
-                ))}
+                {Children.toArray(
+                  cartList.map((prod) => <CartProductCard id={prod.id} />)
+                )}
               </Grid>
             </Grid>
             <Grid
@@ -42,7 +41,8 @@ const Cart = () => {
               xs="auto"
               mx={{ md: "auto" }}
               ml={{ xs: "auto" }}
-              mt={{ md: 6 }}
+              my={4}
+              alignSelf="self-end"
             >
               <Box
                 sx={{
@@ -54,10 +54,10 @@ const Cart = () => {
                   Subtotal:
                 </strong>{" "}
                 <Typography component="h1" variant="h5" color="primary.dark">
-                  &#8358;20, 000
+                  &#8358;{totalPrice.toFixed(2).toLocaleString()}
                 </Typography>
               </Box>
-              <Btn variant="contained" disableElevation>
+              <Btn sx={{ mt: 1 }} variant="contained" disableElevation>
                 Checkout
               </Btn>
             </Grid>
