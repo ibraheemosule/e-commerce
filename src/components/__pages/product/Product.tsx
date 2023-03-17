@@ -1,7 +1,14 @@
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import Box from "@mui/system/Box";
-import { Children, memo, useEffect, useState } from "react";
+import {
+  Children,
+  memo,
+  useEffect,
+  useState,
+  useCallback,
+  useMemo,
+} from "react";
 import Image from "next/image";
 import ButtonBase from "@mui/material/ButtonBase";
 import Typography from "@mui/material/Typography";
@@ -13,8 +20,13 @@ import Quantity from "../../others/quantity/Quantity";
 import Btn from "../../others/btn/Btn";
 import { useRouter } from "next/router";
 import { useAppSelector, useAppDispatch } from "../../../store/hooks";
-import { mutateCartList } from "../../../store/features/product/product-slice";
+import {
+  mutateCartList,
+  resetProductsList,
+  mutateProductsList,
+} from "../../../store/features/product/product-slice";
 import { nanoid } from "@reduxjs/toolkit";
+import NoProduct from "./NoProduct";
 
 const Product = () => {
   const [showDescription, setShowDescription] = useState(false),
@@ -30,16 +42,25 @@ const Product = () => {
   const ids = cartList.map((prod) => prod.id);
   const id = router.query.id as string;
 
-  const product = immutableProducts.filter((prod) => prod.id === id)[0];
+  const product = useMemo(
+    () => immutableProducts.filter((prod) => prod.id === id)[0] || {},
+    [id, immutableProducts]
+  );
 
-  const addToCart = () => {
+  useEffect(() => {
+    if (product.images) setSelectedImg(product?.images[0]);
+  }, [product.images]);
+
+  const addToCart = useCallback(() => {
     if (product.sizes && !size) {
       setError("Select a Size");
       return;
     }
+
     const findProduct = cartList.filter(
       (prod) => prod.id === id && prod.size === size
     )[0];
+
     if (findProduct) {
       dispatch(
         mutateCartList({
@@ -53,16 +74,24 @@ const Product = () => {
       console.log(quantity);
       dispatch(mutateCartList({ id, uid: nanoid(), size, quantity }));
     } else dispatch(mutateCartList({ id, uid: nanoid(), quantity }));
+  }, [cartList, dispatch, id, product.sizes, quantity, size]);
+
+  const filterProductsList = useCallback(
+    async (obj: Record<string, string>) => {
+      dispatch(resetProductsList());
+      dispatch(mutateProductsList(obj));
+      await router.push("/products");
+    },
+    [dispatch, router]
+  );
+
+  const filters = {
+    genderValue: product.gender,
+    filterValue: product.tag,
   };
 
-  useEffect;
-
-  useEffect(() => {
-    setSelectedImg(product?.images[0]);
-  }, [product?.images]);
-
-  if (!product) {
-    return <div></div>;
+  if (!product.name) {
+    return <NoProduct />;
   }
 
   return (
@@ -109,13 +138,13 @@ const Product = () => {
                     }}
                   >
                     {Children.toArray(
-                      product?.images.map((img) => (
+                      product?.images?.map((img) => (
                         <ButtonBase
                           onClick={() => setSelectedImg(img)}
                           sx={{
                             padding: "4px",
                             border:
-                              selectedImg === img ? "2px solid" : "1px solid",
+                              selectedImg === img ? "1px solid" : "1px solid",
                             borderColor:
                               selectedImg === img
                                 ? "secondary.light"
@@ -152,23 +181,26 @@ const Product = () => {
                   color: "secondary.light",
                 }}
               >
-                <small
-                  style={{
-                    border: "1px solid lightgray",
-                    padding: ".2rem",
-                    marginRight: "15px",
-                  }}
-                >
-                  For {product?.gender}
-                </small>
-                <small
-                  style={{
-                    border: "1px solid lightgray",
-                    padding: ".2rem",
-                  }}
-                >
-                  {product?.tag}
-                </small>
+                {Object.entries(filters).map(
+                  ([key, value]) =>
+                    value && (
+                      <ButtonBase
+                        key={value}
+                        onClick={() =>
+                          void filterProductsList({ [key]: value })
+                        }
+                        sx={{
+                          border: "1px solid lightgray",
+                          textTransform: "capitalize",
+                          color: "secondary.light",
+                          padding: ".2rem",
+                          marginRight: "10px",
+                        }}
+                      >
+                        {value}
+                      </ButtonBase>
+                    )
+                )}
               </Box>
               <Divider />
               <Typography component="h1" variant="h6">
@@ -210,6 +242,7 @@ const Product = () => {
                   flexWrap: "wrap",
                   alignItems: "flex-end",
                   columnGap: 5,
+                  mt: 3,
                 }}
               >
                 <Box>

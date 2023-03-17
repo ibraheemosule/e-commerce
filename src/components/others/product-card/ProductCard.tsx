@@ -15,6 +15,7 @@ import {
   mutateCartList,
   mutateProductsList,
   ProductType,
+  resetProductsList,
 } from "../../../store/features/product/product-slice";
 import Grid from "@mui/material/Grid";
 import { useAppSelector, useAppDispatch } from "../../../store/hooks";
@@ -49,6 +50,7 @@ const ProductCard: FC<ProductCardProps> = (props) => {
   };
 
   const filterProductsList = async (obj: Record<string, string>) => {
+    dispatch(resetProductsList());
     dispatch(mutateProductsList(obj));
     if (router.asPath !== "/products") await router.push("/products");
   };

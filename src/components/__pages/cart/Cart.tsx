@@ -29,7 +29,7 @@ const Cart = () => {
                   pr: 2,
                   pb: 6,
                   maxHeight: "500px",
-                  overflow: "scroll",
+                  overflow: "auto",
                 }}
               >
                 <Grid container>

@@ -10,11 +10,16 @@ import Divider from "@mui/material/Divider";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
 import {
   mutateCartList,
+  resetProductsList,
+  mutateProductsList,
   removeFromCartList,
 } from "../../../../store/features/product/product-slice";
 import Link from "next/link";
+import ButtonBase from "@mui/material/ButtonBase";
+import { useRouter } from "next/router";
 
 const CartProductCard: FC<CartProductCardProps> = ({ id }) => {
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const { immutableProducts, cartList } = useAppSelector(
     (state) => state.product
@@ -32,6 +37,19 @@ const CartProductCard: FC<CartProductCardProps> = ({ id }) => {
   const product = useMemo(() => {
     return immutableProducts.filter((prod) => prod.id === id)[0];
   }, [id, immutableProducts]);
+
+  const filterProductsList = async (obj: Record<string, string>) => {
+    if (obj["size"]) return;
+    dispatch(resetProductsList());
+    dispatch(mutateProductsList(obj));
+    await router.push("/products");
+  };
+
+  const filters = {
+    genderValue: product.gender,
+    filterValue: product.tag,
+    size: cart.size,
+  };
 
   return (
     <>
@@ -83,46 +101,33 @@ const CartProductCard: FC<CartProductCardProps> = ({ id }) => {
               color="secondary.main"
             >
               <Link
-                href="/product"
+                href={`/product?id=${id}`}
                 style={{ all: "unset", display: "block", cursor: "pointer" }}
               >
                 {product.name}
               </Link>
             </Typography>
-            <Box
-              sx={{
-                mt: 0,
-                textTransform: "capitalize",
-                color: "secondary.light",
-              }}
-            >
-              <small
-                style={{
-                  border: "1px solid lightgray",
-                  padding: ".2rem",
-                  marginRight: "10px",
-                }}
-              >
-                For {product.gender}
-              </small>
-              <small
-                style={{
-                  border: "1px solid lightgray",
-                  padding: ".2rem",
-                  marginRight: "10px",
-                }}
-              >
-                {product.tag}
-              </small>
-              {cart.size && (
-                <small
-                  style={{
-                    border: "1px solid lightgray",
-                    padding: ".2rem",
-                  }}
-                >
-                  {cart.size}
-                </small>
+            <Box>
+              {Object.entries(filters).map(
+                ([key, value]) =>
+                  value && (
+                    <ButtonBase
+                      disabled={key === "size"}
+                      key={value}
+                      onClick={() =>
+                        void filterProductsList({ [key]: value.toString() })
+                      }
+                      sx={{
+                        border: "1px solid lightgray",
+                        textTransform: "capitalize",
+                        color: "secondary.light",
+                        padding: ".2rem",
+                        marginRight: "10px",
+                      }}
+                    >
+                      {value}
+                    </ButtonBase>
+                  )
               )}
               <Box sx={{ mt: 2 }}>
                 <Quantity quantity={quantity} setQuantity={setQuantity} />
