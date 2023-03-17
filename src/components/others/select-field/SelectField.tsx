@@ -48,7 +48,7 @@ const SelectField: FC<SelectFieldProps> = (props) => {
 interface SelectFieldProps {
   selectValue: string;
   setSelectValue: (value: string) => void;
-  options: string[];
+  options: (string | number)[];
   title: string;
   enableReset?: boolean;
 }

@@ -13,6 +13,7 @@ import Image from "next/image";
 import Btn from "../btn/Btn";
 import {
   mutateCartList,
+  mutateProductsList,
   ProductType,
 } from "../../../store/features/product/product-slice";
 import Grid from "@mui/material/Grid";
@@ -20,12 +21,15 @@ import { useAppSelector, useAppDispatch } from "../../../store/hooks";
 import { nanoid } from "@reduxjs/toolkit";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import { useRouter } from "next/router";
+import ButtonBase from "@mui/material/ButtonBase";
 
 const ProductCard: FC<ProductCardProps> = (props) => {
   const { product, img, path, cart = true, title = "View" } = props;
   const { price, tag, name, id, gender, sizes } = product || {};
   const { cartList } = useAppSelector((state) => state.product);
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const ids = cartList.map((prod) => prod.id);
 
@@ -42,6 +46,11 @@ const ProductCard: FC<ProductCardProps> = (props) => {
       return;
     }
     id && dispatch(mutateCartList({ id, uid: nanoid() }));
+  };
+
+  const filterProductsList = async (obj: Record<string, string>) => {
+    dispatch(mutateProductsList(obj));
+    if (router.asPath !== "/products") await router.push("/products");
   };
 
   return (
@@ -68,9 +77,14 @@ const ProductCard: FC<ProductCardProps> = (props) => {
               zIndex: 2,
             }}
           >
-            <Box>
+            <ButtonBase
+              onClick={() =>
+                void filterProductsList({ genderValue: gender || "" })
+              }
+              style={{ all: "unset", display: "block", cursor: "pointer" }}
+            >
               <Typography sx={genderStyle}>{gender && gender[0]}</Typography>
-            </Box>
+            </ButtonBase>
             <Btn
               size="small"
               onClick={openMenuOrAddToCart}
@@ -168,12 +182,20 @@ const ProductCard: FC<ProductCardProps> = (props) => {
                     },
                   }}
                 >
-                  <Link
-                    href="/products"
-                    style={{ textTransform: "capitalize" }}
+                  <ButtonBase
+                    sx={{
+                      all: "unset",
+                      display: "block",
+                      cursor: "pointer",
+                      textTransform: "capitalize",
+                      px: 1,
+                    }}
+                    onClick={() =>
+                      void filterProductsList({ filterValue: tag || "" })
+                    }
                   >
                     {tag}
-                  </Link>
+                  </ButtonBase>
                 </Box>
               </Grid>
             </Grid>

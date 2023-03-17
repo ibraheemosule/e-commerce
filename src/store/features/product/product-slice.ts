@@ -60,7 +60,7 @@ export const productSlice = createSlice({
     },
 
     mutateCartList(state, { payload }: PayloadAction<CartType>) {
-      const { uid } = payload;
+      const { uid, quantity } = payload;
 
       const uids = state.cartList.map((prod) => prod.uid);
 
@@ -86,7 +86,7 @@ export const productSlice = createSlice({
           if (duplicate) {
             return {
               ...prod,
-              quantity: Number(prod.quantity || 1) + 1,
+              quantity: (prod.quantity || 1) + (quantity || 1),
             };
           }
 
@@ -95,7 +95,10 @@ export const productSlice = createSlice({
         return;
       }
 
-      state.cartList = [...state.cartList, { ...payload, quantity: 1 }];
+      state.cartList = [
+        ...state.cartList,
+        { ...payload, quantity: quantity || 1 },
+      ];
       state.totalPrice = calculateTotalPrice(state);
     },
 
@@ -106,18 +109,12 @@ export const productSlice = createSlice({
       state.totalPrice = calculateTotalPrice(state);
     },
 
-    updateProductInCart(
-      state,
-      { payload }: PayloadAction<{ id: string; quantity: number }>
-    ) {
-      const { id, quantity } = payload;
-
-      state.cartList = [...state.cartList].map((prod) => {
-        if (prod.id !== id) return prod;
-        prod.quantity = quantity;
-        return prod;
-      });
-      state.totalPrice = calculateTotalPrice(state);
+    resetProductsList(state) {
+      state.filterValue = "";
+      state.genderValue = "";
+      state.sortValue = "";
+      state.searchValue = "";
+      state.products = [...state.immutableProducts];
     },
 
     mutateProductsList(state, { payload }: PayloadAction<IMutateProducts>) {
@@ -188,7 +185,8 @@ export const {
   searchProducts,
   mutateCartList,
   mutateProductsList,
-  updateProductInCart,
+  // updateProductInCart,
+  resetProductsList,
   removeFromCartList,
 } = productSlice.actions;
 export default productSlice.reducer;

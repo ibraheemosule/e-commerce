@@ -5,8 +5,13 @@ import SelectField from "../../others/select-field/SelectField";
 import SearchBar from "../../others/search-bar/SearchBar";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { memo } from "react";
-import { mutateProductsList } from "../../../store/features/product/product-slice";
+import {
+  mutateProductsList,
+  resetProductsList,
+} from "../../../store/features/product/product-slice";
 import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import Btn from "../../others/btn/Btn";
 
 const sortOptions = ["a-z", "z-a", "highest price", "lowest price"];
 const genderOptions = ["male", "female", "unisex"];
@@ -27,6 +32,10 @@ const Products = () => {
 
   const updateGender = (value: string) =>
     void dispatch(mutateProductsList({ genderValue: value }));
+
+  const reset = () => {
+    void dispatch(resetProductsList());
+  };
 
   return (
     <Box py={{ xs: 9, sm: 12, lg: 15 }}>
@@ -78,7 +87,7 @@ const Products = () => {
                 <SelectField
                   selectValue={filterValue}
                   setSelectValue={updateFilter}
-                  options={["bags", "shoes", "belts"]}
+                  options={["bag", "shoe", "belt"]}
                   title="Filter By"
                 />
                 <SelectField
@@ -91,16 +100,33 @@ const Products = () => {
             </Container>
           </Grid>
           <Grid item xs={12} mt={6}>
-            <Grid container justifyContent="center" gap={5}>
-              {products.map((product, i) => (
-                <Grid item xs={10} sm={5} md={3.5} key={i}>
-                  <ProductCard
-                    img={product.images[0]}
-                    path="/products"
-                    product={product}
-                  />
+            <Grid container justifyContent="center" gap={5} minHeight={200}>
+              {products.length ? (
+                products.map((product, i) => (
+                  <Grid item xs={10} sm={5} md={3.5} key={i}>
+                    <ProductCard
+                      img={product.images[0]}
+                      path={`/product?id=${product.id}`}
+                      product={product}
+                    />
+                  </Grid>
+                ))
+              ) : (
+                <Grid
+                  item
+                  xs={12}
+                  sx={{ display: "grid", placeItems: "center" }}
+                >
+                  <Box sx={{ textAlign: "center" }}>
+                    <Typography component="h4" variant="h5">
+                      No Products Found
+                    </Typography>
+                    <Btn sx={{ mt: 2 }} onClick={reset}>
+                      View All Products
+                    </Btn>
+                  </Box>
                 </Grid>
-              ))}
+              )}
             </Grid>
           </Grid>
         </Grid>

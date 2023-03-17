@@ -100,10 +100,19 @@ const CartProductCard: FC<CartProductCardProps> = ({ id }) => {
                 style={{
                   border: "1px solid lightgray",
                   padding: ".2rem",
-                  marginRight: "15px",
+                  marginRight: "10px",
                 }}
               >
                 For {product.gender}
+              </small>
+              <small
+                style={{
+                  border: "1px solid lightgray",
+                  padding: ".2rem",
+                  marginRight: "10px",
+                }}
+              >
+                {product.tag}
               </small>
               {cart.size && (
                 <small
