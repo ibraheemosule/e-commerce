@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Login from "../../components/__pages/login/Login";
+import Signin from "../../components/__pages/signin/Signin";
 
 export default function LoginPage() {
   return (
@@ -10,7 +10,7 @@ export default function LoginPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Login />
+      <Signin />
     </>
   );
 }

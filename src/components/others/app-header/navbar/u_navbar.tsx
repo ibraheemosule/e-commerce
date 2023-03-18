@@ -79,12 +79,12 @@ export const signedInMenu = [
 export const notSignedInMenu = [
   {
     name: "sign in",
-    href: "/cart",
+    href: "/signin",
     Icon: SignInIcon,
   },
   {
     name: "sign up",
-    href: "/cart",
+    href: "/signup",
     Icon: SignUpIcon,
   },
 ];

@@ -35,16 +35,9 @@ const Nav: FC<NavbarProps> = (props) => {
 
   return (
     <>
-      {/* {JSON.stringify(
-        belts.map(val => ({
-          ...val,
-          sizes: ["M", "L", "XL"][Math.round(Math.random() * 2)],
-        }))
-      )} */}
       <AppBar
         position={props.offScreen ? "fixed" : "static"}
         component="section"
-        // onBlur={() => setTimeout(() => setSearch(""), 2000)}
         elevation={0}
         sx={{
           backgroundColor: "primary.dark",
@@ -74,49 +67,9 @@ const Nav: FC<NavbarProps> = (props) => {
           <Box sx={linkWrapperStyles(activeRoute)}>
             {Children.toArray(
               mainNavList.map((text) => (
-                // text === "products" ? (
-                //   <>
-                //     <a
-                //       key={text}
-                //       className="nav-item"
-                //       onClick={e => props.openUserMenu(e, i)}
-                //     >
-                //       {text}
-                //     </a>
-
-                //     <Menu
-                //       sx={{ mt: "45px" }}
-                //       elevation={3}
-                //       id="menu-appbar"
-                //       anchorEl={props.anchorElUser}
-                //       anchorOrigin={{
-                //         vertical: "top",
-                //         horizontal: "right",
-                //       }}
-                //       keepMounted
-                //       transformOrigin={{
-                //         vertical: "top",
-                //         horizontal: "right",
-                //       }}
-                //       open={Boolean(props.anchorElUser)}
-                //       onClose={props.handleCloseUserMenu}
-                //     >
-                //       {navProductsList.map(product => (
-                //         <MenuItem
-                //           key={product}
-                //           onClick={props.handleCloseUserMenu}
-                //         >
-                //           <Link style={productsNavStyle} href="/products">
-                //             {product}
-                //           </Link>
-                //         </MenuItem>
-                //       ))}
-                //     </Menu>
-                //   </>
-                // ) :
                 <Link
                   className="nav-item"
-                  //onClick={() => props.setActive(activeRouteIndex)}
+                  // onClick={() => props.setActive(activeRouteIndex)}
                   key={text}
                   href={
                     text === "home"

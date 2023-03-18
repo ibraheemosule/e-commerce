@@ -47,6 +47,7 @@ const InputField: FC<InputFieldProps> = (props) => {
           size="small"
           multiline={textarea}
           maxRows={textarea && 3}
+          spellCheck={textarea && true}
           variant="standard"
           sx={textFieldStyles(darkBg, type)}
           type={showPassword || type || "text"}

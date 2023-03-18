@@ -1,13 +1,15 @@
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import Box from "@mui/system/Box";
-import { memo } from "react";
+import { FC, memo } from "react";
 import Typography from "@mui/material/Typography";
 import { btnClasses } from "../../others/btn/Btn";
 import CheckoutAddress from "./checkout-address/CheckoutAddress";
 import { PaystackButton } from "react-paystack";
+import { useAppSelector } from "../../../store/hooks";
 
-const Checkout = () => {
+const Checkout: FC = () => {
+  const { totalPrice } = useAppSelector((state) => state.product);
   const props = {
     email: "sulayibraheem@gmail.com",
     amount: 500 * 100,
@@ -40,6 +42,8 @@ const Checkout = () => {
                 <Box
                   sx={{
                     display: "flex",
+                    flexWrap: "wrap",
+                    rowGap: 1,
                     alignItems: "center",
                     ".MuiButton-root": {
                       padding: ".5rem 2rem",
@@ -61,7 +65,7 @@ const Checkout = () => {
                     color="primary.dark"
                     sx={{ mr: 2 }}
                   >
-                    &#8358;22, 000
+                    &#8358;{totalPrice}
                   </Typography>
 
                   <PaystackButton className={btnClasses} {...props} />

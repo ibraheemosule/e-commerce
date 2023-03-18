@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import LoginForm from "./login-form/LoginForm";
+import SigninForm from "./signin-form/SigninForm";
 import { memo, useState } from "react";
 import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
@@ -24,7 +24,7 @@ const ForgotPassword = dynamic(
 const Login = () => {
   const [showPasswordPage, setShowPasswordPage] = useState(false),
     routeToPasswordPage = () => setShowPasswordPage((prev) => !prev),
-    PageJsx = showPasswordPage ? ForgotPassword : LoginForm;
+    PageJsx = showPasswordPage ? ForgotPassword : SigninForm;
 
   return (
     <>
