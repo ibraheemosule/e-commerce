@@ -1,7 +1,6 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import counterReducer from "./features/counter/counter-slice";
 import { apiSlice } from "./features/dogs/dogs-api-slice";
 import type { PreloadedState } from "@reduxjs/toolkit";
 import userSliceReducer from "./features/user/user-slice";

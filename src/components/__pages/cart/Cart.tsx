@@ -59,9 +59,14 @@ const Cart = () => {
                     &#8358;{totalPrice.toFixed(2).toLocaleString()}
                   </Typography>
                 </Box>
-                <Btn sx={{ mt: 1 }} variant="contained" disableElevation>
-                  Checkout
-                </Btn>
+                <Link
+                  href="/checkout"
+                  style={{ all: "unset", display: "block" }}
+                >
+                  <Btn sx={{ mt: 1 }} variant="contained" disableElevation>
+                    Checkout
+                  </Btn>
+                </Link>
               </Grid>
             </Grid>
           ) : (

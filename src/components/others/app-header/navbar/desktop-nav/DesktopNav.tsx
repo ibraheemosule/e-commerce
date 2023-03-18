@@ -8,11 +8,10 @@ import SearchBar from "../../../search-bar/SearchBar";
 import UserMenu from "../../user-menu/UserMenu";
 import Cart from "../../cart/Cart";
 import Link from "next/link";
-import { linkWrapperStyles, productsNavStyle } from "../u_navbar";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
+import { linkWrapperStyles } from "../u_navbar";
+
 import navWrapper, { NavbarProps } from "../wrapper/wrapper";
-import { mainNavList, navProductsList } from "../u_navbar";
+import { mainNavList } from "../u_navbar";
 import { bags, shoes, belts } from "../../../../../../testData";
 import { useRouter } from "next/router";
 
@@ -24,8 +23,6 @@ const Nav: FC<NavbarProps> = (props) => {
     const path = router.asPath.substring(1).split("#");
     const activePath = path[path.length - 1];
     return activePath === "" ? "home" : activePath;
-    // console.log(mainNavList.indexOf(activeRoute), activePath);
-    // return activeRoute;
   }, [router.asPath]);
 
   const filteredProducts = useMemo(
@@ -47,7 +44,7 @@ const Nav: FC<NavbarProps> = (props) => {
       <AppBar
         position={props.offScreen ? "fixed" : "static"}
         component="section"
-        onBlur={() => setTimeout(() => setSearch(""), 2000)}
+        // onBlur={() => setTimeout(() => setSearch(""), 2000)}
         elevation={0}
         sx={{
           backgroundColor: "primary.dark",

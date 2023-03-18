@@ -1,18 +1,26 @@
 import SearchIcon from "@mui/icons-material/Search";
 import { Search, SearchIconWrapper, StyledInputBase } from "./s_searchBar";
-import { useState, KeyboardEvent } from "react";
+import { useState, KeyboardEvent, useEffect, useRef } from "react";
 import { onlyAlphabet } from "../../../utils/utilsFunctions";
 import ListItemText from "@mui/material/ListItemText";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import Link from "next/link";
 import { listStyle } from "./s_searchBar";
+import { useRouter } from "next/router";
 
 export default function SearchBar(props: Suggestions) {
   const { products, searchValue, setSearchValue, type } = props;
   const [selectedIndex, setSelectedIndex] = useState(1);
+  const list = useRef<HTMLDivElement>(null);
+  const input = useRef<HTMLInputElement>(null);
 
-  // useEffect(() => console.log(products, searchValue), [searchValue, products]);
+  const router = useRouter();
+
+  useEffect(() => {
+    setSearchValue("");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.asPath]);
 
   const handleListItemClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -32,7 +40,13 @@ export default function SearchBar(props: Suggestions) {
   };
 
   return (
-    <Search>
+    <Search
+      onBlur={(e) => {
+        const elAttr = e.relatedTarget?.getAttribute("data-list");
+        if (elAttr) return;
+        setSearchValue("");
+      }}
+    >
       <SearchIconWrapper>
         <SearchIcon />
       </SearchIconWrapper>
@@ -42,6 +56,7 @@ export default function SearchBar(props: Suggestions) {
         onChange={(e) => setSearchValue(e.target.value)}
         placeholder="Search…"
         inputProps={{ "aria-label": "search" }}
+        ref={input}
       />
       {!!products && searchValue && (
         <List
@@ -50,15 +65,17 @@ export default function SearchBar(props: Suggestions) {
           aria-label="products suggestion list"
         >
           {products.length ? (
-            products?.map(({ name, tag, id, gender }) => (
+            products?.map(({ name, tag, id, gender }, i) => (
               <Link
                 key={id}
-                href="/products"
+                href={`/product?id=${id}`}
                 style={{ all: "unset", display: "block" }}
               >
                 <ListItemButton
-                  selected={selectedIndex === 2}
-                  onClick={(event) => handleListItemClick(event, 2)}
+                  ref={list}
+                  data-list="listed"
+                  selected={selectedIndex === i}
+                  onClick={(event) => handleListItemClick(event, i)}
                 >
                   <ListItemText
                     sx={{ textTransform: "capitalize" }}
