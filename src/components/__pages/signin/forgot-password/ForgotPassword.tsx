@@ -3,13 +3,29 @@ import InputField from "../../../others/input-field/InputField";
 import Typography from "@mui/material/Typography";
 import ButtonBase from "@mui/material/ButtonBase";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
-import { FC, memo } from "react";
+import { FC, memo, FormEvent, useState } from "react";
 import Btn from "../../../others/btn/Btn";
+import { validateEmail } from "../../../../utils/utilsFunctions";
 
 import Grid from "@mui/material/Grid";
-import { Container } from "@mui/material";
+import Container from "@mui/material/Container";
 
 const ForgotPassword: FC<ForgotPasswordProps> = ({ routeToPasswordPage }) => {
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+
+  const submitForm = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!validateEmail(email)) {
+      setError("Invalid Email Syntax");
+      return;
+    }
+  };
+
+  const updateValue = (obj: { [key: string]: string }) => {
+    setEmail(obj.email);
+  };
   return (
     <>
       <Grid item xs={12}>
@@ -37,12 +53,37 @@ const ForgotPassword: FC<ForgotPasswordProps> = ({ routeToPasswordPage }) => {
           <CancelOutlinedIcon />
         </ButtonBase>
       </Grid>
-      <Grid item xs={12} textAlign="center">
+      <Grid
+        item
+        xs={12}
+        textAlign="center"
+        component="form"
+        onSubmit={(e) => submitForm(e)}
+      >
         <Container maxWidth="xs" sx={{ display: "block" }}>
-          <InputField placeholder="Email" />
+          <InputField
+            onChange={updateValue}
+            value={email}
+            type="email"
+            name="email"
+            placeholder="Email"
+          />
         </Container>
-        <Box sx={{ display: "block" }}>
+        <Box sx={{ display: "block", position: "relative" }}>
+          <Typography
+            sx={{
+              position: "absolute",
+              textAlign: "center",
+              width: "100%",
+              top: 0,
+              color: "secondary.dark",
+              fontSize: 12,
+            }}
+          >
+            {error}
+          </Typography>
           <Btn
+            type="submit"
             sx={{
               mt: 3,
               px: 6,

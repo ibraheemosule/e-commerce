@@ -26,6 +26,7 @@ const SigninForm: FC<LoginFormProps> = ({ routeToPasswordPage }) => {
 
   const submitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (!validateEmail(email)) {
       setError("Invalid Email Syntax");
       return;
