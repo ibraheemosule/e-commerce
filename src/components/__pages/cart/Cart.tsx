@@ -77,7 +77,7 @@ const Cart = () => {
             >
               <Box sx={{ textAlign: "center" }}>
                 <Typography sx={{ mb: 2 }} component="h4" variant="h5">
-                  Cart List is Empty
+                  Cart is Empty
                 </Typography>
                 <Link href="/products" style={{ all: "unset" }}>
                   <Btn>Start Shopping</Btn>

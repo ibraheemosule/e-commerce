@@ -18,7 +18,7 @@ export default function SearchBar(props: Suggestions) {
   const router = useRouter();
 
   useEffect(() => {
-    setSearchValue("");
+    products && setSearchValue("");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.asPath]);
 
@@ -44,7 +44,7 @@ export default function SearchBar(props: Suggestions) {
       onBlur={(e) => {
         const elAttr = e.relatedTarget?.getAttribute("data-list");
         if (elAttr) return;
-        setSearchValue("");
+        products && setSearchValue("");
       }}
     >
       <SearchIconWrapper>

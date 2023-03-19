@@ -71,7 +71,6 @@ const Product = () => {
       return;
     }
     if (product.sizes) {
-      console.log(quantity);
       dispatch(mutateCartList({ id, uid: nanoid(), size, quantity }));
     } else dispatch(mutateCartList({ id, uid: nanoid(), quantity }));
   }, [cartList, dispatch, id, product.sizes, quantity, size]);

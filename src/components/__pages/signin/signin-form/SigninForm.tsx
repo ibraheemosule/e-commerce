@@ -11,6 +11,7 @@ import {
   validateEmail,
   validatePassword,
 } from "../../../../utils/utilsFunctions";
+import FormBtn from "../../../others/form-btn/FormBtn";
 
 const SigninForm: FC<LoginFormProps> = ({ routeToPasswordPage }) => {
   const [email, setEmail] = useState("");
@@ -92,7 +93,7 @@ const SigninForm: FC<LoginFormProps> = ({ routeToPasswordPage }) => {
             </ButtonBase>
           </Box>
           <Box sx={{ display: "block", position: "relative" }}>
-            <Btn
+            {/* <Btn
               sx={{
                 mt: 3,
                 px: 6,
@@ -112,7 +113,7 @@ const SigninForm: FC<LoginFormProps> = ({ routeToPasswordPage }) => {
               }}
             >
               {error}
-            </Typography>
+            </Typography> */}
             <ButtonBase
               sx={{
                 display: "flex",

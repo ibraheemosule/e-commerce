@@ -13,7 +13,6 @@ export default memo(function UserMenu() {
       (prev, next) => Number(next.quantity || 0) + prev,
       0
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [JSON.stringify(cartList)]);
 
   return (

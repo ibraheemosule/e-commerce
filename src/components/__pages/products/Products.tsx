@@ -12,14 +12,21 @@ import {
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Btn from "../../others/btn/Btn";
+import Pagination from "../../others/pagination/Pagination";
 
 const sortOptions = ["a-z", "z-a", "highest price", "lowest price"];
 const genderOptions = ["male", "female", "unisex"];
 
 const Products = () => {
   const dispatch = useAppDispatch();
-  const { searchValue, products, filterValue, sortValue, genderValue } =
-    useAppSelector((state) => state.product);
+  const {
+    searchValue,
+    products,
+    paginatedList,
+    filterValue,
+    sortValue,
+    genderValue,
+  } = useAppSelector((state) => state.product);
 
   const updateSearch = (value: string) =>
     void dispatch(mutateProductsList({ searchValue: value }));
@@ -33,9 +40,7 @@ const Products = () => {
   const updateGender = (value: string) =>
     void dispatch(mutateProductsList({ genderValue: value }));
 
-  const reset = () => {
-    void dispatch(resetProductsList());
-  };
+  const reset = () => dispatch(resetProductsList());
 
   return (
     <Box py={{ xs: 9, sm: 12, lg: 15 }}>
@@ -102,15 +107,18 @@ const Products = () => {
           <Grid item xs={12} mt={6}>
             <Grid container justifyContent="center" gap={5} minHeight={200}>
               {products.length ? (
-                products.map((product, i) => (
-                  <Grid item xs={10} sm={5} md={3.5} key={i}>
-                    <ProductCard
-                      img={product.images[0]}
-                      path={`/product?id=${product.id}`}
-                      product={product}
-                    />
-                  </Grid>
-                ))
+                <>
+                  {paginatedList.map((product, i) => (
+                    <Grid item xs={10} sm={5} md={3.5} key={i}>
+                      <ProductCard
+                        img={product.images[0]}
+                        path={`/product?id=${product.id}`}
+                        product={product}
+                      />
+                    </Grid>
+                  ))}
+                  <Pagination />
+                </>
               ) : (
                 <Grid
                   item

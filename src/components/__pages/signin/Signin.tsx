@@ -21,7 +21,7 @@ const ForgotPassword = dynamic(
   }
 );
 
-const Login = () => {
+const Signin = () => {
   const [showPasswordPage, setShowPasswordPage] = useState(false),
     routeToPasswordPage = () => setShowPasswordPage((prev) => !prev),
     PageJsx = showPasswordPage ? ForgotPassword : SigninForm;
@@ -51,4 +51,4 @@ const Login = () => {
   );
 };
 
-export default memo(Login);
+export default memo(Signin);

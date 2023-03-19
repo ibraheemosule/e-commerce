@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { bags, belts, shoes } from "../../../../testData";
+import { calculateTotalPrice } from "../../../utils/utilsFunctions";
 
 export type ProductType = {
   name: string;
@@ -11,7 +12,7 @@ export type ProductType = {
   sizes?: (string | number)[];
   gender: string;
 };
-interface ProductSlice {
+export interface ProductSlice {
   immutableProducts: ProductType[];
   products: ProductType[];
   cartList: CartType[];
@@ -20,6 +21,8 @@ interface ProductSlice {
   sortValue: string;
   genderValue: string;
   totalPrice: number;
+  lastPaginatedNumber: number;
+  paginatedList: ProductType[];
 }
 
 type IMutateProducts = {
@@ -45,6 +48,8 @@ const initialState: ProductSlice = {
   sortValue: "",
   genderValue: "",
   totalPrice: 0,
+  lastPaginatedNumber: 1,
+  paginatedList: [],
 };
 
 export const productSlice = createSlice({
@@ -110,11 +115,9 @@ export const productSlice = createSlice({
     },
 
     resetProductsList(state) {
-      state.filterValue = "";
-      state.genderValue = "";
-      state.sortValue = "";
-      state.searchValue = "";
       state.products = [...state.immutableProducts];
+      state.filterValue = state.genderValue = state.searchValue = "";
+      state.lastPaginatedNumber = 1;
     },
 
     mutateProductsList(state, { payload }: PayloadAction<IMutateProducts>) {
@@ -140,7 +143,6 @@ export const productSlice = createSlice({
       if (state.sortValue) {
         switch (state.sortValue) {
           case "a-z":
-            console.log("here");
             state.products = [...state.products].sort((a, b) =>
               a.name > b.name ? 1 : -1
             );
@@ -165,27 +167,24 @@ export const productSlice = createSlice({
           default:
         }
       }
+      state.lastPaginatedNumber = 1;
+    },
+
+    setPaginatedList(state, action: PayloadAction<ProductType[]>) {
+      state.paginatedList = action.payload;
+    },
+    setLastPaginatedNumber(state, action: PayloadAction<number>) {
+      state.lastPaginatedNumber = action.payload;
     },
   },
 });
-
-function calculateTotalPrice(state: ProductSlice) {
-  const priceSum = state.cartList.reduce((prev, next) => {
-    const product = state.immutableProducts.filter(
-      (prod) => prod.id === next.id
-    )[0];
-
-    return prev + product.price * (next.quantity || 1);
-  }, 0);
-
-  return priceSum;
-}
 
 export const {
   searchProducts,
   mutateCartList,
   mutateProductsList,
-  // updateProductInCart,
+  setPaginatedList,
+  setLastPaginatedNumber,
   resetProductsList,
   removeFromCartList,
 } = productSlice.actions;

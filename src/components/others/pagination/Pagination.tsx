@@ -1,0 +1,128 @@
+import {
+  FC,
+  Dispatch,
+  SetStateAction,
+  ChangeEvent,
+  useState,
+  useEffect,
+  MouseEvent,
+} from "react";
+import { useAppSelector, useAppDispatch } from "../../../store/hooks";
+import { paginateFunction } from "../../../utils/utilsFunctions";
+import ButtonBase from "@mui/material/ButtonBase";
+import Box from "@mui/material/Box";
+import {
+  setPaginatedList,
+  setLastPaginatedNumber,
+  ProductType,
+} from "../../../store/features/product/product-slice";
+import Grid from "@mui/material/Grid";
+import s from "./s_pagination.module.css";
+
+export interface IPaginationProps {
+  number: number;
+  numOfPages: number;
+  setNumber: Dispatch<SetStateAction<number>>;
+}
+const paginateBy = 3;
+
+const Pagination: FC = () => {
+  const dispatch = useAppDispatch();
+  const { products, lastPaginatedNumber } = useAppSelector(
+    (state) => state.product
+  );
+  // const [number, setNumber] = useState(lastPaginatedNumber);
+  const [pageNumberInput, setPageNumberInput] =
+    useState<number>(lastPaginatedNumber);
+  const numOfPages = Math.ceil(products.length / paginateBy);
+
+  useEffect(() => {
+    setPageNumberInput(lastPaginatedNumber);
+  }, [lastPaginatedNumber]);
+
+  useEffect(() => {
+    const paginatedArray = paginateFunction({
+      arr: [...products],
+      pageSize: paginateBy,
+      pageNumber: lastPaginatedNumber,
+    }) as unknown as ProductType[];
+
+    dispatch(setPaginatedList([...paginatedArray]));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [JSON.stringify(products), lastPaginatedNumber]);
+
+  const increment = () => {
+    if (lastPaginatedNumber < numOfPages)
+      dispatch(setLastPaginatedNumber(lastPaginatedNumber + 1));
+  };
+
+  const decrement = () => {
+    if (lastPaginatedNumber > 1)
+      dispatch(setLastPaginatedNumber(lastPaginatedNumber - 1));
+  };
+
+  const changeNumber = (e: ChangeEvent<HTMLInputElement>) => {
+    const inputFieldValue = e.target.value.trim();
+    const newPaginationNumber = Number(inputFieldValue);
+
+    if (Number.isNaN(newPaginationNumber) || newPaginationNumber > numOfPages)
+      return;
+
+    if (newPaginationNumber === 0) {
+      setPageNumberInput(inputFieldValue === "" ? +inputFieldValue : 0);
+      return;
+    }
+    dispatch(setLastPaginatedNumber(newPaginationNumber));
+    setPageNumberInput(newPaginationNumber);
+  };
+
+  const goToFirstOrLast = (number: number) => {
+    dispatch(setLastPaginatedNumber(Number(number)));
+  };
+
+  return (
+    <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
+      <ul className={s.pagination}>
+        <li>
+          <button onClick={() => goToFirstOrLast(1)} className={s.prev}>
+            1
+          </button>
+        </li>
+        <li>
+          <button onClick={decrement} disabled={!(lastPaginatedNumber - 1)}>
+            {lastPaginatedNumber - 1 || ""}
+          </button>
+        </li>
+        <li>
+          <input
+            type="text"
+            value={pageNumberInput}
+            pattern="[0-9]+"
+            inputMode="numeric"
+            onChange={(e) => changeNumber(e)}
+          />
+        </li>
+        <li>
+          <button
+            onClick={increment}
+            disabled={!(lastPaginatedNumber + 1 <= numOfPages)}
+          >
+            {lastPaginatedNumber + 1 <= numOfPages
+              ? lastPaginatedNumber + 1
+              : ""}
+          </button>
+        </li>
+        <li>
+          <button
+            onClick={() => goToFirstOrLast(numOfPages)}
+            className={s.next}
+          >
+            {numOfPages}
+          </button>
+        </li>
+      </ul>
+    </Grid>
+  );
+};
+
+export default Pagination;
