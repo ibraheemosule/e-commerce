@@ -20,10 +20,8 @@ const ContactForm = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
-  const dependency = JSON.stringify(form);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => setError(""), [dependency]);
+  useEffect(() => setError(""), [form]);
 
   const updateForm = (inputValue: { [key: string]: string }) => {
     dispatch({ payload: inputValue });

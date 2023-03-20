@@ -13,7 +13,7 @@ export default memo(function UserMenu() {
       (prev, next) => Number(next.quantity || 0) + prev,
       0
     );
-  }, [JSON.stringify(cartList)]);
+  }, [cartList]);
 
   return (
     <IconButton

@@ -47,7 +47,7 @@ const Pagination: FC = () => {
 
     dispatch(setPaginatedList([...paginatedArray]));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [JSON.stringify(products), lastPaginatedNumber]);
+  }, [products, lastPaginatedNumber]);
 
   const increment = () => {
     if (lastPaginatedNumber < numOfPages)
