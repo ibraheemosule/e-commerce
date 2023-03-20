@@ -1,4 +1,3 @@
-import { Dispatch, FormEvent, SetStateAction } from "react";
 import { SignupFormFieldsType } from "../u_signup";
 import {
   validateEmail,
@@ -8,42 +7,37 @@ import {
 } from "../../../../utils/utilsFunctions";
 import { statesInNigeria } from "../../../../utils/utilsData";
 
-export const submitSignupForm = (
-  e: FormEvent<HTMLFormElement>,
-  setError: Dispatch<SetStateAction<string>>,
-  fields: SignupFormFieldsType
-) => {
-  e.preventDefault();
+export const submitSignupForm = (fields: SignupFormFieldsType) => {
   const checkAllFieldsAreFilled = Object.keys(fields).every(
     (field) => !!fields[field]
   );
 
   if (!checkAllFieldsAreFilled) {
-    setError("Some fields are empty");
+    throw Error("Some fields are empty");
     return;
   }
   if (fields.password !== fields.retypePassword) {
-    setError("Password mismatched");
+    throw Error("Password mismatched");
     return;
   }
   if (!validateEmail(fields.email)) {
-    setError("Email Format Invalid");
+    throw Error("Email Format Invalid");
     return;
   }
   if (!validatePhoneNumber(Number(fields.phoneNo))) {
-    setError("Phone number is invalid");
+    throw Error("Phone number is invalid");
     return;
   }
   if (validatePassword(fields.password) !== "true") {
-    setError(`password must contain ${validatePassword(fields.password)}`);
+    throw Error(`password must contain ${validatePassword(fields.password)}`);
     return;
   }
   if (!onlyAlphabet(fields.firstName) || !onlyAlphabet(fields.lastName)) {
-    setError("Name should contain only letters");
+    throw Error("Name should contain only letters");
     return;
   }
   if (!Object.keys(statesInNigeria).includes(fields.state.toLowerCase())) {
-    setError("Invalid state provided");
+    throw Error("Invalid state provided");
     return;
   }
 };

@@ -4,22 +4,30 @@ import Typography from "@mui/material/Typography";
 import ButtonBase from "@mui/material/ButtonBase";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import { FC, memo, FormEvent, useState } from "react";
-import Btn from "../../../others/btn/Btn";
 import { validateEmail } from "../../../../utils/utilsFunctions";
-
+import FormBtn from "../../../others/form-btn/FormBtn";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 
 const ForgotPassword: FC<ForgotPasswordProps> = ({ routeToPasswordPage }) => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const submitForm = (e: FormEvent<HTMLFormElement>) => {
+  const submitForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
 
-    if (!validateEmail(email)) {
-      setError("Invalid Email Syntax");
-      return;
+    try {
+      if (!validateEmail(email)) throw Error("Invalid Email");
+
+      await new Promise((resolve) => setTimeout(resolve, 500));
+    } catch (e) {
+      let message = "An error occurred";
+      if (e instanceof Error) message = e.message;
+      setError(message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -58,7 +66,7 @@ const ForgotPassword: FC<ForgotPasswordProps> = ({ routeToPasswordPage }) => {
         xs={12}
         textAlign="center"
         component="form"
-        onSubmit={(e) => submitForm(e)}
+        onSubmit={(e) => void submitForm(e)}
       >
         <Container maxWidth="xs" sx={{ display: "block" }}>
           <InputField
@@ -69,28 +77,8 @@ const ForgotPassword: FC<ForgotPasswordProps> = ({ routeToPasswordPage }) => {
             placeholder="Email"
           />
         </Container>
-        <Box sx={{ display: "block", position: "relative" }}>
-          <Typography
-            sx={{
-              position: "absolute",
-              textAlign: "center",
-              width: "100%",
-              top: 0,
-              color: "secondary.dark",
-              fontSize: 12,
-            }}
-          >
-            {error}
-          </Typography>
-          <Btn
-            type="submit"
-            sx={{
-              mt: 3,
-              px: 6,
-            }}
-          >
-            Submit
-          </Btn>
+        <Box>
+          <FormBtn text="Reset Password" error={error} loading={loading} />
           <Typography
             component="p"
             sx={{

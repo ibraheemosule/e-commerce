@@ -5,12 +5,10 @@ import {
   ChangeEvent,
   useState,
   useEffect,
-  MouseEvent,
 } from "react";
 import { useAppSelector, useAppDispatch } from "../../../store/hooks";
 import { paginateFunction } from "../../../utils/utilsFunctions";
-import ButtonBase from "@mui/material/ButtonBase";
-import Box from "@mui/material/Box";
+
 import {
   setPaginatedList,
   setLastPaginatedNumber,
@@ -80,21 +78,33 @@ const Pagination: FC = () => {
     dispatch(setLastPaginatedNumber(Number(number)));
   };
 
+  const updatePaginationToOneOnBlur = () => {
+    if (pageNumberInput === 0) {
+      setPageNumberInput(1);
+      dispatch(setLastPaginatedNumber(1));
+    }
+  };
+
   return (
     <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
       <ul className={s.pagination}>
         <li>
-          <button onClick={() => goToFirstOrLast(1)} className={s.prev}>
+          <button
+            disabled={lastPaginatedNumber === 1}
+            onClick={() => goToFirstOrLast(1)}
+            className={s.prev}
+          >
             1
           </button>
         </li>
         <li>
-          <button onClick={decrement} disabled={!(lastPaginatedNumber - 1)}>
+          <button onClick={decrement} disabled={lastPaginatedNumber === 1}>
             {lastPaginatedNumber - 1 || ""}
           </button>
         </li>
         <li>
           <input
+            onBlur={updatePaginationToOneOnBlur}
             type="text"
             value={pageNumberInput}
             pattern="[0-9]+"
@@ -105,7 +115,7 @@ const Pagination: FC = () => {
         <li>
           <button
             onClick={increment}
-            disabled={!(lastPaginatedNumber + 1 <= numOfPages)}
+            disabled={lastPaginatedNumber === numOfPages}
           >
             {lastPaginatedNumber + 1 <= numOfPages
               ? lastPaginatedNumber + 1
@@ -114,6 +124,7 @@ const Pagination: FC = () => {
         </li>
         <li>
           <button
+            disabled={lastPaginatedNumber === numOfPages}
             onClick={() => goToFirstOrLast(numOfPages)}
             className={s.next}
           >

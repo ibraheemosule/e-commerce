@@ -1,6 +1,6 @@
 import InputField from "../../../others/input-field/InputField";
 import Typography from "@mui/material/Typography";
-import { memo, useState, useEffect } from "react";
+import { memo, useState, useEffect, FormEvent } from "react";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import {
@@ -11,10 +11,17 @@ import useFillForm from "../../../others/hooks/fill-form/useFillForm";
 import FormBtn from "../../../others/form-btn/FormBtn";
 import { validatePassword } from "../../../../utils/utilsFunctions";
 import { submitSignupForm } from "./u_signupForm";
+import { useAppDispatch } from "../../../../store/hooks";
+import {
+  updateUserInfo,
+  UserType,
+} from "../../../../store/features/user/user-slice";
 
 const LoginForm = () => {
+  const dispatch = useAppDispatch();
   const [fields, setField] = useFillForm(formFields);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const [passwordGuide, setPasswordGuide] = useState("");
 
   useEffect(() => {
@@ -31,6 +38,24 @@ const LoginForm = () => {
     setField({ payload: value });
   };
 
+  const createAccount = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      submitSignupForm(fields);
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { password, retypePassword, ...rest } = fields;
+      dispatch(updateUserInfo(rest as unknown as UserType));
+    } catch (e) {
+      let message = "An error occurred";
+      if (e instanceof Error) message = e.message;
+      setError(message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <Grid item xs={12}>
@@ -45,7 +70,7 @@ const LoginForm = () => {
       </Grid>
       <Grid
         component="form"
-        onSubmit={(e) => submitSignupForm(e, setError, fields)}
+        onSubmit={(e) => void createAccount(e)}
         item
         xs={12}
         textAlign="center"
@@ -94,7 +119,7 @@ const LoginForm = () => {
             })}
           </Grid>
 
-          <FormBtn text="create an account" error={error} />
+          <FormBtn text="create an account" error={error} loading={loading} />
         </Container>
       </Grid>
     </>

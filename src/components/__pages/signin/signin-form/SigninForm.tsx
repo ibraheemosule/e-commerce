@@ -1,22 +1,27 @@
 import Box from "@mui/material/Box";
 import InputField from "../../../others/input-field/InputField";
 import Typography from "@mui/material/Typography";
-
 import ButtonBase from "@mui/material/ButtonBase";
 import { FC, FormEvent, memo, useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
-import Btn from "../../../others/btn/Btn";
+import FormBtn from "../../../others/form-btn/FormBtn";
 import {
   validateEmail,
   validatePassword,
 } from "../../../../utils/utilsFunctions";
-import FormBtn from "../../../others/form-btn/FormBtn";
+import { useAppDispatch } from "../../../../store/hooks";
+import {
+  updateUserInfo,
+  UserType,
+} from "../../../../store/features/user/user-slice";
 
-const SigninForm: FC<LoginFormProps> = ({ routeToPasswordPage }) => {
+const SigninForm: FC<SigninFormProps> = ({ routeToPasswordPage }) => {
+  const dispatch = useAppDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const updateValue = (obj: { [key: string]: string }) => {
     if (obj["email"] !== undefined) setEmail(obj["email"]);
@@ -25,17 +30,26 @@ const SigninForm: FC<LoginFormProps> = ({ routeToPasswordPage }) => {
 
   useEffect(() => setError(""), [email, password]);
 
-  const submitForm = (e: FormEvent<HTMLFormElement>) => {
+  const submitForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
 
-    if (!validateEmail(email)) {
-      setError("Invalid Email Syntax");
-      return;
-    }
+    try {
+      if (!validateEmail(email)) throw Error("Invalid Email");
 
-    if (validatePassword(password) !== "true") {
-      setError("Incorrect Password");
-      return;
+      if (validatePassword(password) !== "true") {
+        throw Error("Incorrect Password");
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      dispatch(updateUserInfo({ email } as UserType));
+    } catch (e) {
+      let message = "An error occurred";
+      if (e instanceof Error) message = e.message;
+      setError(message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -56,27 +70,22 @@ const SigninForm: FC<LoginFormProps> = ({ routeToPasswordPage }) => {
         xs={12}
         textAlign="center"
         component="form"
-        onSubmit={(e) => submitForm(e)}
+        onSubmit={(e) => void submitForm(e)}
       >
         <Container maxWidth="xs">
           <Box>
-            <InputField
-              onChange={updateValue}
-              value={email}
-              name="email"
-              type="email"
-              placeholder="Email"
-            />
+            {["Email", "Password"].map((field) => (
+              <InputField
+                onChange={updateValue}
+                key={field}
+                value={field === "Email" ? email : password}
+                name={field.toLowerCase()}
+                type={field.toLowerCase()}
+                placeholder={field}
+              />
+            ))}
           </Box>
-          <Box sx={{ display: "block", mt: 2 }}>
-            <InputField
-              onChange={updateValue}
-              value={password}
-              name="password"
-              placeholder="Password"
-              type="password"
-            />
-
+          <Box sx={{ display: "block" }}>
             <ButtonBase onClick={routeToPasswordPage}>
               <Typography
                 component="p"
@@ -93,27 +102,7 @@ const SigninForm: FC<LoginFormProps> = ({ routeToPasswordPage }) => {
             </ButtonBase>
           </Box>
           <Box sx={{ display: "block", position: "relative" }}>
-            {/* <Btn
-              sx={{
-                mt: 3,
-                px: 6,
-              }}
-              type="submit"
-            >
-              Submit
-            </Btn>
-            <Typography
-              sx={{
-                position: "absolute",
-                textAlign: "center",
-                width: "100%",
-                top: 0,
-                color: "secondary.dark",
-                fontSize: 12,
-              }}
-            >
-              {error}
-            </Typography> */}
+            <FormBtn text="Log in" error={error} loading={loading} />
             <ButtonBase
               sx={{
                 display: "flex",
@@ -136,7 +125,7 @@ const SigninForm: FC<LoginFormProps> = ({ routeToPasswordPage }) => {
   );
 };
 
-interface LoginFormProps {
+interface SigninFormProps {
   routeToPasswordPage: () => void;
 }
 

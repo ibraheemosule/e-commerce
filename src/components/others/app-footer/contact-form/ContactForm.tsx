@@ -2,29 +2,28 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import InputField from "../../input-field/InputField";
-import Btn from "../../btn/Btn";
 import useFillForm from "../../hooks/fill-form/useFillForm";
 import { FormEvent, memo, useEffect, useState } from "react";
 import { contactFormField } from "./u_contactForm";
 import { onlyAlphabet, validateEmail } from "../../../../utils/utilsFunctions";
 import emailjs from "@emailjs/browser";
-import LoaderIcon from "../../LoaderIcon";
+import FormBtn from "../../form-btn/FormBtn";
 
 const formField = {
   fullName: "",
   email: "",
   message: "",
-  error: "",
 };
 
 const ContactForm = () => {
   const [form, dispatch] = useFillForm(formField);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-
+  const [error, setError] = useState("");
   const dependency = JSON.stringify(form);
 
-  useEffect(() => dispatch({ payload: { error: "" } }), [dependency, dispatch]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => setError(""), [dependency]);
 
   const updateForm = (inputValue: { [key: string]: string }) => {
     dispatch({ payload: inputValue });
@@ -36,14 +35,14 @@ const ContactForm = () => {
     void (async () => {
       setLoading(true);
       try {
+        if (!fullName.trim() || !email.trim() || !message.trim())
+          throw new Error("Some fields are empty");
+
         const checkForScripts = Object.values(form).join("").includes("<");
         if (checkForScripts) throw new Error(`Character '<' not allowed`);
 
         if (!onlyAlphabet(form.fullName))
-          throw new Error("Invalid character(s) in name field");
-
-        if (!fullName.trim() || !email.trim() || !message.trim())
-          throw new Error("Some fields are empty");
+          throw new Error("Invalid character in name field");
 
         if (!validateEmail(email)) throw new Error("Invalid email syntax");
 
@@ -55,11 +54,12 @@ const ContactForm = () => {
         );
 
         dispatch({ payload: formField });
+        setError("");
         setSuccess(true);
       } catch (e) {
         let message = "An error occured";
         if (e instanceof Error) message = e.message;
-        dispatch({ payload: { error: message } });
+        setError(message);
       } finally {
         setLoading(false);
       }
@@ -81,6 +81,12 @@ const ContactForm = () => {
           onSubmit={submitForm}
           noValidate={false}
           autoComplete="off"
+          sx={{
+            p: {
+              display: "inline-block",
+              marginRight: "auto",
+            },
+          }}
         >
           {contactFormField.map((field) => (
             <Box key={field.name} sx={{ maxWidth: "25ch" }}>
@@ -104,16 +110,7 @@ const ContactForm = () => {
               )}
             </Box>
           ))}
-          <Typography sx={{ fontSize: 12 }}>{form.error}</Typography>
-          <Btn
-            type="submit"
-            sx={{
-              mt: 2,
-              px: 3,
-            }}
-          >
-            {loading ? <LoaderIcon size={22} /> : "Submit"}
-          </Btn>
+          <FormBtn error={error} text="submit" loading={loading} />
         </Box>
       )}
     </Grid>

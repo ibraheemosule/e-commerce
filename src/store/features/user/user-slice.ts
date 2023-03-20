@@ -1,13 +1,26 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface UserSlice {
-  signin: boolean;
-  cartItems: [];
+export interface UserType {
+  firstName: string;
+  lastName: string;
+  email: string;
+  address: string;
+  city: string;
+  state: string;
+  phoneNo: string;
 }
 
-const initialState: UserSlice = {
+const initialState: { signin: boolean; user: UserType } = {
   signin: false,
-  cartItems: [],
+  user: {
+    firstName: "",
+    lastName: "",
+    address: "",
+    email: "",
+    city: "",
+    state: "",
+    phoneNo: "",
+  },
 };
 
 export const userSlice = createSlice({
@@ -18,8 +31,11 @@ export const userSlice = createSlice({
     setSignin(state) {
       state.signin = !state.signin;
     },
+    updateUserInfo(state, { payload }: PayloadAction<UserType>) {
+      state.user = { ...state.user, ...payload };
+    },
   },
 });
 
-export const { setSignin } = userSlice.actions;
+export const { setSignin, updateUserInfo } = userSlice.actions;
 export default userSlice.reducer;
