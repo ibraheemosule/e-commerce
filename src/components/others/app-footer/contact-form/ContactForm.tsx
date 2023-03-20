@@ -7,7 +7,7 @@ import { FormEvent, memo, useEffect, useState } from "react";
 import { contactFormField } from "./u_contactForm";
 import { onlyAlphabet, validateEmail } from "../../../../utils/utilsFunctions";
 import emailjs from "@emailjs/browser";
-import FormBtn from "../../form-btn/FormBtn";
+import FormBtn from "../../btn/form-btn/FormBtn";
 
 const formField = {
   fullName: "",

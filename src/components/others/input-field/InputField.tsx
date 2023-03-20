@@ -9,7 +9,16 @@ import { ChangeEvent } from "react";
 
 const InputField: FC<InputFieldProps> = (props) => {
   const [showPassword, setShowPassword] = useState("");
-  const { border, darkBg, placeholder, textarea, type, name, onChange } = props;
+  const {
+    border,
+    darkBg,
+    placeholder,
+    textarea,
+    type,
+    name,
+    onChange,
+    disabled,
+  } = props;
 
   const handleShowPassword = () => {
     if (!showPassword) {
@@ -44,6 +53,7 @@ const InputField: FC<InputFieldProps> = (props) => {
           value={props.value}
           onChange={(e) => getFieldValue(e)}
           label={placeholder}
+          disabled={disabled}
           size="small"
           multiline={textarea}
           maxRows={textarea && 3}
@@ -78,6 +88,7 @@ interface InputFieldProps {
   name?: string;
   onChange: (value: { [key: string]: string }) => void;
   value: string;
+  disabled?: boolean;
 }
 
 export default memo(InputField);

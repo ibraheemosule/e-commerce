@@ -1,33 +1,53 @@
-import { memo } from "react";
+import { Dispatch, FC, memo } from "react";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import InputField from "../../../../others/input-field/InputField";
+import { userForm } from "../../../../../utils/utilsData";
+import { formFields } from "../../../../../utils/utilsFunctions";
+import { useAppSelector } from "../../../../../store/hooks";
+const form = formFields(userForm);
 
-const AddressForm = () => {
+export type AddressFormFieldsType = typeof form;
+
+const AddressForm: FC<AddressFormProps> = ({ fields, setField }) => {
+  const { deliveryAddress } = useAppSelector(({ user }) => user);
+  const updateField = (value: Record<string, string>) => {
+    setField({ payload: value });
+  };
+
   return (
     <Container>
       <Grid justifyContent="space-between" container>
-        <Grid item xs={12} sm={5.5}>
-          <InputField placeholder="First Name" />
-        </Grid>
-        <Grid item xs={12} sm={5.5}>
-          <InputField placeholder="Last Name" />
-        </Grid>
-        <Grid item xs={12}>
-          <InputField placeholder="Address" />
-        </Grid>
-        <Grid item xs={12} sm={3.5}>
-          <InputField placeholder="Phone Number" />
-        </Grid>
-        <Grid item xs={12} sm={3.5}>
-          <InputField placeholder="City" />
-        </Grid>
-        <Grid item xs={12} sm={3.5}>
-          <InputField placeholder="State" />
-        </Grid>
+        {Object.keys(form).map((field, i) => {
+          const value = field as keyof typeof userForm;
+          return (
+            <Grid
+              key={i}
+              item
+              sx={{
+                position: "relative",
+              }}
+              {...userForm[value].gridProps}
+            >
+              <InputField
+                placeholder={userForm[value].placeholder}
+                value={fields[field]}
+                onChange={updateField}
+                name={field}
+                type="text"
+                disabled={!!deliveryAddress}
+              />
+            </Grid>
+          );
+        })}
       </Grid>
     </Container>
   );
 };
+
+interface AddressFormProps {
+  fields: Record<string, string>;
+  setField: Dispatch<{ payload: Record<string, string> }>;
+}
 
 export default memo(AddressForm);

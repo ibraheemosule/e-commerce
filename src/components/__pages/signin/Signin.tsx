@@ -2,23 +2,13 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import SigninForm from "./signin-form/SigninForm";
 import { memo, useState } from "react";
-import Skeleton from "@mui/material/Skeleton";
-import Stack from "@mui/material/Stack";
 import Grid from "@mui/material/Grid";
 import dynamic from "next/dynamic";
+import LazyLoader from "../../others/skeleton/Skeleton";
 
 const ForgotPassword = dynamic(
   () => import("./forgot-password/ForgotPassword"),
-  {
-    loading: () => (
-      <Stack spacing={1} width="100%" px={3}>
-        <Skeleton variant="text" sx={{ fontSize: "2rem" }} />
-        <Skeleton variant="rectangular" height={50} />
-        <Skeleton variant="rectangular" height={50} />
-        <Skeleton variant="text" sx={{ fontSize: "2rem" }} />
-      </Stack>
-    ),
-  }
+  { loading: LazyLoader }
 );
 
 const Signin = () => {

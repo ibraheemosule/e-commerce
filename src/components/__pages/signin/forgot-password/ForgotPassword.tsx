@@ -5,7 +5,7 @@ import ButtonBase from "@mui/material/ButtonBase";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import { FC, memo, FormEvent, useState } from "react";
 import { validateEmail } from "../../../../utils/utilsFunctions";
-import FormBtn from "../../../others/form-btn/FormBtn";
+import FormBtn from "../../../others/btn/form-btn/FormBtn";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 

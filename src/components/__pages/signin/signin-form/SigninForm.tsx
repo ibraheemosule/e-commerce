@@ -5,7 +5,7 @@ import ButtonBase from "@mui/material/ButtonBase";
 import { FC, FormEvent, memo, useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
-import FormBtn from "../../../others/form-btn/FormBtn";
+import FormBtn from "../../../others/btn/form-btn/FormBtn";
 import {
   validateEmail,
   validatePassword,

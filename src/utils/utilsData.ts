@@ -38,3 +38,30 @@ export const statesInNigeria = {
 };
 
 export const phoneNumberFormats = ["234", "080", "070", "081", "090", "091"];
+
+export const userForm = {
+  firstName: {
+    placeholder: "First Name",
+    gridProps: { xs: 12, sm: 5.5 },
+  },
+  lastName: {
+    placeholder: "Last Name",
+    gridProps: { xs: 12, sm: 5.5 },
+  },
+  address: {
+    placeholder: "Address",
+    gridProps: { xs: 12 },
+  },
+  phoneNo: {
+    placeholder: "Phone Number",
+    gridProps: { xs: 12, sm: 3.5 },
+  },
+  city: {
+    placeholder: "City",
+    gridProps: { xs: 12, sm: 3.5 },
+  },
+  state: {
+    placeholder: "State",
+    gridProps: { xs: 12, sm: 3.5 },
+  },
+};

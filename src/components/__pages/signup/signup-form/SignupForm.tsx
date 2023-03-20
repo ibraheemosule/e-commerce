@@ -3,12 +3,9 @@ import Typography from "@mui/material/Typography";
 import { memo, useState, useEffect, FormEvent } from "react";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
-import {
-  signupForm as form,
-  signupFormFields as formFields,
-} from "../u_signup";
+import { signupForm as form, signupFormFields } from "../u_signup";
 import useFillForm from "../../../others/hooks/fill-form/useFillForm";
-import FormBtn from "../../../others/form-btn/FormBtn";
+import FormBtn from "../../../others/btn/form-btn/FormBtn";
 import { validatePassword } from "../../../../utils/utilsFunctions";
 import { submitSignupForm } from "./u_signupForm";
 import { useAppDispatch } from "../../../../store/hooks";
@@ -19,7 +16,7 @@ import {
 
 const LoginForm = () => {
   const dispatch = useAppDispatch();
-  const [fields, setField] = useFillForm(formFields);
+  const [fields, setField] = useFillForm(signupFormFields);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [passwordGuide, setPasswordGuide] = useState("");
@@ -42,8 +39,9 @@ const LoginForm = () => {
     e.preventDefault();
     setLoading(true);
     try {
+      //console.log(!!submitSignupForm(fields));
       submitSignupForm(fields);
-      await new Promise((resolve) => setTimeout(resolve, 3000));
+      await new Promise((resolve) => setTimeout(resolve, 500));
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, retypePassword, ...rest } = fields;
       dispatch(updateUserInfo(rest as unknown as UserType));
@@ -77,7 +75,7 @@ const LoginForm = () => {
       >
         <Container maxWidth="sm">
           <Grid justifyContent="space-between" container>
-            {Object.keys(formFields).map((field, i) => {
+            {Object.keys(signupFormFields).map((field, i) => {
               const value = field as keyof typeof form;
               return (
                 <Grid

@@ -1,8 +1,8 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import LoaderIcon from "../LoaderIcon";
+import LoaderIcon from "../../LoaderIcon";
 import { FC, memo } from "react";
-import Btn from "../btn/Btn";
+import Btn from "../Btn";
 
 const FormBtn: FC<FormBtnProps> = ({ btnSize, text, error, loading }) => {
   return (
@@ -16,7 +16,7 @@ const FormBtn: FC<FormBtnProps> = ({ btnSize, text, error, loading }) => {
         }}
         type="submit"
       >
-        {loading ? <LoaderIcon size={22} /> : text}
+        {loading ? <LoaderIcon size={24} /> : text}
       </Btn>
       <Typography
         sx={{

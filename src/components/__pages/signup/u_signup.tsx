@@ -1,12 +1,9 @@
+import { userForm } from "../../../utils/utilsData";
+import { formFields } from "../../../utils/utilsFunctions";
+
 export const signupForm = {
-  firstName: {
-    placeholder: "First Name",
-    gridProps: { xs: 12, sm: 5.5 },
-  },
-  lastName: {
-    placeholder: "Last Name",
-    gridProps: { xs: 12, sm: 5.5 },
-  },
+  firstName: userForm.firstName,
+  lastName: userForm.lastName,
   email: {
     placeholder: "Email",
     gridProps: { xs: 12 },
@@ -20,30 +17,12 @@ export const signupForm = {
     placeholder: "Retype Password",
     gridProps: { xs: 12, sm: 5.5 },
   },
-  address: {
-    placeholder: "Address",
-    gridProps: { xs: 12 },
-  },
-  phoneNo: {
-    placeholder: "Phone Number",
-    gridProps: { xs: 12, sm: 3.5 },
-  },
-  city: {
-    placeholder: "City",
-    gridProps: { xs: 12, sm: 3.5 },
-  },
-  state: {
-    placeholder: "State",
-    gridProps: { xs: 12, sm: 3.5 },
-  },
+  address: userForm.address,
+  phoneNo: userForm.phoneNo,
+  city: userForm.city,
+  state: userForm.state,
 };
 
 export type SignupFormFieldsType = typeof signupFormFields;
 
-export const signupFormFields = Object.keys(signupForm).reduce(
-  (prev, next) => ({
-    ...prev,
-    [next]: "",
-  }),
-  {} as Record<string, string>
-);
+export const signupFormFields = formFields(signupForm);

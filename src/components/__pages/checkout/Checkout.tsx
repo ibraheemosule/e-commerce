@@ -1,15 +1,30 @@
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import Box from "@mui/system/Box";
-import { FC, memo } from "react";
+import { FC, memo, useState, useEffect } from "react";
 import Typography from "@mui/material/Typography";
 import { btnClasses } from "../../others/btn/Btn";
 import CheckoutAddress from "./checkout-address/CheckoutAddress";
 import { PaystackButton } from "react-paystack";
-import { useAppSelector } from "../../../store/hooks";
+import { useAppSelector, useAppDispatch } from "../../../store/hooks";
+import { changeDeliveryAddress } from "../../../store/features/user/user-slice";
 
 const Checkout: FC = () => {
+  const dispatch = useAppDispatch();
   const { totalPrice } = useAppSelector((state) => state.product);
+  const { deliveryAddress, user } = useAppSelector(({ user }) => user);
+  const [addressOption, setAddressOption] = useState("default");
+
+  useEffect(() => {
+    if (addressOption === "default") {
+      const address = `${user.address}, ${user.city}, ${user.state}`;
+      dispatch(changeDeliveryAddress(address));
+      return;
+    }
+    dispatch(changeDeliveryAddress(""));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [addressOption]);
+
   const props = {
     email: "sulayibraheem@gmail.com",
     amount: 500 * 100,
@@ -26,51 +41,56 @@ const Checkout: FC = () => {
         <Container sx={{ bgcolor: "primary.light", p: 3, py: 8 }}>
           <Grid container>
             <Grid item xs={12}>
-              <CheckoutAddress />
-              <Container>
-                <Box
-                  sx={{
-                    display: "flex",
-                    mt: { xs: 2 },
-                  }}
-                >
-                  <span style={{ alignSelf: "center", marginRight: 12 }}>
-                    Shipping Fee:
-                  </span>
-                  <Typography color="primary.dark">&#8358;2, 000</Typography>
-                </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    rowGap: 1,
-                    alignItems: "center",
-                    ".MuiButton-root": {
-                      padding: ".5rem 2rem",
-                      border: 0,
-                      outline: 0,
-                      borderRadius: "5px",
-                      fontWeight: 500,
-                      fontSize: "1rem",
-                      cursor: "pointer",
-                    },
-                  }}
-                >
-                  <strong style={{ alignSelf: "center", marginRight: 12 }}>
-                    Subtotal:
-                  </strong>
-                  <Typography
-                    component="h1"
-                    variant="h5"
-                    color="primary.dark"
-                    sx={{ mr: 2 }}
+              <CheckoutAddress
+                option={addressOption}
+                setOption={setAddressOption}
+              />
+              {deliveryAddress && (
+                <Container>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      mt: { xs: 2 },
+                    }}
                   >
-                    &#8358;{totalPrice}
-                  </Typography>
+                    <span style={{ alignSelf: "center", marginRight: 12 }}>
+                      Shipping Fee:
+                    </span>
+                    <Typography color="primary.dark">&#8358;2, 000</Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      rowGap: 1,
+                      alignItems: "center",
+                      ".MuiButton-root": {
+                        padding: ".5rem 2rem",
+                        border: 0,
+                        outline: 0,
+                        borderRadius: "5px",
+                        fontWeight: 500,
+                        fontSize: "1rem",
+                        cursor: "pointer",
+                      },
+                    }}
+                  >
+                    <strong style={{ alignSelf: "center", marginRight: 12 }}>
+                      Subtotal:
+                    </strong>
+                    <Typography
+                      component="h1"
+                      variant="h5"
+                      color="primary.dark"
+                      sx={{ mr: 2 }}
+                    >
+                      &#8358;{totalPrice}
+                    </Typography>
 
-                  <PaystackButton className={btnClasses} {...props} />
-                </Box>
-              </Container>
+                    <PaystackButton className={btnClasses} {...props} />
+                  </Box>
+                </Container>
+              )}
             </Grid>
           </Grid>
         </Container>

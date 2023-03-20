@@ -92,3 +92,12 @@ export const validatePhoneNumber = (number: number) => {
     return true;
   }
 };
+
+export const formFields = (form: { [key: string]: object }) =>
+  Object.keys(form).reduce(
+    (prev, next) => ({
+      ...prev,
+      [next]: "",
+    }),
+    {} as Record<string, string>
+  );
