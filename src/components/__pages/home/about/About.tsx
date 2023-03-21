@@ -20,7 +20,7 @@ export default function About() {
             textAlign="center"
             color="secondary.main"
           >
-            About One Shop
+            About 1904 Stores
           </Typography>
           <Typography component="p" color="primary.dark" mt={2}>
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem

@@ -26,14 +26,16 @@ import {
   mutateProductsList,
 } from "../../../store/features/product/product-slice";
 import { nanoid } from "@reduxjs/toolkit";
-import NoProduct from "./NoProduct";
+import dynamic from "next/dynamic";
 
-const Product = () => {
-  const [showDescription, setShowDescription] = useState(false),
-    [quantity, setQuantity] = useState(1),
-    [size, setSize] = useState(""),
-    [error, setError] = useState(""),
-    [selectedImg, setSelectedImg] = useState("");
+const NoProduct = dynamic(() => import("./NoProduct"));
+
+export default memo(function Product() {
+  const [showDescription, setShowDescription] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+  const [size, setSize] = useState("");
+  const [error, setError] = useState("");
+  const [selectedImg, setSelectedImg] = useState("");
   const { immutableProducts, cartList } = useAppSelector(
     (state) => state.product
   );
@@ -175,7 +177,7 @@ const Product = () => {
               </Typography>
               <Box
                 sx={{
-                  mt: 0,
+                  mt: 1,
                   textTransform: "capitalize",
                   color: "secondary.light",
                 }}
@@ -281,6 +283,4 @@ const Product = () => {
       </Container>
     </>
   );
-};
-
-export default memo(Product);
+});

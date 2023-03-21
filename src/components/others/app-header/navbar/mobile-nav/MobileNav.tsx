@@ -6,7 +6,6 @@ import { StyledListItem } from "./u_mobileNav";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import Toolbar from "@mui/material/Toolbar";
 import HomeIcon from "@mui/icons-material/Home";
 import ShoesIcon from "@mui/icons-material/DoNotStep";
 import Link from "next/link";
@@ -49,9 +48,9 @@ const Nav: FC<NavbarProps> = (props) => {
         }}
       >
         <div>
-          <Toolbar sx={{ backgroundColor: "primary.dark" }}>
-            <Image src="/images/logo.png" alt="logo" width={100} height={25} />
-          </Toolbar>
+          <div style={{ backgroundColor: "#14213d" }}>
+            <Image src="/images/logo.png" alt="logo" width={70} height={60} />
+          </div>
           <Divider />
           <List>
             {mainNavList.map((text) => (
