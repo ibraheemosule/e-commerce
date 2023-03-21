@@ -9,7 +9,6 @@ import UserMenu from "../../user-menu/UserMenu";
 import Cart from "../../cart/Cart";
 import Link from "next/link";
 import { linkWrapperStyles } from "../u_navbar";
-
 import navWrapper, { NavbarProps } from "../wrapper/wrapper";
 import { mainNavList } from "../u_navbar";
 import { bags, shoes, belts } from "../../../../../../testData";

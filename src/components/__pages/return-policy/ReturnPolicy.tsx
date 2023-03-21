@@ -2,13 +2,8 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { memo } from "react";
 import Container from "@mui/material/Container";
-import Image from "next/image";
 import Box from "@mui/material/Box";
 import { returnPolicy } from "./u_returnPolicy";
-import { listStyle } from "../../others/search-bar/s_searchBar";
-
-export const currentYear = new Date().getFullYear();
-export const logos = ["/images/belt sizes.jpg", "/images/shoe sizes.png"];
 
 export default memo(function SizeGuide() {
   return (
