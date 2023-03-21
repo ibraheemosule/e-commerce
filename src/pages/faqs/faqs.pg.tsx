@@ -1,6 +1,7 @@
 import Head from "next/head";
+import Faqs from "../../components/__pages/faqs/Faqs";
 
-export default function AboutPage() {
+export default function FaqsPage() {
   return (
     <>
       <Head>
@@ -9,7 +10,8 @@ export default function AboutPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      about
+
+      <Faqs />
     </>
   );
 }

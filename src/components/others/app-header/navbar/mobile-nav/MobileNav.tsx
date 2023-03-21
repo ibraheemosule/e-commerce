@@ -2,7 +2,7 @@ import { FC, memo } from "react";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
-import { StyledListItem, productLinkStyle } from "./u_mobileNav";
+import { StyledListItem } from "./u_mobileNav";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
@@ -11,8 +11,6 @@ import HomeIcon from "@mui/icons-material/Home";
 import ShoesIcon from "@mui/icons-material/DoNotStep";
 import Link from "next/link";
 import Image from "next/image";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
 import AboutIcon from "@mui/icons-material/PsychologyAlt";
 import ContactIcon from "@mui/icons-material/Call";
 import navWrapper from "../wrapper/wrapper";
@@ -24,7 +22,6 @@ import {
   mainNavList,
   signedInMenu,
   notSignedInMenu,
-  navProductsList,
 } from "../u_navbar";
 
 const Nav: FC<NavbarProps> = (props) => {
@@ -60,47 +57,6 @@ const Nav: FC<NavbarProps> = (props) => {
             {mainNavList.map((text) => (
               <StyledListItem key={text} disablePadding>
                 {
-                  // text === "products" ? (
-                  //   <>
-                  //     <a key={text} onClick={e => props.openUserMenu(e)}>
-                  //       <ListItemButton>
-                  //         <ListItemIcon>
-                  //           <ShoesIcon />
-                  //         </ListItemIcon>
-                  //         <ListItemText primary={text} />
-                  //       </ListItemButton>
-                  //     </a>
-
-                  //     <Menu
-                  //       sx={{ mt: "10px" }}
-                  //       elevation={3}
-                  //       id="menu-appbar"
-                  //       anchorEl={props.anchorElUser}
-                  //       anchorOrigin={{
-                  //         vertical: "top",
-                  //         horizontal: "right",
-                  //       }}
-                  //       keepMounted
-                  //       transformOrigin={{
-                  //         vertical: "top",
-                  //         horizontal: "right",
-                  //       }}
-                  //       open={Boolean(props.anchorElUser)}
-                  //       onClose={props.handleCloseUserMenu}
-                  //     >
-                  //       {navProductsList.map(product => (
-                  //         <MenuItem
-                  //           key={product}
-                  //           onClick={props.handleCloseUserMenu}
-                  //         >
-                  //           <Link style={productLinkStyle} href="/products">
-                  //             {product}
-                  //           </Link>
-                  //         </MenuItem>
-                  //       ))}
-                  //     </Menu>
-                  //   </>
-                  // ) :
                   <Link
                     href={
                       text === "home"

@@ -12,8 +12,6 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
-import InputLabel from "@mui/material/InputLabel";
-import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { formControlStyle } from "./u_checkout-address";
@@ -21,7 +19,10 @@ import dynamic from "next/dynamic";
 import LazyLoader from "../../../others/skeleton/Skeleton";
 import useFillForm from "../../../others/hooks/fill-form/useFillForm";
 import { addressFields, validateAddressForm } from "./u_checkout-address";
-import { changeDeliveryAddress } from "../../../../store/features/user/user-slice";
+import {
+  changeDeliveryDetails,
+  DeliveryDetailsType,
+} from "../../../../store/features/user/user-slice";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
 import FormBtn from "../../../others/btn/form-btn/FormBtn";
 
@@ -31,7 +32,7 @@ const AddressForm = dynamic(() => import("./address-form/AddressForm"), {
 
 const CheckoutAddress: FC<CheckoutAddressProps> = ({ option, setOption }) => {
   const dispatch = useAppDispatch();
-  const { user, deliveryAddress } = useAppSelector(({ user }) => user);
+  const { user, deliveryDetails } = useAppSelector(({ user }) => user);
   const [fields, setField] = useFillForm(addressFields);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -46,8 +47,7 @@ const CheckoutAddress: FC<CheckoutAddressProps> = ({ option, setOption }) => {
     try {
       validateAddressForm(fields);
       await new Promise((resolve) => setTimeout(resolve, 500));
-      const address = `${fields.address}, ${fields.city}, ${fields.state}`;
-      dispatch(changeDeliveryAddress(address));
+      dispatch(changeDeliveryDetails(fields as DeliveryDetailsType));
     } catch (e) {
       let message = "An error occurred";
       if (e instanceof Error) message = e.message;
@@ -79,7 +79,7 @@ const CheckoutAddress: FC<CheckoutAddressProps> = ({ option, setOption }) => {
             <FormControlLabel
               value="default"
               control={<Radio />}
-              label="Use Default Address"
+              label="Use Default Details"
             />
             <Container sx={{ textTransform: "capitalize" }}>
               <Typography>
@@ -98,14 +98,18 @@ const CheckoutAddress: FC<CheckoutAddressProps> = ({ option, setOption }) => {
             <FormControlLabel
               value="custom"
               control={<Radio />}
-              label="Fill Another Address"
+              label="Use Custom Details"
               sx={{ mt: 2 }}
             />
           </RadioGroup>
           {option === "custom" && (
             <>
-              <AddressForm fields={fields} setField={setField} />
-              {!deliveryAddress && (
+              <AddressForm
+                setError={setError}
+                fields={fields}
+                setField={setField}
+              />
+              {!Object.values(deliveryDetails).join() && (
                 <FormBtn text="use address" loading={loading} error={error} />
               )}
             </>

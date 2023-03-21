@@ -30,7 +30,7 @@ export default function UserMenu() {
           {signin ? (
             <Avatar
               sx={{ backgroundColor: "secondary.main", color: "primary.dark" }}
-              alt="Remy Sharp"
+              alt="B"
               src="/static/images/avatar/2.jpg"
             />
           ) : (

@@ -12,21 +12,38 @@ export type UserType = {
 
 interface UserSlice {
   signin: boolean;
-  deliveryAddress: string;
+  deliveryDetails: DeliveryDetailsType;
   user: UserType;
 }
 
+export type DeliveryDetailsType = {
+  address: string;
+  lastName: string;
+  firstName: string;
+  phoneNo: string;
+  city: string;
+  state: string;
+};
+
 const initialState: UserSlice = {
-  signin: false,
-  deliveryAddress: "",
-  user: {
-    firstName: "",
+  signin: true,
+  deliveryDetails: {
+    address: "",
     lastName: "",
+    firstName: "",
+    phoneNo: "",
+    city: "",
+    state: "",
+  },
+
+  user: {
+    firstName: "Ibrahim",
+    lastName: "Sule",
     address: "22, Ibraheem Musa street, Opposite Chrisland College",
     email: "",
     city: "Idimu",
     state: "Lagos",
-    phoneNo: "",
+    phoneNo: "+2348067153177",
   },
 };
 
@@ -38,15 +55,20 @@ export const userSlice = createSlice({
     setSignin(state) {
       state.signin = !state.signin;
     },
+
     updateUserInfo(state, { payload }: PayloadAction<UserType>) {
       state.user = { ...state.user, ...payload };
     },
-    changeDeliveryAddress(state, { payload }: PayloadAction<string>) {
-      state.deliveryAddress = payload;
+
+    changeDeliveryDetails(
+      state,
+      { payload }: PayloadAction<DeliveryDetailsType>
+    ) {
+      state.deliveryDetails = payload;
     },
   },
 });
 
-export const { setSignin, updateUserInfo, changeDeliveryAddress } =
+export const { setSignin, updateUserInfo, changeDeliveryDetails } =
   userSlice.actions;
 export default userSlice.reducer;

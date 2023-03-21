@@ -7,23 +7,17 @@ const navWrapper = (Nav: React.ComponentType<NavbarProps>) => {
     showMenu: boolean;
     setShowMenu: Dispatch<SetStateAction<boolean>>;
   }> = (props) => {
-    const { signin } = useAppSelector((state) => state.user);
-
-    const [showMenu, setShowMenu] = useState(false),
-      [active, setActive] = useState(1);
+    const { signin } = useAppSelector(({ user }) => user);
+    const [active, setActive] = useState(1);
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
-    const openUserMenu = (event: MouseEvent<HTMLElement>, index?: number) => {
+    function openUserMenu(event: MouseEvent<HTMLElement>, index?: number) {
       setAnchorElUser(event.currentTarget);
       if (!index) return;
       setActive(() => index + 1);
-    };
+    }
 
     const handleCloseUserMenu = () => setAnchorElUser(null);
-
-    const handleDrawerToggle = () => {
-      setShowMenu(!showMenu);
-    };
 
     return (
       <>
@@ -33,7 +27,6 @@ const navWrapper = (Nav: React.ComponentType<NavbarProps>) => {
           active={active}
           setActive={setActive}
           openUserMenu={openUserMenu}
-          handleDrawerToggle={handleDrawerToggle}
           anchorElUser={anchorElUser}
           showMenu={props.showMenu}
           setShowMenu={props.setShowMenu}
@@ -49,7 +42,6 @@ const navWrapper = (Nav: React.ComponentType<NavbarProps>) => {
 export interface NavbarProps {
   offScreen: boolean;
   handleCloseUserMenu: () => void;
-  handleDrawerToggle: () => void;
   active: number;
   anchorElUser: null | HTMLElement;
   openUserMenu: (e: MouseEvent<HTMLElement>, i?: number) => void;

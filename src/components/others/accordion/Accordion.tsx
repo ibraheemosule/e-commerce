@@ -9,6 +9,8 @@ const CustomAccordion: FC<CustomAccordionProps> = ({
   expanded,
   setExpanded,
   id,
+  title,
+  text,
 }) => {
   const handleChange =
     (panel: number) => (event: React.SyntheticEvent, isExpanded: boolean) => {
@@ -27,15 +29,15 @@ const CustomAccordion: FC<CustomAccordionProps> = ({
           aria-controls="panel1bh-content"
           id="panel1bh-header"
         >
-          <Typography component="h6" sx={{ fontWeight: "500" }}>
-            General settings
+          <Typography
+            component="h5"
+            sx={{ fontWeight: "500", textTransform: "capitalize" }}
+          >
+            {title}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
-            Aliquam eget maximus est, id dignissim quam.
-          </Typography>
+          <Typography>{text}</Typography>
         </AccordionDetails>
       </Accordion>
     </div>
@@ -46,6 +48,8 @@ interface CustomAccordionProps {
   expanded: number | boolean;
   setExpanded: Dispatch<SetStateAction<false | number>>;
   id: number;
+  title: string;
+  text: string;
 }
 
 export default memo(CustomAccordion);

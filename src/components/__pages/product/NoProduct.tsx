@@ -6,7 +6,7 @@ import Btn from "../../others/btn/Btn";
 import Link from "next/link";
 
 const NoProduct = () => (
-  <Container maxWidth="md" sx={{ bgcolor: "primary.light" }}>
+  <Container maxWidth="md" sx={{ bgcolor: "primary.light", my: 12 }}>
     <Grid
       container
       sx={{ display: "grid", placeItems: "center", minHeight: 200 }}
@@ -14,7 +14,7 @@ const NoProduct = () => (
       <Grid item xs={12} sx={{ display: "grid", placeItems: "center" }}>
         <Box sx={{ textAlign: "center" }}>
           <Typography component="h4" variant="h5">
-            No Products Found
+            Not In Stock
           </Typography>
           <Link href="/products" style={{ all: "unset" }}>
             <Btn sx={{ mt: 2 }}>View All Products</Btn>

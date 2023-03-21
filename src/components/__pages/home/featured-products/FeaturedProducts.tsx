@@ -5,13 +5,13 @@ import { bags, shoes, belts } from "../../../../../testData";
 export default function FeaturedProducts() {
   return (
     <Grid container mx="auto" bgcolor="primary.light">
-      {[bags[0], shoes[0], belts[0]].map((product, i) => (
+      {[shoes[0], belts[0], bags[0]].map((product, i) => (
         <Grid key={i} item xs={12} sm={4}>
           <ProductCard
             cart={false}
             path="/products"
             title={product.tag}
-            img={product.images[0]}
+            img={product.images[i]}
           />
         </Grid>
       ))}

@@ -6,7 +6,7 @@ import FeaturedProducts from "./featured-products/FeaturedProducts";
 import TrendingBrands from "./trending-brands/TrendingBrands";
 import Grid from "@mui/material/Grid";
 import About from "./about/About";
-import Faq from "./faqs/Faqs";
+import WhyUs from "./why-us/WhyUs";
 
 const Home = () => {
   return (
@@ -30,7 +30,7 @@ const Home = () => {
               <About />
             </Grid>
             <Grid item xs={12}>
-              <Faq />
+              <WhyUs />
             </Grid>
           </Grid>
         </Container>

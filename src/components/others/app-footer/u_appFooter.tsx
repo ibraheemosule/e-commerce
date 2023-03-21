@@ -51,14 +51,14 @@ export const socialContact = [
 export const customerService = [
   {
     name: "faqs",
-    href: "/#faqs",
+    href: "/faqs",
   },
   {
     name: "return policy",
-    href: "/#faqs",
+    href: "/return-policy",
   },
   {
     name: "size guide",
-    href: "/#faqs",
+    href: "/size-guide",
   },
 ];

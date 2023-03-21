@@ -1,7 +1,7 @@
 import Head from "next/head";
-import Cart from "../../components/__pages/cart/Cart";
+import SizeGuide from "../../components/__pages/size-guide/SizeGuide";
 
-export default function CartPage() {
+export default function SizeGuidePage() {
   return (
     <>
       <Head>
@@ -10,7 +10,8 @@ export default function CartPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Cart />
+
+      <SizeGuide />
     </>
   );
 }

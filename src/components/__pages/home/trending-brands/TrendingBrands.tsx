@@ -1,14 +1,7 @@
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
-
-const currentYear = new Date().getFullYear(),
-  logos = [
-    "/images/nike logo.png",
-    "/images/balenciaga logo.png",
-    "/images/gucci logo.png",
-    "/images/tommy hilfiger logo.png",
-  ];
+import { currentYear, logos } from "./u_trendingBrands";
 
 export default function TrendingBrands() {
   return (
@@ -44,7 +37,7 @@ export default function TrendingBrands() {
             >
               <Image
                 src={imageSrc}
-                alt="nike brand logo"
+                alt={imageSrc.split("/")[2]}
                 width={150}
                 height={100}
               />

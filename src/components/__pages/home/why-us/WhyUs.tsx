@@ -2,10 +2,9 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import CustomAccordion from "../../../others/accordion/Accordion";
 import { useState, memo } from "react";
+import { points } from "./u_whyus";
 
-const a = ["d", "d", "d"];
-
-export default memo(function Faqs() {
+export default memo(function WhyUs() {
   const [expanded, setExpanded] = useState<number | false>(false);
 
   return (
@@ -14,7 +13,7 @@ export default memo(function Faqs() {
         container
         mx="auto"
         bgcolor="primary.light"
-        sx={{ pt: { xs: 4, sm: 6 } }}
+        sx={{ py: { xs: 4, sm: 6 }, px: { xs: 2, sm: 6 } }}
       >
         <Grid item xs={12}>
           <Typography
@@ -22,17 +21,20 @@ export default memo(function Faqs() {
             variant="h4"
             textAlign="center"
             color="secondary.main"
+            textTransform="capitalize"
           >
-            Frequently Asked Questions
+            Why you should patronize us
           </Typography>
         </Grid>
         <Grid item xs={12} sx={{ pt: { xs: 2, sm: 3 } }}>
-          {a.map((val, i) => (
+          {Object.keys(points).map((point, i) => (
             <CustomAccordion
               key={i}
               expanded={expanded}
               setExpanded={setExpanded}
               id={i + 1}
+              title={point}
+              text={points[point as keyof typeof points]}
             />
           ))}
         </Grid>

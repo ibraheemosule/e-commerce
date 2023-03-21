@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Checkout from "../../components/__pages/checkout/Checkout";
 
-export default function ProductsPage() {
+export default function CheckoutPage() {
   return (
     <>
       <Head>

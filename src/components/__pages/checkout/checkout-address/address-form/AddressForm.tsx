@@ -1,4 +1,4 @@
-import { Dispatch, FC, memo } from "react";
+import { Dispatch, FC, memo, SetStateAction } from "react";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import InputField from "../../../../others/input-field/InputField";
@@ -9,9 +9,11 @@ const form = formFields(userForm);
 
 export type AddressFormFieldsType = typeof form;
 
-const AddressForm: FC<AddressFormProps> = ({ fields, setField }) => {
-  const { deliveryAddress } = useAppSelector(({ user }) => user);
+const AddressForm: FC<AddressFormProps> = ({ fields, setField, setError }) => {
+  const { deliveryDetails } = useAppSelector(({ user }) => user);
+
   const updateField = (value: Record<string, string>) => {
+    setError("");
     setField({ payload: value });
   };
 
@@ -35,7 +37,7 @@ const AddressForm: FC<AddressFormProps> = ({ fields, setField }) => {
                 onChange={updateField}
                 name={field}
                 type="text"
-                disabled={!!deliveryAddress}
+                disabled={!!Object.values(deliveryDetails).join()}
               />
             </Grid>
           );
@@ -48,6 +50,7 @@ const AddressForm: FC<AddressFormProps> = ({ fields, setField }) => {
 interface AddressFormProps {
   fields: Record<string, string>;
   setField: Dispatch<{ payload: Record<string, string> }>;
+  setError: Dispatch<SetStateAction<string>>;
 }
 
 export default memo(AddressForm);

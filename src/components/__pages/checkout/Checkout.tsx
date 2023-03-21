@@ -7,21 +7,26 @@ import { btnClasses } from "../../others/btn/Btn";
 import CheckoutAddress from "./checkout-address/CheckoutAddress";
 import { PaystackButton } from "react-paystack";
 import { useAppSelector, useAppDispatch } from "../../../store/hooks";
-import { changeDeliveryAddress } from "../../../store/features/user/user-slice";
+import {
+  changeDeliveryDetails,
+  DeliveryDetailsType,
+} from "../../../store/features/user/user-slice";
 
 const Checkout: FC = () => {
   const dispatch = useAppDispatch();
   const { totalPrice } = useAppSelector((state) => state.product);
-  const { deliveryAddress, user } = useAppSelector(({ user }) => user);
+  const { user, deliveryDetails } = useAppSelector(({ user }) => user);
   const [addressOption, setAddressOption] = useState("default");
 
   useEffect(() => {
     if (addressOption === "default") {
-      const address = `${user.address}, ${user.city}, ${user.state}`;
-      dispatch(changeDeliveryAddress(address));
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { email, ...rest } = user;
+      dispatch(changeDeliveryDetails(rest));
       return;
     }
-    dispatch(changeDeliveryAddress(""));
+
+    dispatch(changeDeliveryDetails({} as DeliveryDetailsType));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [addressOption]);
 
@@ -45,7 +50,7 @@ const Checkout: FC = () => {
                 option={addressOption}
                 setOption={setAddressOption}
               />
-              {deliveryAddress && (
+              {Object.values(deliveryDetails).join() && (
                 <Container>
                   <Box
                     sx={{
@@ -64,6 +69,7 @@ const Checkout: FC = () => {
                       flexWrap: "wrap",
                       rowGap: 1,
                       alignItems: "center",
+                      mt: 1,
                       ".MuiButton-root": {
                         padding: ".5rem 2rem",
                         border: 0,
