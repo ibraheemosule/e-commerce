@@ -11,7 +11,7 @@ export default memo(function Faqs() {
   return (
     <Container maxWidth="md" sx={{ py: { xs: 9, sm: 12, lg: 15 } }}>
       <Container sx={{ bgcolor: "primary.light", p: 3 }}>
-        <Grid container mx="auto" sx={{ py: { xs: 6, sm: 8 } }}>
+        <Grid container mx="auto" sx={{ py: 3 }}>
           <Grid item xs={12}>
             <Typography
               component="h4"

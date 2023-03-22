@@ -24,15 +24,17 @@ export default function AppHeader() {
             borderBottom: "1px solid #80808038",
           }}
         >
-          <div style={{ position: "relative", padding: 0 }}>
+          <Toolbar sx={{ position: "relative" }}>
             <Image
               src="/images/logo.png"
               alt="logo"
-              height={60}
+              height={50}
               width={70}
-              style={{ objectFit: "contain" }}
+              quality={100}
+              priority
+              style={{ objectFit: "cover" }}
             />
-          </div>
+          </Toolbar>
           <Toolbar sx={{ display: trigger ? "block" : "none" }} />
         </AppBar>
       </Box>

@@ -11,7 +11,7 @@ export default memo(function SizeGuide() {
       <Container
         sx={{
           bgcolor: "primary.light",
-          py: 6,
+          py: 4,
         }}
       >
         <Grid container mx="auto">
@@ -31,6 +31,7 @@ export default memo(function SizeGuide() {
                 sx={{
                   fontWeight: 500,
                   fontSize: 18,
+                  color: "primary.dark",
                   m: 0,
                   px: { xs: 2, sm: 4, md: 8 },
                 }}

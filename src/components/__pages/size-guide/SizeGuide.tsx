@@ -36,7 +36,7 @@ export default memo(function SizeGuide() {
                     sx={{
                       position: "relative",
                       aspectRatio: "1/1",
-                      bgcolor: "priamry.main",
+                      bgcolor: "primary.main",
                       my: 2,
                     }}
                   >

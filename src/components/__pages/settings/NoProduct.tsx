@@ -6,20 +6,15 @@ import Btn from "../../others/btn/Btn";
 import Link from "next/link";
 
 const NoProduct = () => (
-  <Container maxWidth="md" sx={{ my: 12, p: 3 }}>
+  <Container maxWidth="md" sx={{ bgcolor: "primary.light", my: 12 }}>
     <Grid
       container
-      sx={{
-        display: "grid",
-        placeItems: "center",
-        minHeight: 200,
-        bgcolor: "primary.light",
-      }}
+      sx={{ display: "grid", placeItems: "center", minHeight: 200 }}
     >
       <Grid item xs={12} sx={{ display: "grid", placeItems: "center" }}>
         <Box sx={{ textAlign: "center" }}>
           <Typography component="h4" variant="h5">
-            Out of Stock
+            Not In Stock
           </Typography>
           <Link href="/products" style={{ all: "unset" }}>
             <Btn sx={{ mt: 2 }}>View All Products</Btn>
