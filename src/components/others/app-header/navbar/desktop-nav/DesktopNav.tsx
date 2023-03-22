@@ -11,10 +11,11 @@ import Link from "next/link";
 import { linkWrapperStyles } from "../u_navbar";
 import navWrapper, { NavbarProps } from "../wrapper/wrapper";
 import { mainNavList } from "../u_navbar";
-import { bags, shoes, belts } from "../../../../../../testData";
+import { useAppSelector } from "../../../../../store/hooks";
 import { useRouter } from "next/router";
 
 const Nav: FC<NavbarProps> = (props) => {
+  const { immutableProducts } = useAppSelector(({ product }) => product);
   const [search, setSearch] = useState("");
   const router = useRouter();
 
@@ -26,10 +27,10 @@ const Nav: FC<NavbarProps> = (props) => {
 
   const filteredProducts = useMemo(
     () =>
-      [...bags, ...shoes, ...belts].filter((prod) =>
+      immutableProducts.filter((prod) =>
         prod.name.toLowerCase().startsWith(search)
       ),
-    [search]
+    [immutableProducts, search]
   );
 
   return (
