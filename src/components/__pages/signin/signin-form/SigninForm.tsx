@@ -11,10 +11,8 @@ import {
   validatePassword,
 } from "../../../../utils/utilsFunctions";
 import { useAppDispatch } from "../../../../store/hooks";
-import {
-  updateUserInfo,
-  UserType,
-} from "../../../../store/features/user/user-slice";
+import { updateUserInfo } from "../../../../store/features/user/user-slice";
+import { UserType } from "../../../../utils/ts-types/data-types";
 
 const SigninForm: FC<SigninFormProps> = ({ routeToPasswordPage }) => {
   const dispatch = useAppDispatch();

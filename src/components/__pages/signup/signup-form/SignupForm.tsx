@@ -9,10 +9,8 @@ import FormBtn from "../../../others/btn/form-btn/FormBtn";
 import { validatePassword } from "../../../../utils/utilsFunctions";
 import { submitSignupForm } from "./u_signupForm";
 import { useAppDispatch } from "../../../../store/hooks";
-import {
-  updateUserInfo,
-  UserType,
-} from "../../../../store/features/user/user-slice";
+import { updateUserInfo } from "../../../../store/features/user/user-slice";
+import { UserType } from "../../../../utils/ts-types/data-types";
 
 const LoginForm = () => {
   const dispatch = useAppDispatch();
