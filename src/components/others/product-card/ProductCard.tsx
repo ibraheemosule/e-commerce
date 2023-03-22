@@ -14,7 +14,6 @@ import Btn from "../btn/Btn";
 import {
   mutateCartList,
   mutateProductsList,
-  ProductType,
   resetProductsList,
 } from "../../../store/features/product/product-slice";
 import Grid from "@mui/material/Grid";
@@ -24,6 +23,8 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useRouter } from "next/router";
 import ButtonBase from "@mui/material/ButtonBase";
+import { ProductType } from "../../../utils/ts-types/data-types";
+import { tags } from "../../../utils/utilsData";
 
 const ProductCard: FC<ProductCardProps> = (props) => {
   const { product, img, path, cart = true, title = "View" } = props;
@@ -127,7 +128,14 @@ const ProductCard: FC<ProductCardProps> = (props) => {
           </Box>
         )}
         <Img>
-          <Link href={path} className="title">
+          <Link
+            onClick={() =>
+              tags.includes(path) &&
+              void filterProductsList({ filterValue: path || "" })
+            }
+            href={tags?.includes(path) ? "/products" : path}
+            className="title"
+          >
             {title}
             <ImgMarked className="MuiImageMarked-root" />
           </Link>

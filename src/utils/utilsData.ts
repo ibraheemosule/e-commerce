@@ -65,3 +65,5 @@ export const userForm = {
     gridProps: { xs: 12, sm: 3.5 },
   },
 };
+
+export const tags = ["shoe", "bag", "belt"];

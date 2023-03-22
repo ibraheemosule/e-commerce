@@ -1,29 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-export type UserType = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  address: string;
-  city: string;
-  state: string;
-  phoneNo: string;
-};
-
-interface UserSlice {
-  signin: boolean;
-  deliveryDetails: DeliveryDetailsType;
-  user: UserType;
-}
-
-export type DeliveryDetailsType = {
-  address: string;
-  lastName: string;
-  firstName: string;
-  phoneNo: string;
-  city: string;
-  state: string;
-};
+import {
+  UserType,
+  UserSlice,
+  DeliveryDetailsType,
+} from "../../../utils/ts-types/data-types";
 
 const initialState: UserSlice = {
   signin: true,
@@ -37,13 +17,13 @@ const initialState: UserSlice = {
   },
 
   user: {
-    firstName: "Ibrahim",
-    lastName: "Sule",
-    address: "22, Ibraheem Musa street, Opposite Chrisland College",
+    firstName: "john",
+    lastName: "doe",
+    address: "22, abebi college, gatte off offward crasetnidjf",
     email: "",
-    city: "Idimu",
-    state: "Lagos",
-    phoneNo: "+2348067153177",
+    city: "idimu",
+    state: "lagos",
+    phoneNo: "+2347654343434",
   },
 };
 
