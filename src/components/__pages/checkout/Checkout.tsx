@@ -1,18 +1,16 @@
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import Box from "@mui/system/Box";
-import { FC, memo, useState, useEffect } from "react";
+import { memo, useState, useEffect } from "react";
 import Typography from "@mui/material/Typography";
 import { btnClasses } from "../../others/btn/Btn";
 import CheckoutAddress from "./checkout-address/CheckoutAddress";
 import { PaystackButton } from "react-paystack";
 import { useAppSelector, useAppDispatch } from "../../../store/hooks";
-import {
-  changeDeliveryDetails,
-  DeliveryDetailsType,
-} from "../../../store/features/user/user-slice";
+import { changeDeliveryDetails } from "../../../store/features/user/user-slice";
+import { DeliveryDetailsType } from "../../../utils/ts-types/data-types";
 
-const Checkout: FC = () => {
+export default memo(function Checkout() {
   const dispatch = useAppDispatch();
   const { totalPrice } = useAppSelector((state) => state.product);
   const { user, deliveryDetails } = useAppSelector(({ user }) => user);
@@ -103,6 +101,4 @@ const Checkout: FC = () => {
       </Container>
     </>
   );
-};
-
-export default memo(Checkout);
+});

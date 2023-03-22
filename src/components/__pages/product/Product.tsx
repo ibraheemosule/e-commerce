@@ -96,191 +96,186 @@ export default memo(function Product() {
   }
 
   return (
-    <>
-      <Container sx={{ py: { xs: 9, sm: 12, lg: 15 } }}>
-        <Container sx={{ bgcolor: "primary.light" }}>
-          <Grid container maxWidth="lg" py={6} rowGap={2}>
-            <Grid item xs={12} sm={6} md={7}>
-              <Grid container maxWidth="lg" sx={{ overflow: "hidden" }} gap={3}>
-                <Grid
-                  item
-                  xs={12}
-                  sm={11}
-                  order={{ md: 1 }}
-                  sx={{
-                    aspectRatio: { xs: "3/2", sm: "1" },
-                    position: "relative",
-                  }}
-                >
-                  <Image
-                    src={selectedImg}
-                    fill
-                    sizes="(min-width: 600px) 40vw, 100vw"
-                    alt="product"
-                    style={{
-                      objectFit: "cover",
-                      border: "1px solid lightgray",
-                      padding: 10,
-                    }}
-                  />
-                </Grid>
-                <Grid
-                  item
-                  xs={12}
-                  sm={11}
-                  order={{ md: 0 }}
-                  sx={{ overflow: "hidden" }}
-                >
-                  <Box
-                    sx={{
-                      display: "flex",
-                      columnGap: { xs: 2 },
-                      overflowY: "hidden",
-                    }}
-                  >
-                    {Children.toArray(
-                      product?.images?.map((img) => (
-                        <ButtonBase
-                          onClick={() => setSelectedImg(img)}
-                          sx={{
-                            padding: "4px",
-                            border:
-                              selectedImg === img ? "1px solid" : "1px solid",
-                            borderColor:
-                              selectedImg === img
-                                ? "secondary.light"
-                                : "lightgray",
-                            transition: "all .2s ease-out",
-                            "&:hover": {
-                              transform: "scale(1.05)",
-                              borderColor: "transparent",
-                            },
-                          }}
-                        >
-                          <Image
-                            src={img || ""}
-                            width={50}
-                            height={50}
-                            style={{ objectFit: "cover" }}
-                            alt="product"
-                          />
-                        </ButtonBase>
-                      ))
-                    )}
-                  </Box>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item xs={12} sm={6} md={5} color="primary.dark">
-              <Typography component="h1" variant="h5" color="secondary.main">
-                {product?.name}
-              </Typography>
-              <Box
-                sx={{
-                  mt: 1,
-                  textTransform: "capitalize",
-                  color: "secondary.light",
+    <Container sx={{ py: { xs: 9, sm: 12, lg: 15 } }}>
+      <Grid
+        container
+        maxWidth="lg"
+        sx={{ bgcolor: "primary.light", rowGap: 2, py: 6, px: 3 }}
+      >
+        <Grid item xs={12} sm={6} md={7}>
+          <Grid container maxWidth="lg" gap={3}>
+            <Grid
+              item
+              xs={12}
+              sm={11}
+              order={{ md: 1 }}
+              sx={{
+                aspectRatio: { xs: "3/2", sm: "1" },
+                position: "relative",
+              }}
+            >
+              <Image
+                src={selectedImg}
+                fill
+                sizes="(min-width: 600px) 40vw, 100vw"
+                alt="product"
+                style={{
+                  objectFit: "cover",
+                  border: "1px solid lightgray",
+                  padding: 10,
                 }}
-              >
-                {Object.entries(filters).map(
-                  ([key, value]) =>
-                    value && (
-                      <ButtonBase
-                        key={value}
-                        onClick={() =>
-                          void filterProductsList({ [key]: value })
-                        }
-                        sx={{
-                          border: "1px solid lightgray",
-                          textTransform: "capitalize",
-                          color: "secondary.light",
-                          padding: ".2rem",
-                          marginRight: "10px",
-                        }}
-                      >
-                        {value}
-                      </ButtonBase>
-                    )
-                )}
-              </Box>
-              <Divider />
-              <Typography component="h1" variant="h6">
-                &#8358;{product?.price}
-              </Typography>
-              <Typography my={0.5}>
-                <strong>Shipping</strong> fee calculated at checkout
-              </Typography>
-              <Box>
-                <ButtonBase
-                  onClick={() => setShowDescription((prev) => !prev)}
-                  sx={{
-                    my: 0.5,
-                    fontSize: 16,
-                    "& svg": {
-                      transition: "transform .2s ease",
-                      transform: showDescription ? "rotate(90deg)" : "",
-                    },
-                  }}
-                >
-                  <strong>Description</strong> <ArrowRight />
-                </ButtonBase>
-                <Typography
-                  component="p"
-                  sx={{
-                    color: "primary.dark",
-                    display: showDescription ? "block" : "none",
-                    fontSize: 13,
-                  }}
-                >
-                  {product?.description}
-                </Typography>
-              </Box>
-              <Divider />
-
+              />
+            </Grid>
+            <Grid item xs={12} sm={11} order={{ md: 0 }}>
               <Box
                 sx={{
                   display: "flex",
-                  flexWrap: "wrap",
-                  alignItems: "flex-end",
-                  columnGap: 5,
-                  mt: 3,
+                  columnGap: { xs: 2 },
+                  overflow: "auto",
+                  overflowY: "hidden",
                 }}
               >
-                <Box>
-                  <Quantity quantity={quantity} setQuantity={setQuantity} />
-                </Box>
-                {product?.sizes && (
-                  <Box>
-                    <SelectField
-                      enableReset={false}
-                      title="Size"
-                      selectValue={size}
-                      setSelectValue={setSize}
-                      options={product.sizes || []}
-                    />
-                  </Box>
+                {Children.toArray(
+                  product?.images?.map((img) => (
+                    <>
+                      <ButtonBase
+                        onClick={() => setSelectedImg(img)}
+                        sx={{
+                          padding: "4px",
+                          border:
+                            selectedImg === img ? "1px solid" : "1px solid",
+                          borderColor:
+                            selectedImg === img
+                              ? "secondary.light"
+                              : "lightgray",
+                          transition: "all .2s ease-out",
+                          "&:hover": {
+                            transform: "scale(1.05)",
+                            borderColor: "transparent",
+                          },
+                        }}
+                      >
+                        <Image
+                          src={img || ""}
+                          width={50}
+                          height={50}
+                          style={{ objectFit: "cover" }}
+                          alt="product"
+                        />
+                      </ButtonBase>
+                    </>
+                  ))
                 )}
               </Box>
-              <Btn
-                onBlur={() => setError("")}
-                onClick={addToCart}
-                size="medium"
-                variant="contained"
-                disableElevation
-                endIcon={<ShoppingCart />}
-                sx={{
-                  mt: 3,
-                }}
-              >
-                {ids.includes(id) ? "Buy More" : "add to cart"}
-              </Btn>
-              <Typography sx={{ color: "secondary.dark", fontSize: 12, mt: 1 }}>
-                {error}
-              </Typography>
             </Grid>
           </Grid>
-        </Container>
-      </Container>
-    </>
+        </Grid>
+        <Grid item xs={12} sm={6} md={5} color="primary.dark">
+          <Typography component="h1" variant="h5" color="secondary.main">
+            {product?.name}
+          </Typography>
+          <Box
+            sx={{
+              mt: 1,
+              textTransform: "capitalize",
+              color: "secondary.light",
+            }}
+          >
+            {Object.entries(filters).map(
+              ([key, value]) =>
+                value && (
+                  <ButtonBase
+                    key={value}
+                    onClick={() => void filterProductsList({ [key]: value })}
+                    sx={{
+                      border: "1px solid lightgray",
+                      textTransform: "capitalize",
+                      color: "secondary.light",
+                      padding: ".2rem",
+                      marginRight: "10px",
+                    }}
+                  >
+                    {value}
+                  </ButtonBase>
+                )
+            )}
+          </Box>
+          <Divider />
+          <Typography component="h1" variant="h6">
+            &#8358;{product?.price}
+          </Typography>
+          <Typography my={0.5}>
+            <strong>Shipping</strong> fee calculated at checkout
+          </Typography>
+          <Box>
+            <ButtonBase
+              onClick={() => setShowDescription((prev) => !prev)}
+              sx={{
+                my: 0.5,
+                fontSize: 16,
+                "& svg": {
+                  transition: "transform .2s ease",
+                  transform: showDescription ? "rotate(90deg)" : "",
+                },
+              }}
+            >
+              <strong>Description</strong> <ArrowRight />
+            </ButtonBase>
+            <Typography
+              component="p"
+              sx={{
+                color: "primary.dark",
+                display: showDescription ? "block" : "none",
+                fontSize: 13,
+              }}
+            >
+              {product?.description}
+            </Typography>
+          </Box>
+          <Divider />
+
+          <Box
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              alignItems: "flex-end",
+              columnGap: 5,
+              mt: 3,
+            }}
+          >
+            <Box>
+              <Quantity quantity={quantity} setQuantity={setQuantity} />
+            </Box>
+            {product?.sizes && (
+              <Box>
+                <SelectField
+                  enableReset={false}
+                  title="Size"
+                  selectValue={size}
+                  setSelectValue={setSize}
+                  options={product.sizes || []}
+                />
+              </Box>
+            )}
+          </Box>
+          <Btn
+            onBlur={() => setError("")}
+            onClick={addToCart}
+            size="medium"
+            variant="contained"
+            disableElevation
+            endIcon={<ShoppingCart />}
+            sx={{
+              mt: 3,
+            }}
+          >
+            {ids.includes(id) ? "Buy More" : "add to cart"}
+          </Btn>
+          <Typography sx={{ color: "secondary.dark", fontSize: 12, mt: 1 }}>
+            {error}
+          </Typography>
+        </Grid>
+      </Grid>
+    </Container>
   );
 });
