@@ -12,11 +12,10 @@ import { paginateFunction } from "../../../utils/utilsFunctions";
 import {
   setPaginatedList,
   setLastPaginatedNumber,
-  ProductType,
 } from "../../../store/features/product/product-slice";
 import Grid from "@mui/material/Grid";
 import s from "./s_pagination.module.css";
-
+import { ProductType } from "../../../utils/ts-types/data-types";
 export interface IPaginationProps {
   number: number;
   numOfPages: number;

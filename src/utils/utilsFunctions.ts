@@ -1,8 +1,6 @@
 import { phoneNumberFormats } from "./utilsData";
-import {
-  ProductType,
-  ProductSlice,
-} from "../store/features/product/product-slice";
+import { ProductSlice } from "../store/features/product/product-slice";
+import { ProductType } from "./ts-types/data-types";
 
 export const onlyAlphabet = (text: string) => {
   const re = /^[a-zA-Z ]+$/;
