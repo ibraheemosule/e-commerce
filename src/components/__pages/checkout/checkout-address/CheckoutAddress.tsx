@@ -19,12 +19,10 @@ import dynamic from "next/dynamic";
 import LazyLoader from "../../../others/skeleton/Skeleton";
 import useFillForm from "../../../others/hooks/fill-form/useFillForm";
 import { addressFields, validateAddressForm } from "./u_checkout-address";
-import {
-  changeDeliveryDetails,
-  DeliveryDetailsType,
-} from "../../../../store/features/user/user-slice";
+import { changeDeliveryDetails } from "../../../../store/features/user/user-slice";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
 import FormBtn from "../../../others/btn/form-btn/FormBtn";
+import { DeliveryDetailsType } from "../../../../utils/ts-types/data-types";
 
 const AddressForm = dynamic(() => import("./address-form/AddressForm"), {
   loading: LazyLoader,
