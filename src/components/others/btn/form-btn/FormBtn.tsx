@@ -3,22 +3,52 @@ import Typography from "@mui/material/Typography";
 import LoaderIcon from "../../LoaderIcon";
 import { FC, memo } from "react";
 import Btn from "../Btn";
+import ButtonBase from "@mui/material/ButtonBase";
 
-const FormBtn: FC<FormBtnProps> = ({ btnSize, text, error, loading }) => {
+const FormBtn: FC<FormBtnProps> = ({
+  btnSize,
+  text,
+  error,
+  loading,
+  onCancel,
+}) => {
   return (
-    <Box sx={{ display: "block", position: "relative" }}>
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        position: "relative",
+        pt: { xs: 5, sm: 3 },
+        gap: 3,
+      }}
+    >
       <Btn
         disabled={loading}
         size={btnSize}
         sx={{
-          mt: { xs: 5, sm: 3 },
           px: 6,
         }}
         type="submit"
       >
         {loading ? <LoaderIcon size={24} /> : text}
       </Btn>
+      {onCancel ? (
+        <ButtonBase
+          onClick={onCancel}
+          sx={{
+            fontSize: 16,
+            color: "secondary.main",
+            "&:hover": {
+              color: "secondary.dark",
+            },
+          }}
+        >
+          Cancel
+        </ButtonBase>
+      ) : null}
+
       <Typography
+        className="error-msg"
         sx={{
           position: "absolute",
           textAlign: "center",
@@ -41,6 +71,7 @@ interface FormBtnProps {
   text: string;
   error: string;
   loading?: boolean;
+  onCancel?: () => void;
 }
 
 export default memo(FormBtn);

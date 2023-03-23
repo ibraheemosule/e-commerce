@@ -27,14 +27,14 @@ export default memo(function WhyUs() {
           </Typography>
         </Grid>
         <Grid item xs={12} sx={{ pt: { xs: 2, sm: 3 } }}>
-          {Object.keys(points).map((point, i) => (
+          {Object.entries(points).map(([title, text], i) => (
             <CustomAccordion
               key={i}
               expanded={expanded}
               setExpanded={setExpanded}
               id={i + 1}
-              title={point}
-              text={points[point as keyof typeof points]}
+              title={title}
+              text={text}
             />
           ))}
         </Grid>

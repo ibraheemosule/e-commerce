@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Settings from "../../components/__pages/settings/Settings";
+import Settings from "../../components/__pages/account/Account";
 
 export default function ProductsPage() {
   return (
