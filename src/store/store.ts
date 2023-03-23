@@ -19,7 +19,7 @@ const rootReducer = combineReducers({
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const storeInstance = (preloadedState?: PreloadedState<RootState>) =>
+export const storeInstance = (preloadedState?: PreloadedState<RootState>) =>
   configureStore({
     reducer: persistedReducer,
     preloadedState,
