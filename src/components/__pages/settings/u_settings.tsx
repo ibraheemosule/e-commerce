@@ -6,3 +6,5 @@ export const CustomDivider = withStyles(() => ({
     margin: ".75rem 0",
   },
 }))(Divider);
+
+export const settingsNavList = ["profile", "orders"];

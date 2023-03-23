@@ -3,7 +3,7 @@ import Container from "@mui/material/Container";
 import Box from "@mui/system/Box";
 import { memo, useState, useEffect } from "react";
 import Typography from "@mui/material/Typography";
-import { btnClasses } from "../../others/btn/Btn";
+import { payButtonWrapperStyles } from "./u_checkout";
 import CheckoutAddress from "./checkout-address/CheckoutAddress";
 import { PaystackButton } from "react-paystack";
 import { useAppSelector, useAppDispatch } from "../../../store/hooks";
@@ -61,24 +61,7 @@ export default memo(function Checkout() {
                     </span>
                     <Typography color="primary.dark">&#8358;2, 000</Typography>
                   </Box>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexWrap: "wrap",
-                      rowGap: 1,
-                      alignItems: "center",
-                      mt: 1,
-                      ".MuiButton-root": {
-                        padding: ".5rem 2rem",
-                        border: 0,
-                        outline: 0,
-                        borderRadius: "5px",
-                        fontWeight: 500,
-                        fontSize: "1rem",
-                        cursor: "pointer",
-                      },
-                    }}
-                  >
+                  <Box sx={payButtonWrapperStyles}>
                     <strong style={{ alignSelf: "center", marginRight: 12 }}>
                       Subtotal:
                     </strong>
@@ -91,7 +74,7 @@ export default memo(function Checkout() {
                       &#8358;{totalPrice}
                     </Typography>
 
-                    <PaystackButton className={btnClasses} {...props} />
+                    <PaystackButton className="pay-btn" {...props} />
                   </Box>
                 </Container>
               )}

@@ -9,8 +9,9 @@
 
 .pagination button {
   all: unset;
+  box-sizing: border-box;
   display: block;
-  height: 20px;
+  height: 100%;
   text-align: center;
   cursor: pointer;
   font-size: 12px;

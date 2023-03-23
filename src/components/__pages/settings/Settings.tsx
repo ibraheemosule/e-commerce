@@ -3,6 +3,7 @@ import Container from "@mui/material/Container";
 import Box from "@mui/system/Box";
 import { memo } from "react";
 import ButtonBase from "@mui/material/ButtonBase";
+import Typography from "@mui/material/Typography";
 
 export default memo(function Settings() {
   return (
@@ -14,22 +15,35 @@ export default memo(function Settings() {
           sx={{ bgcolor: "primary.light", p: { xs: 3, sm: 6 } }}
         >
           <Grid item xs={12}>
+            <Typography
+              component="h4"
+              variant="h4"
+              sx={{ color: "secondary.main" }}
+            >
+              Settings
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
             <Box
               sx={{
                 display: "flex",
-                columnGap: { xs: 2 },
+                columnGap: { xs: 4 },
                 overflow: "auto",
-                maxWidth: 500,
+                maxWidth: 450,
               }}
             >
               {/* {[...new Array(100)].map((val, i) => (
                 <ButtonBase
                   key={i}
                   sx={{
-                    padding: "4px",
+                    pb: 1,
+                    borderBottom: "2px solid",
+                    borderColor: "primary.dark",
+                    color: "secondary.dark",
+                    fontWeight: 500,
+
                     "&:hover": {
-                      transform: "scale(1.05)",
-                      borderColor: "transparent",
+                      color: "secondary.main",
                     },
                   }}
                 >
