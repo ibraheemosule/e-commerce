@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Settings from "../../components/__pages/account/Account";
+import Account from "../../components/__pages/account/Account";
 
 export default function ProductsPage() {
   return (
@@ -10,7 +10,7 @@ export default function ProductsPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Settings />
+      <Account />
     </>
   );
 }
