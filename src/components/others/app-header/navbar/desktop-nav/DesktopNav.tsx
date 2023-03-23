@@ -28,7 +28,7 @@ const Nav: FC<NavbarProps> = (props) => {
   const filteredProducts = useMemo(
     () =>
       immutableProducts.filter((prod) =>
-        prod.name.toLowerCase().startsWith(search)
+        prod.name.toLowerCase().startsWith(search.toLowerCase())
       ),
     [immutableProducts, search]
   );
