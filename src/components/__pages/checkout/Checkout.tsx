@@ -13,13 +13,13 @@ import { DeliveryDetailsType } from "../../../utils/ts-types/data-types";
 export default memo(function Checkout() {
   const dispatch = useAppDispatch();
   const { totalPrice } = useAppSelector((state) => state.product);
-  const { user, deliveryDetails } = useAppSelector(({ user }) => user);
+  const { userInfo, deliveryDetails } = useAppSelector(({ user }) => user);
   const [addressOption, setAddressOption] = useState("default");
 
   useEffect(() => {
     if (addressOption === "default") {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { email, ...rest } = user;
+      const { email, ...rest } = userInfo;
       dispatch(changeDeliveryDetails(rest));
       return;
     }
