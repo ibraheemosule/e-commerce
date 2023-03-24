@@ -30,7 +30,7 @@ const AddressForm = dynamic(() => import("./address-form/AddressForm"), {
 
 const CheckoutAddress: FC<CheckoutAddressProps> = ({ option, setOption }) => {
   const dispatch = useAppDispatch();
-  const { user, deliveryDetails } = useAppSelector(({ user }) => user);
+  const { userInfo, deliveryDetails } = useAppSelector(({ user }) => user);
   const [fields, setField] = useFillForm(addressFields);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -82,15 +82,15 @@ const CheckoutAddress: FC<CheckoutAddressProps> = ({ option, setOption }) => {
             <Container sx={{ textTransform: "capitalize" }}>
               <Typography>
                 <strong>Name: </strong>
-                {`${user.firstName} ${user.lastName}`}
+                {`${userInfo.firstName} ${userInfo.lastName}`}
               </Typography>
               <Typography mt={1}>
                 <strong>Phone Number: </strong>
-                {user.phoneNo}
+                {userInfo.phoneNo}
               </Typography>
               <Typography mt={1}>
                 <strong>Address: </strong>
-                {`${user.address}, ${user.city}, ${user.state}`}
+                {`${userInfo.address}, ${userInfo.city}, ${userInfo.state}`}
               </Typography>
             </Container>
             <FormControlLabel
