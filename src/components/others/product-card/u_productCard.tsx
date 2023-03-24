@@ -85,9 +85,9 @@ export const genderStyle = {
   height: "100%",
   aspectRatio: "1/1",
   textTransform: "capitalize",
-  flexShrink: 0,
   borderRadius: "100%",
   backgroundColor: "rgba(255,255,255, 0.7)",
   color: "primary.dark",
-  fontSize: 20,
+  fontWeight: 600,
+  fontSize: 18,
 };
