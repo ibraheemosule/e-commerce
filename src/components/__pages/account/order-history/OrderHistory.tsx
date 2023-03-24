@@ -1,6 +1,7 @@
 import Grid from "@mui/material/Grid";
 import { memo } from "react";
 import Typography from "@mui/material/Typography";
+import Box from "@mui/system/Box";
 
 export default memo(function OrderHistory() {
   return (
@@ -13,6 +14,15 @@ export default memo(function OrderHistory() {
       <Typography component="h4" variant="h5" sx={{ color: "secondary.main" }}>
         Order History
       </Typography>
+      <Box sx={{ minHeight: 300, display: "grid", placeItems: "center" }}>
+        <Typography
+          component="h6"
+          variant="h6"
+          sx={{ fontWeight: "400", textAlign: "center" }}
+        >
+          No Orders Found
+        </Typography>
+      </Box>
     </Grid>
   );
 });

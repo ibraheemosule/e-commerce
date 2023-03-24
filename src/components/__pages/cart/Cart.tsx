@@ -28,7 +28,7 @@ const Cart = () => {
                   borderColor: "primary.main",
                   pr: 2,
                   pb: 6,
-                  maxHeight: "500px",
+                  maxHeight: { md: 500 },
                   overflow: "auto",
                 }}
               >

@@ -1,7 +1,6 @@
 import AccountIcon from "@mui/icons-material/ManageAccounts";
 import SignInIcon from "@mui/icons-material/Login";
 import SignOutIcon from "@mui/icons-material/Logout";
-import PersonIcon from "@mui/icons-material/Person";
 import SignUpIcon from "@mui/icons-material/PersonAdd";
 
 const borderBottom = {
@@ -55,18 +54,10 @@ export const productsNavStyle = {
   display: "block",
 };
 
-//signedInMenu = ["profile", "account", "sign out"],
-// notSignedInMenu = ["sign in", "sign up"];
-
 export const signedInMenu = [
   {
-    name: "profile",
-    href: "/cart",
-    Icon: PersonIcon,
-  },
-  {
     name: "account",
-    href: "/cart",
+    href: "/account",
     Icon: AccountIcon,
   },
   {
