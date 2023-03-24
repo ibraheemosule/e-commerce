@@ -16,11 +16,11 @@ const initialState: UserSlice = {
     state: "",
   },
 
-  user: {
+  userInfo: {
     firstName: "john",
     lastName: "doe",
     address: "22, abebi college, gatte off offward crasetnidjf",
-    email: "",
+    email: "johndoe@gmail.com",
     city: "idimu",
     state: "lagos",
     phoneNo: "+2347654343434",
@@ -37,7 +37,7 @@ export const userSlice = createSlice({
     },
 
     updateUserInfo(state, { payload }: PayloadAction<UserType>) {
-      state.user = { ...state.user, ...payload };
+      state.userInfo = { ...state.userInfo, ...payload };
     },
 
     changeDeliveryDetails(

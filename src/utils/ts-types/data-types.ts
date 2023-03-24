@@ -22,7 +22,7 @@ export type UserType = {
 export interface UserSlice {
   signin: boolean;
   deliveryDetails: DeliveryDetailsType;
-  user: UserType;
+  userInfo: UserType;
 }
 
 export type DeliveryDetailsType = {

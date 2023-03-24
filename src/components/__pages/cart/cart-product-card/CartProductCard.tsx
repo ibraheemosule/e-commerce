@@ -15,8 +15,8 @@ import {
   removeFromCartList,
 } from "../../../../store/features/product/product-slice";
 import Link from "next/link";
-import ButtonBase from "@mui/material/ButtonBase";
 import { useRouter } from "next/router";
+import TagBtn from "../../../others/btn/tag-btn/TagBtn";
 
 const CartProductCard: FC<CartProductCardProps> = ({ id }) => {
   const router = useRouter();
@@ -77,7 +77,13 @@ const CartProductCard: FC<CartProductCardProps> = ({ id }) => {
           <Box sx={{ mt: 1 }}>
             <Button
               onClick={removeFromCart}
-              sx={{ color: "secondary.main", p: 0 }}
+              sx={{
+                color: "secondary.main",
+                p: 0,
+                "&:hover": {
+                  color: "secondary.dark",
+                },
+              }}
               startIcon={<DeleteOutlineIcon />}
             >
               Remove
@@ -107,26 +113,18 @@ const CartProductCard: FC<CartProductCardProps> = ({ id }) => {
                 {product.name}
               </Link>
             </Typography>
-            <Box>
+            <Box sx={{ mt: 1 }}>
               {Object.entries(filters).map(
                 ([key, value]) =>
                   value && (
-                    <ButtonBase
-                      disabled={key === "size"}
-                      key={value}
+                    <TagBtn
+                      text={value}
                       onClick={() =>
                         void filterProductsList({ [key]: value.toString() })
                       }
-                      sx={{
-                        border: "1px solid lightgray",
-                        textTransform: "capitalize",
-                        color: "secondary.light",
-                        padding: ".2rem",
-                        marginRight: "10px",
-                      }}
-                    >
-                      {value}
-                    </ButtonBase>
+                      key={value}
+                      disabled={key === "size"}
+                    />
                   )
               )}
               <Box sx={{ mt: 2 }}>

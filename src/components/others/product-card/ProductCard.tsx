@@ -84,7 +84,7 @@ const ProductCard: FC<ProductCardProps> = (props) => {
               onClick={() =>
                 void filterProductsList({ genderValue: gender || "" })
               }
-              style={{ all: "unset", display: "block", cursor: "pointer" }}
+              style={{ minWidth: 32 }}
             >
               <Typography sx={genderStyle}>{gender && gender[0]}</Typography>
             </ButtonBase>

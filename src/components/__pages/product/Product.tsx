@@ -25,6 +25,7 @@ import {
   resetProductsList,
   mutateProductsList,
 } from "../../../store/features/product/product-slice";
+import TagBtn from "../../others/btn/tag-btn/TagBtn";
 import { nanoid } from "@reduxjs/toolkit";
 import dynamic from "next/dynamic";
 
@@ -184,19 +185,13 @@ export default memo(function Product() {
             {Object.entries(filters).map(
               ([key, value]) =>
                 value && (
-                  <ButtonBase
+                  <TagBtn
+                    text={value}
+                    onClick={() =>
+                      void filterProductsList({ [key]: value.toString() })
+                    }
                     key={value}
-                    onClick={() => void filterProductsList({ [key]: value })}
-                    sx={{
-                      border: "1px solid lightgray",
-                      textTransform: "capitalize",
-                      color: "secondary.light",
-                      padding: ".2rem",
-                      marginRight: "10px",
-                    }}
-                  >
-                    {value}
-                  </ButtonBase>
+                  />
                 )
             )}
           </Box>

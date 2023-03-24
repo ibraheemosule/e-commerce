@@ -1,15 +1,38 @@
 import Box from "@mui/system/Box";
-import { memo, useState, FormEvent, Dispatch, SetStateAction } from "react";
+import {
+  memo,
+  useState,
+  FormEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+} from "react";
 import FormBtn from "../../../../../others/btn/form-btn/FormBtn";
 import InputField from "../../../../../others/input-field/InputField";
-import { userForm } from "../../../../../../utils/utilsData";
 import useFillForm from "../../../../../others/hooks/fill-form/useFillForm";
-import { defaultFields, validateProfileFields } from "./u_editProfile";
+import {
+  defaultFields,
+  validateProfileFields,
+  fullProfile,
+} from "./u_editProfile";
+import { useAppSelector, useAppDispatch } from "../../../../../../store/hooks";
+import { updateUserInfo } from "../../../../../../store/features/user/user-slice";
+import { UserType } from "../../../../../../utils/ts-types/data-types";
 
 export default memo(function EditProfile({ setEdit }: EditDetailsProp) {
+  const dispatch = useAppDispatch();
   const [fields, setField] = useFillForm(defaultFields);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const { userInfo } = useAppSelector((state) => state.user);
+
+  useEffect(() => {
+    Object.keys(fields).forEach((field) => {
+      const key = field as keyof UserType;
+      setField({ payload: { [field]: userInfo[key] as unknown as string } });
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const updateField = (value: Record<string, string>) => {
     setError("");
@@ -21,6 +44,7 @@ export default memo(function EditProfile({ setEdit }: EditDetailsProp) {
     setLoading(true);
     try {
       validateProfileFields(fields);
+      dispatch(updateUserInfo(fields as unknown as UserType));
       setEdit(false);
     } catch (e) {
       let message = "An error occurred";
@@ -42,7 +66,7 @@ export default memo(function EditProfile({ setEdit }: EditDetailsProp) {
       }}
     >
       {Object.keys(defaultFields).map((key) => {
-        const formKey = key as unknown as keyof typeof userForm;
+        const formKey = key as unknown as keyof typeof fullProfile;
         return (
           <Box
             key={key}
@@ -51,7 +75,7 @@ export default memo(function EditProfile({ setEdit }: EditDetailsProp) {
             }}
           >
             <InputField
-              placeholder={userForm[formKey].placeholder}
+              placeholder={fullProfile[formKey].placeholder}
               name={key}
               value={fields[key]}
               textarea={key === "address" ? true : undefined}
