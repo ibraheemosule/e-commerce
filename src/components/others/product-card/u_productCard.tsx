@@ -16,7 +16,7 @@ export const ImgBtn = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.down("sm")]: {
     width: "100% !important",
-    height: 300,
+    height: 350,
   },
   borderColor: theme.palette.secondary.main,
 
