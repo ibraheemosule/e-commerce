@@ -81,14 +81,13 @@ export const ImgMarked = styled("span")(({ theme }) => ({
 }));
 
 export const genderStyle = {
-  minWidth: "unset",
-  textTransform: "uppercase",
+  display: "block",
   height: "100%",
   aspectRatio: "1/1",
-  display: "grid",
-  placeItems: "center",
+  textTransform: "capitalize",
+  flexShrink: 0,
   borderRadius: "100%",
   backgroundColor: "rgba(255,255,255, 0.7)",
   color: "primary.dark",
-  fontWeight: "bold",
+  fontSize: 20,
 };

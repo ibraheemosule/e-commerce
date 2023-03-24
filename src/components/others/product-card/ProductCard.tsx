@@ -74,20 +74,22 @@ const ProductCard: FC<ProductCardProps> = (props) => {
               top: 0,
               left: 0,
               width: "100%",
+              height: 40,
               display: "flex",
-              flexWrap: "wrap",
               justifyContent: "space-between",
               zIndex: 2,
             }}
           >
-            <ButtonBase
-              onClick={() =>
-                void filterProductsList({ genderValue: gender || "" })
-              }
-              style={{ minWidth: 32 }}
-            >
-              <Typography sx={genderStyle}>{gender && gender[0]}</Typography>
-            </ButtonBase>
+            <Box sx={{ height: "100%" }}>
+              <ButtonBase
+                onClick={() =>
+                  void filterProductsList({ genderValue: gender || "" })
+                }
+                sx={genderStyle}
+              >
+                {gender && gender[0]}
+              </ButtonBase>
+            </Box>
             <Btn
               size="small"
               onClick={openMenuOrAddToCart}
