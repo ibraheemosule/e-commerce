@@ -6,7 +6,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import SearchBar from "../../../search-bar/SearchBar";
 import UserMenu from "../../user-menu/UserMenu";
-import Cart from "../../cart/Cart";
+import CartIcon from "../../cart-icon/CartIcon";
 import Link from "next/link";
 import { linkWrapperStyles } from "../u_navbar";
 import navWrapper, { NavbarProps } from "../wrapper/wrapper";
@@ -102,7 +102,7 @@ const Nav: FC<NavbarProps> = (props) => {
               <Box sx={{ display: { xs: "none", md: "block" } }}>
                 <UserMenu />
               </Box>
-              <Cart />
+              <CartIcon />
             </Box>
           </Box>
         </Toolbar>
