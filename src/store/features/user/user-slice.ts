@@ -4,6 +4,7 @@ import {
   UserSlice,
   DeliveryDetailsType,
 } from "../../../utils/ts-types/data-types";
+import { testData } from "../../../utils/utilsData";
 
 const initialState: UserSlice = {
   signin: true,
@@ -25,6 +26,13 @@ const initialState: UserSlice = {
     state: "lagos",
     phoneNo: "+2347654343434",
   },
+
+  orders: [
+    {
+      products: [testData[0], testData[9], testData[20]],
+      createdAt: String(new Date()),
+    },
+  ],
 };
 
 export const userSlice = createSlice({

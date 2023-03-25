@@ -1,3 +1,4 @@
+import { ProductType } from "./ts-types/data-types";
 export const statesInNigeria = {
   abia: 4650,
   adamawa: 2743,
@@ -67,3 +68,7 @@ export const userForm = {
 };
 
 export const tags = ["shoe", "bag", "belt"];
+
+export const testData: ProductType[] = JSON.parse(
+  (process.env.NEXT_PUBLIC_TEST_DATA as string) || "[]"
+) as ProductType[];

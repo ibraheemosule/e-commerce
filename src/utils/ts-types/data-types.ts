@@ -23,6 +23,7 @@ export interface UserSlice {
   signin: boolean;
   deliveryDetails: DeliveryDetailsType;
   userInfo: UserType;
+  orders: OrderType[];
 }
 
 export type DeliveryDetailsType = {
@@ -33,3 +34,8 @@ export type DeliveryDetailsType = {
   city: string;
   state: string;
 };
+
+export interface OrderType {
+  products: ProductType[];
+  createdAt: string;
+}

@@ -1,10 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { calculateTotalPrice } from "../../../utils/utilsFunctions";
 import { ProductType } from "../../../utils/ts-types/data-types";
-
-const data: ProductType[] = JSON.parse(
-  (process.env.NEXT_PUBLIC_TEST_DATA as string) || "[]"
-) as ProductType[];
+import { testData } from "../../../utils/utilsData";
 
 export interface ProductSlice {
   immutableProducts: ProductType[];
@@ -34,8 +31,8 @@ type CartType = {
 };
 
 const initialState: ProductSlice = {
-  immutableProducts: [...data],
-  products: [...data],
+  immutableProducts: [...testData],
+  products: [...testData],
   cartList: [],
   searchValue: "",
   filterValue: "",
