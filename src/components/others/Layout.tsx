@@ -17,6 +17,7 @@ function Layout({ children }: ILayout) {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
+        color: "primary.dark",
       }}
     >
       <Box

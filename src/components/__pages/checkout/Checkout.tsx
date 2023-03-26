@@ -3,16 +3,19 @@ import Container from "@mui/material/Container";
 import Box from "@mui/system/Box";
 import { memo, useState, useEffect } from "react";
 import Typography from "@mui/material/Typography";
-import { payButtonWrapperStyles } from "./u_checkout";
+import { payButtonWrapperStyles, createOrder } from "./u_checkout";
 import CheckoutAddress from "./checkout-address/CheckoutAddress";
 import { PaystackButton } from "react-paystack";
 import { useAppSelector, useAppDispatch } from "../../../store/hooks";
 import { changeDeliveryDetails } from "../../../store/features/user/user-slice";
-import { DeliveryDetailsType } from "../../../utils/ts-types/data-types";
+import { DeliveryDetailsType } from "../../../utils/ts-types/__store/typesUser";
+import { updateOrders } from "../../../store/features/user/user-slice";
 
 export default memo(function Checkout() {
   const dispatch = useAppDispatch();
-  const { totalPrice } = useAppSelector((state) => state.product);
+  const { totalPrice, cartList, immutableProducts } = useAppSelector(
+    (state) => state.product
+  );
   const { userInfo, deliveryDetails } = useAppSelector(({ user }) => user);
   const [addressOption, setAddressOption] = useState("default");
 
@@ -35,7 +38,12 @@ export default memo(function Checkout() {
     text: "Pay Now",
     onSuccess: () =>
       alert("Thanks for doing business with us! Come back soon!!"),
-    onClose: () => confirm("Are you sure?"),
+    onClose: () => {
+      const order = createOrder(cartList, immutableProducts);
+      console.log(JSON.stringify(order));
+
+      dispatch(updateOrders(order));
+    },
   };
 
   return (
@@ -71,7 +79,7 @@ export default memo(function Checkout() {
                       color="primary.dark"
                       sx={{ mr: 2 }}
                     >
-                      &#8358;{totalPrice}
+                      &#8358;{totalPrice.toFixed(2)}
                     </Typography>
 
                     <PaystackButton className="pay-btn" {...props} />

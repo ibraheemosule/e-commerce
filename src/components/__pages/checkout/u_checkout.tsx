@@ -1,3 +1,9 @@
+import {
+  CartType,
+  ProductType,
+} from "../../../utils/ts-types/__store/typesProduct";
+import { OrderType } from "../../../utils/ts-types/__store/typesUser";
+
 export const payButtonWrapperStyles = {
   display: "flex",
   flexWrap: "wrap",
@@ -31,4 +37,25 @@ export const payButtonWrapperStyles = {
       backgroundColor: "rgb(176, 114, 11)",
     },
   },
+};
+
+export const createOrder = (
+  cartList: CartType[],
+  productsList: ProductType[]
+): OrderType => {
+  const products = cartList.map((item) => {
+    const product = productsList.find((prod) => prod.id === item.productId)!;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { uid, productId, quantity, ...rest } = item;
+    return {
+      quantity: quantity || 1,
+      size: item.size,
+      ...product,
+    };
+  });
+
+  return {
+    pastPurchases: products,
+    createdAt: new Date().toISOString(),
+  };
 };

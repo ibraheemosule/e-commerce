@@ -1,4 +1,5 @@
-import { ProductType } from "./ts-types/data-types";
+import { ProductType } from "./ts-types/__store/typesProduct";
+
 export const statesInNigeria = {
   abia: 4650,
   adamawa: 2743,

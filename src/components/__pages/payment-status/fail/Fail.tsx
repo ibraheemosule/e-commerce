@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Btn from "../../../others/btn/Btn";
 import ButtonBase from "@mui/material/ButtonBase";
 
-const Failed = () => {
+const Fail = () => {
   return (
     <Box
       sx={{
@@ -42,4 +42,4 @@ const Failed = () => {
   );
 };
 
-export default memo(Failed);
+export default memo(Fail);

@@ -15,7 +15,7 @@ import {
 } from "../../../store/features/product/product-slice";
 import Grid from "@mui/material/Grid";
 import s from "./s_pagination.module.css";
-import { ProductType } from "../../../utils/ts-types/data-types";
+import { ProductType } from "../../../utils/ts-types/__store/typesProduct";
 export interface IPaginationProps {
   number: number;
   numOfPages: number;

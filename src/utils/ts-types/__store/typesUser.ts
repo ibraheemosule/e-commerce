@@ -1,13 +1,4 @@
-export type ProductType = {
-  name: string;
-  description: string;
-  price: number;
-  tag: string;
-  id: string;
-  images: string[];
-  sizes?: (string | number)[];
-  gender: string;
-};
+import { ProductType } from "./typesProduct";
 
 export type UserType = {
   firstName: string;
@@ -35,7 +26,12 @@ export type DeliveryDetailsType = {
   state: string;
 };
 
+export type PastPurchaseProductType = ProductType & {
+  size?: string | number;
+  quantity: number;
+};
+
 export interface OrderType {
-  products: ProductType[];
+  pastPurchases: PastPurchaseProductType[];
   createdAt: string;
 }

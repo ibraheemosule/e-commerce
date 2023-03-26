@@ -22,7 +22,8 @@ import { addressFields, validateAddressForm } from "./u_checkout-address";
 import { changeDeliveryDetails } from "../../../../store/features/user/user-slice";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
 import FormBtn from "../../../others/btn/form-btn/FormBtn";
-import { DeliveryDetailsType } from "../../../../utils/ts-types/data-types";
+import { DeliveryDetailsType } from "../../../../utils/ts-types/__store/typesUser";
+import Box from "@mui/system/Box";
 
 const AddressForm = dynamic(() => import("./address-form/AddressForm"), {
   loading: LazyLoader,
@@ -39,7 +40,7 @@ const CheckoutAddress: FC<CheckoutAddressProps> = ({ option, setOption }) => {
     setOption(e.target.value);
   }
 
-  const confirmAddress = async (e: FormEvent<HTMLFormElement>) => {
+  async function confirmAddress(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
     try {
@@ -53,6 +54,12 @@ const CheckoutAddress: FC<CheckoutAddressProps> = ({ option, setOption }) => {
     } finally {
       setLoading(false);
     }
+  }
+
+  const info = {
+    name: `${userInfo.firstName} ${userInfo.lastName}`,
+    "phone number": userInfo.phoneNo,
+    address: userInfo.address,
   };
 
   return (
@@ -80,18 +87,16 @@ const CheckoutAddress: FC<CheckoutAddressProps> = ({ option, setOption }) => {
               label="Use Default Details"
             />
             <Container sx={{ textTransform: "capitalize" }}>
-              <Typography>
-                <strong>Name: </strong>
-                {`${userInfo.firstName} ${userInfo.lastName}`}
-              </Typography>
-              <Typography mt={1}>
-                <strong>Phone Number: </strong>
-                {userInfo.phoneNo}
-              </Typography>
-              <Typography mt={1}>
-                <strong>Address: </strong>
-                {`${userInfo.address}, ${userInfo.city}, ${userInfo.state}`}
-              </Typography>
+              {Object.entries(info).map(([key, value], i) => (
+                <Box key={key} sx={{ mt: i === 0 ? 0 : 1 }}>
+                  <Typography sx={{ display: "inline", mr: 1 }}>
+                    <strong>{key}:</strong>
+                  </Typography>
+                  <Typography sx={{ display: "inline-block" }}>
+                    {value}
+                  </Typography>
+                </Box>
+              ))}
             </Container>
             <FormControlLabel
               value="custom"

@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Payment from "../../components/__pages/payment/Payment";
+import Payment from "../../components/__pages/payment-status/PaymentStatus";
 
 export default function ProductsPage() {
   return (

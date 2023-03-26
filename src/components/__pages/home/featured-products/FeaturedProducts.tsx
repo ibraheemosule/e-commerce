@@ -2,7 +2,7 @@ import ProductCard from "../../../others/product-card/ProductCard";
 import Grid from "@mui/material/Grid";
 import { useAppSelector } from "../../../../store/hooks";
 import { useMemo } from "react";
-import { ProductType } from "../../../../utils/ts-types/data-types";
+import { ProductType } from "../../../../utils/ts-types/__store/typesProduct";
 import { tags } from "../../../../utils/utilsData";
 
 export default function FeaturedProducts() {

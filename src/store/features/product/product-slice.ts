@@ -1,36 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { calculateTotalPrice } from "../../../utils/utilsFunctions";
-import { ProductType } from "../../../utils/ts-types/data-types";
+import { ProductType } from "../../../utils/ts-types/__store/typesProduct";
 import { testData } from "../../../utils/utilsData";
+import {
+  ProductSlice,
+  IMutateProducts,
+  CartType,
+} from "../../../utils/ts-types/__store/typesProduct";
 
-export interface ProductSlice {
-  immutableProducts: ProductType[];
-  products: ProductType[];
-  cartList: CartType[];
-  searchValue: string;
-  filterValue: string;
-  sortValue: string;
-  genderValue: string;
-  totalPrice: number;
-  lastPaginatedNumber: number;
-  paginatedList: ProductType[];
-}
-
-type IMutateProducts = {
-  searchValue?: string;
-  filterValue?: string;
-  sortValue?: string;
-  genderValue?: string;
-};
-
-type CartType = {
-  quantity?: number;
-  id: string;
-  uid: string;
-  size?: string | number;
-};
-
-const initialState: ProductSlice = {
+const productDefaultState: ProductSlice = {
   immutableProducts: [...testData],
   products: [...testData],
   cartList: [],
@@ -45,7 +23,7 @@ const initialState: ProductSlice = {
 
 export const productSlice = createSlice({
   name: "product",
-  initialState,
+  initialState: productDefaultState,
 
   reducers: {
     searchProducts(state, { payload }: PayloadAction<string>) {
@@ -71,13 +49,14 @@ export const productSlice = createSlice({
       }
 
       const duplicateProduct = state.cartList.some(
-        (prod) => prod.id === payload.id && prod.size === payload.size
+        (prod) =>
+          prod.productId === payload.productId && prod.size === payload.size
       );
 
       if (duplicateProduct) {
         state.cartList = state.cartList.map((prod) => {
           const duplicate =
-            prod.id === payload.id && prod.size === payload.size;
+            prod.productId === payload.productId && prod.size === payload.size;
 
           if (duplicate) {
             return {

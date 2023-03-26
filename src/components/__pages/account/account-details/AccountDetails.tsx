@@ -10,11 +10,11 @@ export default memo(function AccountDetails() {
     <Grid
       item
       xs={12}
-      sm={5.5}
+      md={5.5}
       sx={{
         bgcolor: "primary.light",
-        p: { xs: 3, lg: 6 },
-        maxHeight: { sm: 600 },
+        p: { xs: 3, sm: 6 },
+        maxHeight: { md: 600 },
         overflow: "auto",
       }}
     >

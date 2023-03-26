@@ -3,10 +3,10 @@ import {
   UserType,
   UserSlice,
   DeliveryDetailsType,
-} from "../../../utils/ts-types/data-types";
-import { testData } from "../../../utils/utilsData";
+} from "../../../utils/ts-types/__store/typesUser";
+import { OrderType } from "../../../utils/ts-types/__store/typesUser";
 
-const initialState: UserSlice = {
+export const userDefaultState: UserSlice = {
   signin: true,
   deliveryDetails: {
     address: "",
@@ -27,17 +27,12 @@ const initialState: UserSlice = {
     phoneNo: "+2347654343434",
   },
 
-  orders: [
-    {
-      products: [testData[0], testData[9], testData[20]],
-      createdAt: String(new Date()),
-    },
-  ],
+  orders: [],
 };
 
 export const userSlice = createSlice({
   name: "user",
-  initialState,
+  initialState: userDefaultState,
 
   reducers: {
     setSignin(state) {
@@ -54,9 +49,16 @@ export const userSlice = createSlice({
     ) {
       state.deliveryDetails = payload;
     },
+    updateOrders(state, { payload }: PayloadAction<OrderType>) {
+      state.orders = [...state.orders, payload];
+    },
   },
 });
 
-export const { setSignin, updateUserInfo, changeDeliveryDetails } =
-  userSlice.actions;
+export const {
+  setSignin,
+  updateUserInfo,
+  changeDeliveryDetails,
+  updateOrders,
+} = userSlice.actions;
 export default userSlice.reducer;

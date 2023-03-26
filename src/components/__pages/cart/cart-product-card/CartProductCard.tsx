@@ -24,7 +24,7 @@ const CartProductCard: FC<CartProductCardProps> = ({ id }) => {
   const { immutableProducts, cartList } = useAppSelector(
     (state) => state.product
   );
-  const cart = cartList.filter((prod) => prod.id === id)[0];
+  const cart = cartList.filter((prod) => prod.productId === id)[0];
   const [quantity, setQuantity] = useState(cart.quantity ?? 1);
 
   const removeFromCart = () => dispatch(removeFromCartList(cart));

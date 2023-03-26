@@ -23,7 +23,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useRouter } from "next/router";
 import ButtonBase from "@mui/material/ButtonBase";
-import { ProductType } from "../../../utils/ts-types/data-types";
+import { ProductType } from "../../../utils/ts-types/__store/typesProduct";
 import { tags } from "../../../utils/utilsData";
 
 const ProductCard: FC<ProductCardProps> = (props) => {
@@ -33,10 +33,10 @@ const ProductCard: FC<ProductCardProps> = (props) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-  const ids = cartList.map((prod) => prod.id);
+  const ids = cartList.map((prod) => prod.productId);
 
   const addToCart = (size: string | number) => {
-    id && dispatch(mutateCartList({ id, uid: nanoid(), size }));
+    id && dispatch(mutateCartList({ productId: id, uid: nanoid(), size }));
     handleCloseUserMenu();
   };
 
@@ -47,7 +47,7 @@ const ProductCard: FC<ProductCardProps> = (props) => {
       setAnchorElUser(e.currentTarget);
       return;
     }
-    id && dispatch(mutateCartList({ id, uid: nanoid() }));
+    id && dispatch(mutateCartList({ productId: id, uid: nanoid() }));
   };
 
   const filterProductsList = async (obj: Record<string, string>) => {
@@ -105,7 +105,7 @@ const ProductCard: FC<ProductCardProps> = (props) => {
             </Btn>
 
             <Menu
-              sx={{ mt: "30px" }}
+              sx={{ mt: "39px" }}
               elevation={3}
               id="menu-appbar"
               anchorEl={anchorElUser}

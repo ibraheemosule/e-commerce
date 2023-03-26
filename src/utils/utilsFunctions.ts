@@ -1,6 +1,6 @@
 import { phoneNumberFormats } from "./utilsData";
-import { ProductSlice } from "../store/features/product/product-slice";
-import { ProductType } from "./ts-types/data-types";
+import { ProductSlice } from "./ts-types/__store/typesProduct";
+import { ProductType } from "./ts-types/__store/typesProduct";
 
 export const onlyAlphabet = (text: string) => {
   const re = /^[a-zA-Z ]+$/;
@@ -56,7 +56,7 @@ export const paginateFunction = ({
 export const calculateTotalPrice = (state: ProductSlice) => {
   const priceSum = state.cartList.reduce((prev, next) => {
     const product = state.immutableProducts.filter(
-      (prod) => prod.id === next.id
+      (prod) => prod.id === next.productId
     )[0];
 
     return prev + product.price * (next.quantity || 1);
