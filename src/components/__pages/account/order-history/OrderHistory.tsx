@@ -1,14 +1,16 @@
 import Grid from "@mui/material/Grid";
-import { memo } from "react";
+import { memo, useState } from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/system/Box";
 import NoOrders from "./no-orders/NoOrders";
-import OrderedProductCard from "./ordered-product-card/OrderedProductCard";
 import { useAppSelector } from "../../../../store/hooks";
+import Accordion from "../../../others/accordion/Accordion";
+import OrderList from "./order-list/OrderList";
+import { convertDate } from "../../../../utils/utilsFunctions";
 
 export default memo(function OrderHistory() {
   const { orders } = useAppSelector(({ user }) => user);
-  const { totalPrice } = useAppSelector(({ product }) => product);
+  const [expanded, setExpanded] = useState<number | false>(false);
 
   return (
     <Grid
@@ -26,25 +28,32 @@ export default memo(function OrderHistory() {
         Order History
       </Typography>
       {orders.length ? (
-        <Box>
-          {orders.map((order) => {
-            console.log(order);
-            return order.pastPurchases?.map((product, i) => {
-              console.log(product, "hrke");
-              return <OrderedProductCard key={i} product={product} />;
-            });
-          })}
-          <Box sx={{ textAlign: "right" }}>
-            <Typography
-              component="h1"
-              variant="h6"
-              color="primary.dark"
-              sx={{ mr: 2 }}
+        <Box sx={{ mt: 2 }}>
+          {orders.map((order, i) => (
+            <Accordion
+              title={
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                  }}
+                >
+                  <Typography sx={{ mr: 2, color: "secondary.dark" }}>
+                    Ordered on:
+                  </Typography>
+                  <Typography>
+                    {convertDate(new Date(order.createdAt))}
+                  </Typography>
+                </Box>
+              }
+              key={i}
+              expanded={expanded}
+              setExpanded={setExpanded}
+              id={i}
             >
-              <span style={{ marginRight: 12 }}>Amount:</span>
-              &#8358;{totalPrice.toFixed(2)}
-            </Typography>
-          </Box>
+              <OrderList order={order} />
+            </Accordion>
+          ))}
         </Box>
       ) : (
         <Box sx={{ minHeight: 300, display: "grid", placeItems: "center" }}>

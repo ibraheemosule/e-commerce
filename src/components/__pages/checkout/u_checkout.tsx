@@ -41,7 +41,8 @@ export const payButtonWrapperStyles = {
 
 export const createOrder = (
   cartList: CartType[],
-  productsList: ProductType[]
+  productsList: ProductType[],
+  amount: number
 ): OrderType => {
   const products = cartList.map((item) => {
     const product = productsList.find((prod) => prod.id === item.productId)!;
@@ -57,5 +58,6 @@ export const createOrder = (
   return {
     pastPurchases: products,
     createdAt: new Date().toISOString(),
+    amount,
   };
 };

@@ -39,8 +39,7 @@ export default memo(function Checkout() {
     onSuccess: () =>
       alert("Thanks for doing business with us! Come back soon!!"),
     onClose: () => {
-      const order = createOrder(cartList, immutableProducts);
-      console.log(JSON.stringify(order));
+      const order = createOrder(cartList, immutableProducts, totalPrice);
 
       dispatch(updateOrders(order));
     },

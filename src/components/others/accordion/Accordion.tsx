@@ -3,15 +3,11 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { FC, Dispatch, SetStateAction, memo } from "react";
+import { FC, Dispatch, SetStateAction, memo, ReactElement } from "react";
 
-const CustomAccordion: FC<CustomAccordionProps> = ({
-  expanded,
-  setExpanded,
-  id,
-  title,
-  text,
-}) => {
+const CustomAccordion: FC<CustomAccordionProps> = (props) => {
+  const { expanded, setExpanded, id, title, text, children } = props;
+
   const handleChange =
     (panel: number) => (event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
@@ -37,7 +33,7 @@ const CustomAccordion: FC<CustomAccordionProps> = ({
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>{text}</Typography>
+          {!children ? <Typography>{text}</Typography> : children}
         </AccordionDetails>
       </Accordion>
     </div>
@@ -48,8 +44,9 @@ interface CustomAccordionProps {
   expanded: number | boolean;
   setExpanded: Dispatch<SetStateAction<false | number>>;
   id: number;
-  title: string;
-  text: string;
+  title: string | ReactElement;
+  text?: string;
+  children?: ReactElement;
 }
 
 export default memo(CustomAccordion);

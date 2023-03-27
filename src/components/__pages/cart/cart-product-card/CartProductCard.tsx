@@ -24,7 +24,7 @@ const CartProductCard: FC<CartProductCardProps> = ({ id }) => {
   const { immutableProducts, cartList } = useAppSelector(
     (state) => state.product
   );
-  const cart = cartList.filter((prod) => prod.productId === id)[0];
+  const cart = cartList.find((prod) => prod.productId === id)!;
   const [quantity, setQuantity] = useState(cart.quantity ?? 1);
 
   const removeFromCart = () => dispatch(removeFromCartList(cart));
@@ -61,8 +61,6 @@ const CartProductCard: FC<CartProductCardProps> = ({ id }) => {
         sx={{
           display: "flex",
           flexWrap: "wrap",
-          mt: 6,
-          mb: { xs: 0, md: 0 },
         }}
       >
         <Box>
@@ -97,6 +95,7 @@ const CartProductCard: FC<CartProductCardProps> = ({ id }) => {
             flexGrow: 1,
             justifyContent: "space-between",
             gap: 1,
+            mt: -1,
           }}
         >
           <Box>

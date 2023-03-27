@@ -40,8 +40,6 @@ const OrderedProductCard: FC<OrderedProductCardProps> = ({ product }) => {
         xs={12}
         sx={{
           display: "flex",
-          mt: 3,
-          mb: { xs: 0, md: 0 },
         }}
       >
         <Box sx={{ mt: 1 }}>

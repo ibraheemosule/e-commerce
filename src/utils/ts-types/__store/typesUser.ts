@@ -34,4 +34,5 @@ export type PastPurchaseProductType = ProductType & {
 export interface OrderType {
   pastPurchases: PastPurchaseProductType[];
   createdAt: string;
+  amount: number;
 }

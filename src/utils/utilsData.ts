@@ -68,7 +68,7 @@ export const userForm = {
   },
 };
 
-export const tags = ["shoe", "bag", "belt"];
+export const tags = ["shoe", "belt", "bag"];
 
 export const testData: ProductType[] = JSON.parse(
   (process.env.NEXT_PUBLIC_TEST_DATA as string) || "[]"

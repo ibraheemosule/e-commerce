@@ -99,3 +99,19 @@ export const formFields = (form: { [key: string]: object }) =>
     }),
     {} as Record<string, string>
   );
+
+export const convertDate = (date: Date): string => {
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear().toString();
+  let hours = date.getHours();
+  let minutes: string | number = date.getMinutes();
+  const ampm = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12;
+  hours = hours ? hours : 12;
+  minutes = minutes < 10 ? "0" + String(minutes) : minutes;
+  const dateString = `${day}/${month}/${year}`;
+  const timeString = `${hours}:${minutes} ${ampm}`;
+  const dateTimeString = `${dateString} ${timeString}`;
+  return dateTimeString;
+};

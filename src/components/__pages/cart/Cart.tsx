@@ -27,12 +27,12 @@ const Cart = () => {
                   borderStyle: "solid",
                   borderColor: "primary.main",
                   pr: 2,
-                  pb: 6,
+
                   maxHeight: { md: 500 },
                   overflow: "auto",
                 }}
               >
-                <Grid container>
+                <Grid container sx={{ pt: 6, pb: { md: 6 } }}>
                   {Children.toArray(
                     cartList.map((prod) => (
                       <CartProductCard id={prod.productId} />
