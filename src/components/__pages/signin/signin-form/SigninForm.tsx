@@ -12,7 +12,7 @@ import {
 } from "../../../../utils/utilsFunctions";
 import { useAppDispatch } from "../../../../store/hooks";
 import { updateUserInfo } from "../../../../store/features/user/user-slice";
-import { UserType } from "../../../../utils/ts-types/data-types";
+import { UserType } from "../../../../utils/ts-types/__store/typesUser";
 
 const SigninForm: FC<SigninFormProps> = ({ routeToPasswordPage }) => {
   const dispatch = useAppDispatch();

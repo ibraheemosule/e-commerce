@@ -17,7 +17,7 @@ import {
 } from "./u_editProfile";
 import { useAppSelector, useAppDispatch } from "../../../../../../store/hooks";
 import { updateUserInfo } from "../../../../../../store/features/user/user-slice";
-import { UserType } from "../../../../../../utils/ts-types/data-types";
+import { UserType } from "../../../../../../utils/ts-types/__store/typesUser";
 
 export default memo(function EditProfile({ setEdit }: EditDetailsProp) {
   const dispatch = useAppDispatch();

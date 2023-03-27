@@ -5,7 +5,7 @@ import { profileObj } from "./u_profile";
 import Subtitle from "./subtitle/Subtitle";
 import Btn from "../../../../others/btn/Btn";
 import { useAppSelector } from "../../../../../store/hooks";
-import { UserType } from "../../../../../utils/ts-types/data-types";
+import { UserType } from "../../../../../utils/ts-types/__store/typesUser";
 
 export default memo(function Profile() {
   const [edit, setEdit] = useState(false);
