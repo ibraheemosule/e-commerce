@@ -10,7 +10,7 @@ import { validatePassword } from "../../../../utils/utilsFunctions";
 import { submitSignupForm } from "./u_signupForm";
 import { useAppDispatch } from "../../../../store/hooks";
 import { updateUserInfo } from "../../../../store/features/user/user-slice";
-import { UserType } from "../../../../utils/ts-types/data-types";
+import { UserType } from "../../../../utils/ts-types/__store/typesUser";
 
 const LoginForm = () => {
   const dispatch = useAppDispatch();

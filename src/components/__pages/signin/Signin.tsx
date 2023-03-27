@@ -4,7 +4,7 @@ import SigninForm from "./signin-form/SigninForm";
 import { memo, useState } from "react";
 import Grid from "@mui/material/Grid";
 import dynamic from "next/dynamic";
-import LazyLoader from "../../others/skeleton/Skeleton";
+import LazyLoader from "../../others/lazy-loader/LazyLoader";
 
 const ForgotPassword = dynamic(
   () => import("./forgot-password/ForgotPassword"),

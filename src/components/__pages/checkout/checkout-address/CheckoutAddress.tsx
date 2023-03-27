@@ -16,7 +16,7 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { formControlStyle } from "./u_checkout-address";
 import dynamic from "next/dynamic";
-import LazyLoader from "../../../others/skeleton/Skeleton";
+import LazyLoader from "../../../others/lazy-loader/LazyLoader";
 import useFillForm from "../../../others/hooks/fill-form/useFillForm";
 import { addressFields, validateAddressForm } from "./u_checkout-address";
 import { changeDeliveryDetails } from "../../../../store/features/user/user-slice";
