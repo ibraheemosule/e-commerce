@@ -29,7 +29,6 @@ export const getStaticPaths: GetStaticPaths<Params> = () => {
 };
 
 export const getStaticProps: GetStaticProps<Props, Params> = ({ params }) => {
-  console.log(params);
   const product = params
     ? testData.find((prod) => prod.id === params.id)!
     : ({} as ProductType);

@@ -70,6 +70,11 @@ export const userForm = {
 
 export const tags = ["shoe", "belt", "bag"];
 
+const checkEnv =
+  process.env.NODE_ENV === "development"
+    ? process.env.NEXT_PUBLIC_TEST_DATA
+    : process.env.NEXT_DATA;
+
 export const testData: ProductType[] = JSON.parse(
-  (process.env.NEXT_PUBLIC_TEST_DATA as string) || "[]"
+  (checkEnv as string) || "[]"
 ) as ProductType[];
