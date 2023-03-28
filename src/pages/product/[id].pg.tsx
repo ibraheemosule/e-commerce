@@ -42,6 +42,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = ({ params }) => {
     hu: "",
     id: params?.id,
     data: testData.filter((val) => val.id === params?.id),
+    params,
   });
   return {
     props: {
