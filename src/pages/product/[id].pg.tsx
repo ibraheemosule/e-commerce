@@ -8,6 +8,7 @@ import { parseEnvTestData } from "../../utils/utilsFunctions";
 const testData = parseEnvTestData(process.env.NEXT_PUBLIC_TEST_DATA);
 
 export default function ProductsPage({ product }: { product: ProductType }) {
+  console.log(product, "maintain ooo");
   return (
     <>
       <Head>
@@ -38,6 +39,8 @@ export const getStaticProps: GetStaticProps<Props, Params> = ({ params }) => {
   console.log({
     testData,
     hi: "here",
+    product,
+    hu: "",
   });
   return {
     props: {
