@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import Box from "@mui/system/Box";
-import { Children, memo, useState, useCallback, useEffect } from "react";
+import { Children, memo, useState, useCallback } from "react";
 import Image from "next/image";
 import ButtonBase from "@mui/material/ButtonBase";
 import Typography from "@mui/material/Typography";
@@ -30,23 +30,12 @@ export default memo(function Product({ product }: { product: ProductType }) {
   const [quantity, setQuantity] = useState(1);
   const [size, setSize] = useState("");
   const [error, setError] = useState("");
-  const [selectedImg, setSelectedImg] = useState("/");
+  const [selectedImg, setSelectedImg] = useState(product?.images[0]);
   const { cartList } = useAppSelector((state) => state.product);
   const dispatch = useAppDispatch();
   const router = useRouter();
   const ids = cartList.map((prod) => prod.productId);
   const id = product?.id;
-
-  // const product = useMemo(
-  //   () => immutableProducts.find(prod => prod.id === id)!,
-  //   [id, immutableProducts]
-  // );
-
-  // console.log(product);
-
-  useEffect(() => {
-    if (product?.images) setSelectedImg(product?.images[0]);
-  }, [product?.images]);
 
   const addToCart = useCallback(() => {
     if (product?.sizes && !size) {
