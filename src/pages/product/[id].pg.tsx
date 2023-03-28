@@ -29,16 +29,17 @@ export const getStaticPaths: GetStaticPaths<Params> = () => {
 };
 
 export const getStaticProps: GetStaticProps<Props, Params> = ({ params }) => {
-  console.log(
-    process.env.TEST_DATA,
-
-    "hre",
-    process.env.NEXT_PUBLIC_TEST_DATA
-  );
   const product = params
     ? testData.find((prod) => prod.id === params.id)!
     : ({} as ProductType);
-  console.log(product, params?.id, testData);
+
+  console.log({
+    testData: process.env.TEST_DATA,
+    nextPublic: process.env.NEXT_PUBLIC_TEST_DATA,
+    product,
+    testDataReal: testData,
+    timing: "bl",
+  });
   return {
     props: {
       product,
