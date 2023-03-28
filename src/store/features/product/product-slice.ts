@@ -1,12 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { calculateTotalPrice } from "../../../utils/utilsFunctions";
 import { ProductType } from "../../../utils/ts-types/__store/typesProduct";
-import { testData } from "../../../utils/utilsData";
+import { parseEnvTestData } from "../../../utils/utilsFunctions";
 import {
   ProductSlice,
   IMutateProducts,
   CartType,
 } from "../../../utils/ts-types/__store/typesProduct";
+
+const testData = parseEnvTestData(process.env.NEXT_PUBLIC_TEST_DATA);
 
 const productDefaultState: ProductSlice = {
   immutableProducts: [...testData],

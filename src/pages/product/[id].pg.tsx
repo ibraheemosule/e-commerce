@@ -1,9 +1,11 @@
 import Head from "next/head";
 import Product from "../../components/__pages/product/Product";
-import { testData } from "../../utils/utilsData";
 import { ProductType } from "../../utils/ts-types/__store/typesProduct";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { ParsedUrlQuery } from "querystring";
+import { parseEnvTestData } from "../../utils/utilsFunctions";
+
+const testData = parseEnvTestData(process.env.NEXT_PUBLIC_TEST_DATA);
 
 export default function ProductsPage({ product }: { product: ProductType }) {
   return (
@@ -34,11 +36,8 @@ export const getStaticProps: GetStaticProps<Props, Params> = ({ params }) => {
     : ({} as ProductType);
 
   console.log({
-    testData: process.env.TEST_DATA,
-    nextPublic: process.env.NEXT_PUBLIC_TEST_DATA,
-    product,
-    testDataReal: testData,
-    timing: "bl",
+    testData,
+    hi: "here",
   });
   return {
     props: {
