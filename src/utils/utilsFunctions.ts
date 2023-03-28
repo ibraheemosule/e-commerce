@@ -115,6 +115,3 @@ export const convertDate = (date: Date): string => {
   const dateTimeString = `${dateString} ${timeString}`;
   return dateTimeString;
 };
-
-export const parseEnvTestData = (env: unknown) =>
-  JSON.parse((env as string) || "[]") as ProductType[];

@@ -3,9 +3,7 @@ import Product from "../../components/__pages/product/Product";
 import { ProductType } from "../../utils/ts-types/__store/typesProduct";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { ParsedUrlQuery } from "querystring";
-import { parseEnvTestData } from "../../utils/utilsFunctions";
-
-const testData = parseEnvTestData(process.env.NEXT_PUBLIC_TEST_DATA);
+import { testData } from "../../utils/utilsData";
 
 export default function ProductsPage({ product }: { product: ProductType }) {
   return (
