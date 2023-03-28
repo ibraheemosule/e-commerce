@@ -32,7 +32,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = ({ params }) => {
   const product = params
     ? testData.find((prod) => prod.id === params.id)!
     : ({} as ProductType);
-
+  console.log(product, params?.id, testData);
   return {
     props: {
       product,
