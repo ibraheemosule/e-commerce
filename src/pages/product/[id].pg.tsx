@@ -8,7 +8,6 @@ import { parseEnvTestData } from "../../utils/utilsFunctions";
 const testData = parseEnvTestData(process.env.NEXT_PUBLIC_TEST_DATA);
 
 export default function ProductsPage({ product }: { product: ProductType }) {
-  console.log(product, "maintain ooo");
   return (
     <>
       <Head>
@@ -32,18 +31,9 @@ export const getStaticPaths: GetStaticPaths<Params> = () => {
 };
 
 export const getStaticProps: GetStaticProps<Props, Params> = ({ params }) => {
-  const product = params
-    ? testData.find((prod) => prod.id === params.id)!
-    : ({} as ProductType);
+  const product =
+    testData.find((prod) => prod.id === params?.id) || ({} as ProductType);
 
-  console.log({
-    testData,
-    product,
-    hu: "",
-    id: params?.id,
-    data: testData.filter((val) => val.id === params?.id),
-    params,
-  });
   return {
     props: {
       product,

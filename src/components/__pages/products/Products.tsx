@@ -112,7 +112,7 @@ const Products = () => {
                     <Grid item xs={10} sm={5} md={3.5} key={i}>
                       <ProductCard
                         img={product.images[0]}
-                        path={`/product?id=${product.id}`}
+                        path={`/product/${product.id}`}
                         product={product}
                       />
                     </Grid>

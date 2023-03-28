@@ -106,7 +106,7 @@ const CartProductCard: FC<CartProductCardProps> = ({ id }) => {
               color="secondary.main"
             >
               <Link
-                href={`/product?id=${id}`}
+                href={`/product/${id}`}
                 style={{ all: "unset", display: "block", cursor: "pointer" }}
               >
                 {product.name}

@@ -68,7 +68,7 @@ export default function SearchBar(props: Suggestions) {
             products?.map(({ name, tag, id, gender }, i) => (
               <Link
                 key={id}
-                href={`/product?id=${id}`}
+                href={`/product/${id}`}
                 style={{ all: "unset", display: "block" }}
               >
                 <ListItemButton
