@@ -13,6 +13,9 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Btn from "../../others/btn/Btn";
 import Pagination from "../../others/pagination/Pagination";
+import useFade from "../../others/hooks/fade-transition/useFade";
+import { ProductType } from "../../../utils/ts-types/__store/typesProduct";
+import { animated } from "@react-spring/web";
 
 const sortOptions = ["a-z", "z-a", "highest price", "lowest price"];
 const genderOptions = ["male", "female", "unisex"];
@@ -27,6 +30,7 @@ const Products = () => {
     sortValue,
     genderValue,
   } = useAppSelector((state) => state.product);
+  const fade = useFade(paginatedList);
 
   const updateSearch = (value: string) =>
     void dispatch(mutateProductsList({ searchValue: value }));
@@ -108,15 +112,22 @@ const Products = () => {
             <Grid container justifyContent="center" gap={5} minHeight={200}>
               {products.length ? (
                 <>
-                  {paginatedList.map((product, i) => (
-                    <Grid item xs={10} sm={5} md={3.5} key={i}>
-                      <ProductCard
-                        img={product.images[0]}
-                        path={`/product/${product.id}`}
-                        product={product}
-                      />
-                    </Grid>
-                  ))}
+                  {fade((props, item) => {
+                    const product = item as unknown as ProductType;
+                    return (
+                      item && (
+                        <Grid item xs={10} sm={5} md={3.5} key={product.id}>
+                          <animated.div style={{ ...props, width: "100%" }}>
+                            <ProductCard
+                              img={product.images[0]}
+                              path={`/product/${product.id}`}
+                              product={product}
+                            />
+                          </animated.div>
+                        </Grid>
+                      )
+                    );
+                  })}
                   <Pagination />
                 </>
               ) : (
