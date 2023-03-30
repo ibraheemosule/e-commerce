@@ -2,11 +2,11 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Btn from "../../others/btn/Btn";
+import Btn from "../../../others/btn/Btn";
 import Link from "next/link";
-import LazyLoader from "../../others/lazy-loader/LazyLoader";
+import LazyLoader from "../../../others/lazy-loader/LazyLoader";
 import { FC } from "react";
-import { ProductType } from "../../../utils/ts-types/__store/typesProduct";
+import { ProductType } from "../../../../utils/ts-types/__store/typesProduct";
 
 const NoProduct: FC<NoProductProps> = ({ product }) => {
   return (

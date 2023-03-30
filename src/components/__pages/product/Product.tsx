@@ -22,8 +22,10 @@ import TagBtn from "../../others/btn/tag-btn/TagBtn";
 import { nanoid } from "@reduxjs/toolkit";
 import dynamic from "next/dynamic";
 import { ProductType } from "../../../utils/ts-types/__store/typesProduct";
+import useFade from "../../others/hooks/fade-transition/useFade";
+import { animated } from "@react-spring/web";
 
-const NoProduct = dynamic(() => import("./NoProduct"));
+const NoProduct = dynamic(() => import("./no-product/NoProduct"));
 
 export default memo(function Product({ product }: { product: ProductType }) {
   const [showDescription, setShowDescription] = useState(false);
@@ -36,6 +38,7 @@ export default memo(function Product({ product }: { product: ProductType }) {
   const router = useRouter();
   const ids = cartList.map((prod) => prod.productId);
   const id = product?.id;
+  const fade = useFade(showDescription);
 
   const addToCart = useCallback(() => {
     if (product?.sizes && !size) {
@@ -201,16 +204,20 @@ export default memo(function Product({ product }: { product: ProductType }) {
             >
               <strong>Description</strong> <ArrowRight />
             </ButtonBase>
-            <Typography
-              component="p"
-              sx={{
-                color: "primary.dark",
-                display: showDescription ? "block" : "none",
-                fontSize: 13,
-              }}
-            >
-              {product?.description}
-            </Typography>
+            {fade((props, trigger) => (
+              <animated.div style={props} key={String(trigger)}>
+                <Typography
+                  component="p"
+                  sx={{
+                    color: "primary.dark",
+                    display: showDescription ? "block" : "none",
+                    fontSize: 13,
+                  }}
+                >
+                  {product?.description}
+                </Typography>
+              </animated.div>
+            ))}
           </Box>
           <Divider />
 
