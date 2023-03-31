@@ -1,5 +1,5 @@
 import Container from "@mui/material/Container";
-import { memo, useState, useEffect } from "react";
+import { memo, useState } from "react";
 import dynamic from "next/dynamic";
 import { useAppSelector } from "../../../store/hooks";
 
@@ -11,8 +11,6 @@ const Payment = () => {
   const { cartList, immutableProducts } = useAppSelector(
     ({ product }) => product
   );
-
-  useEffect(() => console.log(createOrder()), []);
 
   const createOrder = () => {
     return cartList.map((item) => {

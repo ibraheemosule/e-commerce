@@ -3,19 +3,16 @@ import Container from "@mui/material/Container";
 import Box from "@mui/system/Box";
 import { memo, useState, useEffect } from "react";
 import Typography from "@mui/material/Typography";
-import { payButtonWrapperStyles, createOrder } from "./u_checkout";
 import CheckoutAddress from "./checkout-address/CheckoutAddress";
-import { PaystackButton } from "react-paystack";
 import { useAppSelector, useAppDispatch } from "../../../store/hooks";
 import { changeDeliveryDetails } from "../../../store/features/user/user-slice";
 import { DeliveryDetailsType } from "../../../utils/ts-types/__store/typesUser";
-import { updateOrders } from "../../../store/features/user/user-slice";
+import Btn from "../../others/btn/Btn";
+import Link from "next/link";
 
 export default memo(function Checkout() {
   const dispatch = useAppDispatch();
-  const { totalPrice, cartList, immutableProducts } = useAppSelector(
-    (state) => state.product
-  );
+  const { totalPrice } = useAppSelector((state) => state.product);
   const { userInfo, deliveryDetails } = useAppSelector(({ user }) => user);
   const [addressOption, setAddressOption] = useState("default");
 
@@ -30,20 +27,6 @@ export default memo(function Checkout() {
     dispatch(changeDeliveryDetails({} as DeliveryDetailsType));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [addressOption]);
-
-  const props = {
-    email: "sulayibraheem@gmail.com",
-    amount: 500 * 100,
-    publicKey: "pk_test_17c88efeaeb964faa66cda7e2e09f018d1aa172d",
-    text: "Pay Now",
-    onSuccess: () =>
-      alert("Thanks for doing business with us! Come back soon!!"),
-    onClose: () => {
-      const order = createOrder(cartList, immutableProducts, totalPrice);
-
-      dispatch(updateOrders(order));
-    },
-  };
 
   return (
     <>
@@ -68,20 +51,35 @@ export default memo(function Checkout() {
                     </span>
                     <Typography color="primary.dark">&#8358;2, 000</Typography>
                   </Box>
-                  <Box sx={payButtonWrapperStyles}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      rowGap: 1,
+                      alignItems: "center",
+                      mt: 1,
+                    }}
+                  >
                     <strong style={{ alignSelf: "center", marginRight: 12 }}>
                       Subtotal:
                     </strong>
                     <Typography
                       component="h1"
-                      variant="h5"
+                      variant="h6"
                       color="primary.dark"
                       sx={{ mr: 2 }}
                     >
                       &#8358;{totalPrice.toFixed(2)}
                     </Typography>
-
-                    <PaystackButton className="pay-btn" {...props} />
+                    <Link
+                      href="/payment-options"
+                      style={{
+                        all: "unset",
+                        display: "block",
+                      }}
+                    >
+                      <Btn size="small">Proceed</Btn>
+                    </Link>
                   </Box>
                 </Container>
               )}

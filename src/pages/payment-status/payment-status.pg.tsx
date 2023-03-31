@@ -1,8 +1,8 @@
 import Head from "next/head";
-import Checkout from "../../components/__pages/checkout/Checkout";
+import Payment from "../../components/__pages/payment-status/PaymentStatus";
 import { GetServerSideProps } from "next";
 
-export default function CheckoutPage() {
+export default function PaymentStatusPage() {
   return (
     <>
       <Head>
@@ -11,7 +11,7 @@ export default function CheckoutPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Checkout />
+      <Payment />
     </>
   );
 }
@@ -19,10 +19,10 @@ export default function CheckoutPage() {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const referrer = await Promise.resolve(context.req.headers.referer || "/");
 
-  if (!referrer.endsWith("/cart")) {
+  if (!referrer.endsWith("/payment-options")) {
     return {
       redirect: {
-        destination: "/cart",
+        destination: "/payment-options",
         permanent: false,
       },
     };
