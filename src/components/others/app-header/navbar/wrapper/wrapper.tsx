@@ -7,7 +7,7 @@ const navWrapper = (Nav: React.ComponentType<NavbarProps>) => {
     showMenu: boolean;
     setShowMenu: Dispatch<SetStateAction<boolean>>;
   }> = (props) => {
-    const { signin } = useAppSelector(({ user }) => user);
+    const { email } = useAppSelector(({ user }) => user.userInfo);
     const [active, setActive] = useState(1);
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -30,7 +30,7 @@ const navWrapper = (Nav: React.ComponentType<NavbarProps>) => {
           anchorElUser={anchorElUser}
           showMenu={props.showMenu}
           setShowMenu={props.setShowMenu}
-          signin={signin}
+          signin={!!email}
         />
       </>
     );

@@ -6,6 +6,8 @@ import dynamic from "next/dynamic";
 import useFade from "./hooks/fade-transition/useFade";
 import { useRouter } from "next/router";
 import { animated } from "@react-spring/web";
+import { ToastContainer, Slide } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 interface ILayout {
   children: ReactElement;
 }
@@ -24,6 +26,19 @@ function Layout({ children }: ILayout) {
         color: "primary.dark",
       }}
     >
+      <ToastContainer
+        hideProgressBar={true}
+        newestOnTop={true}
+        autoClose={2000}
+        draggable={false}
+        pauseOnHover={false}
+        theme="colored"
+        style={{
+          maxWidth: 300,
+          padding: 0,
+          cursor: "unset",
+        }}
+      />
       <Box
         component="header"
         sx={{

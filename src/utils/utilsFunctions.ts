@@ -21,6 +21,9 @@ export const validatePassword = (password: string) => {
   if (!/(?=.*[a-z])/.test(password)) {
     return "lowercase letter";
   }
+  if (!/(?=.*\d)/.test(password)) {
+    return "number";
+  }
   if (!/(?=.*[^A-Za-z0-9<>])/.test(password)) {
     return "special character (excluding < and >)";
   }

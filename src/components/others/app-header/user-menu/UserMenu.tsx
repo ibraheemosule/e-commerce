@@ -1,4 +1,4 @@
-import { useState, MouseEvent } from "react";
+import { useState, MouseEvent, useEffect } from "react";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
@@ -9,11 +9,25 @@ import WindowIcon from "@mui/icons-material/Window";
 import { useAppSelector } from "../../../../store/hooks";
 import Link from "next/link";
 import { signedInMenu, notSignedInMenu } from "../navbar/u_navbar";
+import ButtonBase from "@mui/material/ButtonBase";
+import useSignout from "../../hooks/signout/useSignout";
+
+const btnStyle = {
+  textDecoration: "none",
+  color: "inherit",
+  textAlign: "center",
+  textTransform: "capitalize",
+  fontSize: 16,
+};
 
 export default function UserMenu() {
-  const { signin } = useAppSelector((state) => state.user);
+  const { email } = useAppSelector(({ user }) => user.userInfo);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const { signout } = useSignout();
 
+  useEffect(() => {
+    console.log(email);
+  }, [email]);
   const openUserMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -23,11 +37,8 @@ export default function UserMenu() {
   return (
     <Box sx={{ flexGrow: 0 }}>
       <Tooltip title="Open settings">
-        <IconButton
-          onClick={openUserMenu}
-          sx={{ px: 0, py: signin ? 0 : null }}
-        >
-          {signin ? (
+        <IconButton onClick={openUserMenu} sx={{ px: 0, py: email ? 0 : null }}>
+          {email ? (
             <Avatar
               sx={{ backgroundColor: "secondary.main", color: "primary.dark" }}
               alt="B"
@@ -60,19 +71,25 @@ export default function UserMenu() {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        {(signin ? signedInMenu : notSignedInMenu).map(({ name, href }) => (
+        {(email ? signedInMenu : notSignedInMenu).map(({ name, href }) => (
           <MenuItem key={name} onClick={handleCloseUserMenu}>
-            <Link
-              href={href}
-              style={{
-                textDecoration: "none",
-                color: "inherit",
-                textAlign: "center",
-                textTransform: "capitalize",
-              }}
-            >
-              {name}
-            </Link>
+            {name === "sign out" ? (
+              <ButtonBase onClick={() => void signout()} sx={btnStyle}>
+                {name}
+              </ButtonBase>
+            ) : (
+              <Link
+                href={href}
+                style={{
+                  textDecoration: "none",
+                  color: "inherit",
+                  textAlign: "center",
+                  textTransform: "capitalize",
+                }}
+              >
+                {name}
+              </Link>
+            )}
           </MenuItem>
         ))}
       </Menu>

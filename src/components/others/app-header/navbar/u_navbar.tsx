@@ -62,7 +62,7 @@ export const signedInMenu = [
   },
   {
     name: "sign out",
-    href: "/cart",
+    href: "/",
     Icon: SignOutIcon,
   },
 ];

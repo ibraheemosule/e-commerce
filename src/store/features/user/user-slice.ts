@@ -18,13 +18,13 @@ export const userDefaultState: UserSlice = {
   },
 
   userInfo: {
-    firstName: "john",
-    lastName: "doe",
-    address: "22, abebi college, gatte off offward crasetnidjf",
-    email: "johndoe@gmail.com",
-    city: "idimu",
-    state: "lagos",
-    phoneNo: "+2347654343434",
+    firstName: "",
+    lastName: "",
+    address: "",
+    email: "",
+    city: "",
+    state: "",
+    phoneNo: "",
   },
 
   orders: [],
@@ -52,6 +52,10 @@ export const userSlice = createSlice({
     updateOrders(state, { payload }: PayloadAction<OrderType>) {
       state.orders = [...state.orders, payload];
     },
+    resetState(state, { payload }: PayloadAction<UserSlice>) {
+      state.userInfo = payload.userInfo;
+      state.deliveryDetails = payload.deliveryDetails;
+    },
   },
 });
 
@@ -60,5 +64,6 @@ export const {
   updateUserInfo,
   changeDeliveryDetails,
   updateOrders,
+  resetState,
 } = userSlice.actions;
 export default userSlice.reducer;

@@ -69,7 +69,7 @@ const FormBtn: FC<FormBtnProps> = ({
 interface FormBtnProps {
   btnSize?: "small" | "medium" | "large";
   text: string;
-  error: string;
+  error: string | undefined;
   loading?: boolean;
   onCancel?: () => void;
 }

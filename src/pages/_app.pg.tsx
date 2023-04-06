@@ -23,27 +23,22 @@ const MyApp = (props: MyAppProps) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <CacheProvider value={emotionCache}>
-          <Head>
-            <meta
-              name="viewport"
-              content="initial-scale=1, width=device-width"
-            />
-          </Head>
+      <CacheProvider value={emotionCache}>
+        <Head>
+          <meta name="viewport" content="initial-scale=1, width=device-width" />
+        </Head>
 
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <StyledEngineProvider injectFirst>
-              <Layout>
-                <>
-                  <Component {...pageProps} />
-                </>
-              </Layout>
-            </StyledEngineProvider>
-          </ThemeProvider>
-        </CacheProvider>
-      </PersistGate>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <StyledEngineProvider injectFirst>
+            <Layout>
+              <>
+                <Component {...pageProps} />
+              </>
+            </Layout>
+          </StyledEngineProvider>
+        </ThemeProvider>
+      </CacheProvider>
     </Provider>
   );
 };

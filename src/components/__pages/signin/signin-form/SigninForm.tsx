@@ -60,7 +60,7 @@ const SigninForm: FC<SigninFormProps> = ({ routeToPasswordPage }) => {
           textAlign="center"
           color="secondary.main"
         >
-          Login
+          Sign in
         </Typography>
       </Grid>
       <Grid

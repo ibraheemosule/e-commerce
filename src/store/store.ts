@@ -1,20 +1,24 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { apiSlice } from "./features/dogs/dogs-api-slice";
 import type { PreloadedState } from "@reduxjs/toolkit";
 import userSliceReducer from "./features/user/user-slice";
-import productSlice from "./features/product/product-slice";
+import productSliceReducer from "./features/product/product-slice";
+import { newUserSlice } from "./features/new-user/new-user-slice";
+import { setupListeners } from "@reduxjs/toolkit/dist/query";
 
-const persistConfig = {
+export const persistConfig = {
   key: "root",
   storage,
+  version: 1,
+  whitelist: ["product", "user", newUserSlice.reducerPath],
 };
 
 const rootReducer = combineReducers({
   user: userSliceReducer,
-  product: productSlice,
-  [apiSlice.reducerPath]: apiSlice.reducer,
+  product: productSliceReducer,
+  [newUserSlice.reducerPath]: newUserSlice.reducer,
+  newUser: newUserSlice.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -25,13 +29,13 @@ export const storeInstance = (preloadedState?: PreloadedState<RootState>) =>
     preloadedState,
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
-        serializableCheck: {
-          ignoredActions: ["persist/PERSIST"],
-        },
-      }).concat(apiSlice.middleware),
+        serializableCheck: false,
+      }).concat(newUserSlice.middleware),
   });
 
 export const store = storeInstance();
+
+setupListeners(store.dispatch);
 
 export type RootState = ReturnType<typeof rootReducer>;
 
@@ -39,4 +43,4 @@ export type StoreType = ReturnType<typeof storeInstance>;
 
 export type AppDispatch = StoreType["dispatch"];
 
-export const persistor = persistStore(store);
+export const persistor = persistStore(store, {}, () => persistor.persist());
