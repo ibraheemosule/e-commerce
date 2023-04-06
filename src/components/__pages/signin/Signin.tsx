@@ -29,9 +29,9 @@ const Signin = () => {
             rowGap={2}
             bgcolor="primary.light"
             position="relative"
-            sx={{
-              boxShadow: "1px 2px 8px -4px rgba(0,0,0,0.75)",
-            }}
+            // sx={{
+            //   boxShadow: "1px 2px 8px -4px rgba(0,0,0,0.75)",
+            // }}
           >
             {<PageJsx routeToPasswordPage={routeToPasswordPage} />}
           </Grid>

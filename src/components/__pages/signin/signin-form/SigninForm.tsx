@@ -48,7 +48,7 @@ const SigninForm: FC<SigninFormProps> = ({ routeToPasswordPage }) => {
         type: "success",
       });
 
-      Router.back();
+      Router.reload();
     } catch (e) {
       let message = "An error occurred";
       if (e instanceof Error) message = e.message;

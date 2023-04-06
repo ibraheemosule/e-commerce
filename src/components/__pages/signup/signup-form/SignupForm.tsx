@@ -55,7 +55,7 @@ const LoginForm = () => {
         type: "success",
       });
 
-      await Router.push("/");
+      Router.reload();
     } catch (e) {
       if (responseError(e)) {
         setError(e.data.message);
