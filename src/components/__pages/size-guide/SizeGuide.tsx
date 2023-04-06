@@ -10,7 +10,7 @@ export const logos = ["/images/belt sizes.jpg", "/images/shoe sizes.png"];
 
 export default memo(function SizeGuide() {
   return (
-    <Container maxWidth="lg" sx={{ py: { xs: 9, sm: 12, lg: 15 } }}>
+    <Container maxWidth="lg" sx={{ py: { xs: 9, sm: 12, lg: 15 }, px: 2 }}>
       <Container
         sx={{
           bgcolor: "primary.light",

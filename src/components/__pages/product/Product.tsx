@@ -92,7 +92,7 @@ export default memo(function Product({ product }: { product: ProductType }) {
   }
 
   return (
-    <Container sx={{ py: { xs: 9, sm: 12, lg: 15 } }}>
+    <Container sx={{ py: { xs: 9, sm: 12, lg: 15 }, px: 2 }}>
       <Grid
         container
         maxWidth="lg"

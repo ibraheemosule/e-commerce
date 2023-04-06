@@ -12,26 +12,26 @@ const Payment = () => {
     ({ product }) => product
   );
 
-  const createOrder = () => {
-    return cartList.map((item) => {
-      const product = immutableProducts.find(
-        (prod) => prod.id === item.productId
-      );
+  // const createOrder = () => {
+  //   return cartList.map(item => {
+  //     const product = immutableProducts.find(
+  //       prod => prod.id === item.productId
+  //     );
 
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { uid, ...rest } = item;
+  //     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  //     const { uid, ...rest } = item;
 
-      return {
-        ...rest,
-        product,
-        createdAt: new Date().toISOString(),
-      };
-    });
-  };
+  //     return {
+  //       ...rest,
+  //       product,
+  //       createdAt: new Date().toISOString(),
+  //     };
+  //   });
+  // };
 
   return (
     <>
-      <Container maxWidth="md" sx={{ py: { xs: 9, sm: 12, lg: 15 } }}>
+      <Container maxWidth="md" sx={{ py: { xs: 9, sm: 12, lg: 15 }, px: 2 }}>
         <Container sx={{ bgcolor: "primary.light", p: 3, py: 8 }}>
           {paymentStatus === "paid" ? <Success /> : <Error />}
         </Container>

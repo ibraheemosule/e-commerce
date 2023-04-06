@@ -18,7 +18,7 @@ const Signin = () => {
 
   return (
     <>
-      <Box bgcolor="primary.main" py={{ xs: 9, sm: 12, lg: 15 }}>
+      <Box bgcolor="primary.main" py={{ xs: 9, sm: 12, lg: 15 }} px={2}>
         <Container>
           <Grid
             container

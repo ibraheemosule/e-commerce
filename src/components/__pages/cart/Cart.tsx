@@ -16,7 +16,7 @@ const Cart = () => {
 
   return (
     <>
-      <Container sx={{ py: { xs: 9, sm: 12, lg: 15 } }}>
+      <Container sx={{ py: { xs: 9, sm: 12, lg: 15 }, px: 2 }}>
         <Container sx={{ bgcolor: "primary.light", pb: { xs: 6, md: 0 } }}>
           {cartList.length ? (
             <Grid container>

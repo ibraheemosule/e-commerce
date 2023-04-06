@@ -23,9 +23,13 @@ import {
   signedInMenu,
   notSignedInMenu,
 } from "../u_navbar";
+import useSignout from "../../../hooks/signout/useSignout";
+import ButtonBase from "@mui/material/ButtonBase";
 
 const Nav: FC<NavbarProps> = (props) => {
   const { email } = useAppSelector(({ user }) => user.userInfo);
+  const { signout } = useSignout();
+
   return (
     <Box
       component="nav"
@@ -98,15 +102,30 @@ const Nav: FC<NavbarProps> = (props) => {
             {(email ? signedInMenu : notSignedInMenu).map(
               ({ name, href, Icon }) => (
                 <StyledListItem key={name} disablePadding>
-                  <Link href={href}>
-                    <ListItemButton>
-                      <ListItemIcon>
-                        <Icon />
-                      </ListItemIcon>
+                  {name === "sign out" ? (
+                    <ButtonBase
+                      onClick={() => void signout()}
+                      style={{ all: "unset", width: "100%" }}
+                    >
+                      <ListItemButton>
+                        <ListItemIcon>
+                          <Icon />
+                        </ListItemIcon>
 
-                      <ListItemText primary={name} />
-                    </ListItemButton>
-                  </Link>
+                        <ListItemText primary={name} />
+                      </ListItemButton>
+                    </ButtonBase>
+                  ) : (
+                    <Link href={href}>
+                      <ListItemButton>
+                        <ListItemIcon>
+                          <Icon />
+                        </ListItemIcon>
+
+                        <ListItemText primary={name} />
+                      </ListItemButton>
+                    </Link>
+                  )}
                 </StyledListItem>
               )
             )}

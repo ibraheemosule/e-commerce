@@ -40,7 +40,7 @@ export default memo(function PaymentOptions() {
 
   return (
     <>
-      <Container maxWidth="xs" sx={{ py: { xs: 9, sm: 12, lg: 15 } }}>
+      <Container maxWidth="xs" sx={{ py: { xs: 9, sm: 12, lg: 15 }, px: 2 }}>
         <Container sx={{ bgcolor: "primary.light", p: { xs: 3, md: 5 } }}>
           <Typography
             component="h4"

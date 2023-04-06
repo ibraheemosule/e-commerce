@@ -21,6 +21,15 @@ export const StyledListItem = withStyles((theme: Theme) => ({
         color: theme.palette.primary.main,
       },
     },
+    "& button": {
+      ...reusables,
+      fontWeight: "bold",
+      color: theme.palette.primary.dark,
+
+      "&:hover": {
+        color: theme.palette.primary.main,
+      },
+    },
   },
 }))(ListItem);
 

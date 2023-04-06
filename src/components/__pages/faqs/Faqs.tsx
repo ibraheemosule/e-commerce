@@ -9,7 +9,7 @@ export default memo(function Faqs() {
   const [expanded, setExpanded] = useState<number | false>(false);
 
   return (
-    <Container maxWidth="md" sx={{ py: { xs: 9, sm: 12, lg: 15 } }}>
+    <Container maxWidth="md" sx={{ py: { xs: 9, sm: 12, lg: 15 }, px: 2 }}>
       <Container sx={{ bgcolor: "primary.light", p: 3 }}>
         <Grid container mx="auto" sx={{ py: 3 }}>
           <Grid item xs={12}>

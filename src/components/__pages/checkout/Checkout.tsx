@@ -30,7 +30,7 @@ export default memo(function Checkout() {
 
   return (
     <>
-      <Container maxWidth="md" sx={{ py: { xs: 9, sm: 12, lg: 15 } }}>
+      <Container maxWidth="md" sx={{ py: { xs: 9, sm: 12, lg: 15 }, px: 1.5 }}>
         <Container sx={{ bgcolor: "primary.light", p: 3, py: 8 }}>
           <Grid container>
             <Grid item xs={12}>

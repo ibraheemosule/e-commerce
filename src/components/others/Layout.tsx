@@ -52,7 +52,7 @@ function Layout({ children }: ILayout) {
       </Box>
       {fade((props, item) => (
         <animated.div key={item} style={{ flexGrow: 1, ...props }}>
-          <Box component="main" sx={{ bgcolor: "primary.main", px: 1 }}>
+          <Box component="main" sx={{ bgcolor: "primary.main" }}>
             {children}
           </Box>
         </animated.div>

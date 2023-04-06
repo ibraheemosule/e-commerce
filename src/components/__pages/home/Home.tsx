@@ -12,7 +12,7 @@ const Home = () => {
   return (
     <>
       <Hero />
-      <Box py={{ xs: 9, sm: 12, lg: 15 }}>
+      <Box py={{ xs: 9, sm: 12, lg: 15 }} px={2}>
         <Container>
           <Grid
             container

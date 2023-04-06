@@ -30,7 +30,7 @@ const CartProductCard: FC<CartProductCardProps> = ({ id }) => {
 
   const removeFromCart = () => {
     toast("Product removed from cart", {
-      type: "success",
+      type: "warning",
       autoClose: 300,
     });
     dispatch(removeFromCartList(cart));

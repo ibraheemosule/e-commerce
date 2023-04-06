@@ -7,7 +7,7 @@ import { returnPolicy } from "./u_returnPolicy";
 
 export default memo(function SizeGuide() {
   return (
-    <Container maxWidth="md" sx={{ py: { xs: 9, sm: 12, lg: 15 } }}>
+    <Container maxWidth="md" sx={{ py: { xs: 9, sm: 12, lg: 15 }, px: 2 }}>
       <Container
         sx={{
           bgcolor: "primary.light",
