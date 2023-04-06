@@ -7,8 +7,6 @@ export function middleware(req: NextRequest) {
   const cookie = req.cookies.get("token");
   const path = req.nextUrl.pathname;
 
-  console.log(cookie);
-
   if (path.startsWith("/_next")) {
     return NextResponse.next();
   }

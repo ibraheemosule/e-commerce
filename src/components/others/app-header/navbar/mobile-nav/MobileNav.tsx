@@ -25,7 +25,7 @@ import {
 } from "../u_navbar";
 
 const Nav: FC<NavbarProps> = (props) => {
-  const { signin } = useAppSelector((state) => state.user);
+  const { email } = useAppSelector(({ user }) => user.userInfo);
   return (
     <Box
       component="nav"
@@ -95,7 +95,7 @@ const Nav: FC<NavbarProps> = (props) => {
           </List>
           <Divider />
           <List>
-            {(signin ? signedInMenu : notSignedInMenu).map(
+            {(email ? signedInMenu : notSignedInMenu).map(
               ({ name, href, Icon }) => (
                 <StyledListItem key={name} disablePadding>
                   <Link href={href}>

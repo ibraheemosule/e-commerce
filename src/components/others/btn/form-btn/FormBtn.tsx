@@ -18,7 +18,7 @@ const FormBtn: FC<FormBtnProps> = ({
         display: "inline-flex",
         alignItems: "center",
         position: "relative",
-        pt: { xs: 5, sm: 3 },
+        pt: 3,
         gap: 3,
       }}
     >
