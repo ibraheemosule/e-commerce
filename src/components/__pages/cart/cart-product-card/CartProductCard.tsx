@@ -17,9 +17,9 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/router";
 import TagBtn from "../../../others/btn/tag-btn/TagBtn";
-import { animated } from "@react-spring/web";
+import { toast } from "react-toastify";
 
-const CartProductCard: FC<CartProductCardProps> = ({ id, style }) => {
+const CartProductCard: FC<CartProductCardProps> = ({ id }) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { immutableProducts, cartList } = useAppSelector(
@@ -28,7 +28,13 @@ const CartProductCard: FC<CartProductCardProps> = ({ id, style }) => {
   const cart = cartList.find((prod) => prod.productId === id)!;
   const [quantity, setQuantity] = useState(cart?.quantity ?? 1);
 
-  const removeFromCart = () => dispatch(removeFromCartList(cart));
+  const removeFromCart = () => {
+    toast("Product removed from cart", {
+      type: "success",
+      autoClose: 300,
+    });
+    dispatch(removeFromCartList(cart));
+  };
 
   useEffect(() => {
     dispatch(mutateCartList({ ...cart, quantity }));
@@ -53,7 +59,7 @@ const CartProductCard: FC<CartProductCardProps> = ({ id, style }) => {
   };
 
   return (
-    <animated.div style={Object.assign(style, { width: "100%" })}>
+    <>
       <Grid
         item
         columnGap={{ xs: 1.5, sm: 4 }}
@@ -146,14 +152,13 @@ const CartProductCard: FC<CartProductCardProps> = ({ id, style }) => {
       </Grid>
       <Grid item xs={12} my={2} sx={{ display: "block" }}>
         <Divider />
-      </Grid>
-    </animated.div>
+      </Grid>{" "}
+    </>
   );
 };
 
 interface CartProductCardProps {
   id: string;
-  style: { [key: string]: unknown };
 }
 
 export default memo(CartProductCard);

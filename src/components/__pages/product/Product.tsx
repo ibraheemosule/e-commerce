@@ -24,6 +24,7 @@ import dynamic from "next/dynamic";
 import { ProductType } from "../../../utils/ts-types/__store/typesProduct";
 import useFade from "../../others/hooks/fade-transition/useFade";
 import { animated } from "@react-spring/web";
+import { toast } from "react-toastify";
 
 const NoProduct = dynamic(() => import("./no-product/NoProduct"));
 
@@ -39,6 +40,7 @@ export default memo(function Product({ product }: { product: ProductType }) {
   const ids = cartList.map((prod) => prod.productId);
   const id = product?.id;
   const fade = useFade(showDescription);
+  const imageAnimation = useFade(selectedImg);
 
   const addToCart = useCallback(() => {
     if (product?.sizes && !size) {
@@ -64,6 +66,11 @@ export default memo(function Product({ product }: { product: ProductType }) {
         mutateCartList({ productId: id, uid: nanoid(), size, quantity })
       );
     } else dispatch(mutateCartList({ productId: id, uid: nanoid(), quantity }));
+
+    toast("Product added to cart", {
+      type: "success",
+      autoClose: 300,
+    });
   }, [cartList, dispatch, id, product?.sizes, quantity, size]);
 
   const filterProductsList = useCallback(
@@ -103,17 +110,21 @@ export default memo(function Product({ product }: { product: ProductType }) {
                 position: "relative",
               }}
             >
-              <Image
-                src={selectedImg}
-                fill
-                sizes="(min-width: 600px) 40vw, 100vw"
-                alt="product"
-                style={{
-                  objectFit: "cover",
-                  border: "1px solid lightgray",
-                  padding: 10,
-                }}
-              />
+              {imageAnimation((props, trigger) => (
+                <animated.div style={props} key={trigger}>
+                  <Image
+                    src={selectedImg}
+                    fill
+                    sizes="(min-width: 600px) 40vw, 100vw"
+                    alt="product"
+                    style={{
+                      objectFit: "cover",
+                      border: "1px solid lightgray",
+                      padding: 10,
+                    }}
+                  />
+                </animated.div>
+              ))}
             </Grid>
             <Grid item xs={12} sm={11} order={{ md: 0 }}>
               <Box

@@ -1,28 +1,18 @@
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import Box from "@mui/system/Box";
-import { memo } from "react";
+import { memo, Children } from "react";
 import Typography from "@mui/material/Typography";
 import Btn from "../../others/btn/Btn";
 import CartProductCard from "./cart-product-card/CartProductCard";
 import { useAppSelector } from "../../../store/hooks";
 import Link from "next/link";
-// import { useTransition } from "@react-spring/web";
-import useFade from "../../others/hooks/fade-transition/useFade";
-import { CartType } from "../../../utils/ts-types/__store/typesProduct";
+// import useFade from "../../others/hooks/fade-transition/useFade";
+// import { CartType } from "../../../utils/ts-types/__store/typesProduct";
 
 const Cart = () => {
   const { cartList, totalPrice } = useAppSelector((state) => state.product);
-  const fade = useFade<CartType[]>(cartList, true);
-
-  // const transBoxes = useTransition(cartList, {
-  //   from: { opacity: 0 },
-  //   enter: { opacity: 1 },
-  //   leave: { opacity: 0 },
-  //   config: {
-  //     duration: 500,
-  //   },
-  // });
+  // const fade = useFade<CartType[]>(cartList, true);
 
   return (
     <>
@@ -46,7 +36,7 @@ const Cart = () => {
                 }}
               >
                 <Grid container sx={{ pt: 6, pb: { md: 6 } }}>
-                  {fade((props, item) => {
+                  {/* {fade((props, item) => {
                     const cart = item as unknown as CartType;
                     return (
                       item && (
@@ -57,12 +47,12 @@ const Cart = () => {
                         />
                       )
                     );
-                  })}
-                  {/* {Children.toArray(
-                    cartList.map(prod => (
-                      <CartProductCard id={prod.productId} />
+                  })} */}
+                  {Children.toArray(
+                    cartList.map(({ productId }) => (
+                      <CartProductCard key={productId} id={productId} />
                     ))
-                  )} */}
+                  )}
                 </Grid>
               </Grid>
               <Grid

@@ -53,7 +53,7 @@ const FormBtn: FC<FormBtnProps> = ({
           position: "absolute",
           textAlign: "center",
           width: "100%",
-          cursor: loading ? "not-allowed" : "pointer",
+          whiteSpace: "pre",
           top: 0,
           color: "secondary.dark",
           fontSize: 12,

@@ -9,6 +9,18 @@ export const newUserSlice = createApi({
   }),
   endpoints(builder) {
     return {
+      signin: builder.mutation<UserType, { email: string; password: string }>({
+        query(payload) {
+          return {
+            url: "/auth/signup",
+            method: "POST",
+            body: payload,
+            headers: {
+              "Content-Type": "application/json",
+            },
+          };
+        },
+      }),
       signout: builder.mutation<void, void>({
         query() {
           return {
@@ -34,4 +46,5 @@ export const newUserSlice = createApi({
   },
 });
 
-export const { useSignupMutation, useSignoutMutation } = newUserSlice;
+export const { useSignupMutation, useSignoutMutation, useSigninMutation } =
+  newUserSlice;

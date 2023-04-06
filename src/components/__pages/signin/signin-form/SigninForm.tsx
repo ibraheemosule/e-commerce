@@ -14,13 +14,15 @@ import { useAppDispatch } from "../../../../store/hooks";
 import { updateUserInfo } from "../../../../store/features/user/user-slice";
 import { UserType } from "../../../../utils/ts-types/__store/typesUser";
 import Link from "next/link";
-
+import { useSigninMutation } from "../../../../store/features/new-user/new-user-slice";
+import { toast } from "react-toastify";
+import Router from "next/router";
 const SigninForm: FC<SigninFormProps> = ({ routeToPasswordPage }) => {
   const dispatch = useAppDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [signin, { isLoading }] = useSigninMutation();
 
   const updateValue = (obj: { [key: string]: string }) => {
     if (obj["email"] !== undefined) setEmail(obj["email"]);
@@ -31,7 +33,6 @@ const SigninForm: FC<SigninFormProps> = ({ routeToPasswordPage }) => {
 
   const submitForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
 
     try {
       if (!validateEmail(email)) throw Error("Invalid Email");
@@ -40,15 +41,24 @@ const SigninForm: FC<SigninFormProps> = ({ routeToPasswordPage }) => {
         throw Error("Incorrect Password");
       }
 
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await signin({ email, password }).unwrap();
 
       dispatch(updateUserInfo({ email } as UserType));
+      toast("Sign in successful", {
+        type: "success",
+      });
+
+      Router.back();
     } catch (e) {
       let message = "An error occurred";
       if (e instanceof Error) message = e.message;
+
+      toast(message, {
+        type: "error",
+        autoClose: 5000,
+      });
+
       setError(message);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -101,7 +111,7 @@ const SigninForm: FC<SigninFormProps> = ({ routeToPasswordPage }) => {
             </ButtonBase>
           </Box>
           <Box sx={{ display: "block", position: "relative" }}>
-            <FormBtn text="Log in" error={error} loading={loading} />
+            <FormBtn text="Log in" error={error} loading={isLoading} />
             <Box
               sx={{
                 mx: "auto",
