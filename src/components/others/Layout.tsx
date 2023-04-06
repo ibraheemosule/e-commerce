@@ -6,7 +6,7 @@ import dynamic from "next/dynamic";
 import useFade from "./hooks/fade-transition/useFade";
 import { useRouter } from "next/router";
 import { animated } from "@react-spring/web";
-import { ToastContainer, Slide } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 interface ILayout {
   children: ReactElement;
