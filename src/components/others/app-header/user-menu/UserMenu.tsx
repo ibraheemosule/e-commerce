@@ -1,4 +1,4 @@
-import { useState, MouseEvent, useEffect } from "react";
+import { useState, MouseEvent } from "react";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
@@ -18,6 +18,8 @@ const btnStyle = {
   textAlign: "center",
   textTransform: "capitalize",
   fontSize: 16,
+  display: "block",
+  padding: ".5rem 1rem",
 };
 
 export default function UserMenu() {
@@ -25,9 +27,6 @@ export default function UserMenu() {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const { signout } = useSignout();
 
-  useEffect(() => {
-    console.log(email);
-  }, [email]);
   const openUserMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -72,7 +71,11 @@ export default function UserMenu() {
         onClose={handleCloseUserMenu}
       >
         {(email ? signedInMenu : notSignedInMenu).map(({ name, href }) => (
-          <MenuItem key={name} onClick={handleCloseUserMenu}>
+          <MenuItem
+            key={name}
+            sx={{ padding: 0 }}
+            onClick={handleCloseUserMenu}
+          >
             {name === "sign out" ? (
               <ButtonBase onClick={() => void signout()} sx={btnStyle}>
                 {name}
@@ -85,6 +88,9 @@ export default function UserMenu() {
                   color: "inherit",
                   textAlign: "center",
                   textTransform: "capitalize",
+                  display: "block",
+                  width: "100%",
+                  padding: ".5rem 1rem",
                 }}
               >
                 {name}

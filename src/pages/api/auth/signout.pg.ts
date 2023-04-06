@@ -11,7 +11,7 @@ export interface ISignup extends NextApiRequest {
 export default function signup(req: ISignup, res: NextApiResponse) {
   try {
     if (req.cookies.token) {
-      setCookie("", -1);
+      res.setHeader("Set-Cookie", setCookie("", -1));
       return res.status(200).json({ message: "successful sign out" });
     }
     return res.status(200).json({ message: "you are already signed out" });

@@ -66,6 +66,7 @@ const LoginForm = () => {
       if (e instanceof Error) message = e.message;
       toast(message, {
         type: "error",
+        autoClose: 5000,
       });
       setError(message);
     }

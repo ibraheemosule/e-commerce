@@ -13,6 +13,7 @@ import {
 import { useAppDispatch } from "../../../../store/hooks";
 import { updateUserInfo } from "../../../../store/features/user/user-slice";
 import { UserType } from "../../../../utils/ts-types/__store/typesUser";
+import Link from "next/link";
 
 const SigninForm: FC<SigninFormProps> = ({ routeToPasswordPage }) => {
   const dispatch = useAppDispatch();
@@ -101,9 +102,8 @@ const SigninForm: FC<SigninFormProps> = ({ routeToPasswordPage }) => {
           </Box>
           <Box sx={{ display: "block", position: "relative" }}>
             <FormBtn text="Log in" error={error} loading={loading} />
-            <ButtonBase
+            <Box
               sx={{
-                display: "flex",
                 mx: "auto",
                 fontSize: 18,
                 mt: 6,
@@ -112,10 +112,11 @@ const SigninForm: FC<SigninFormProps> = ({ routeToPasswordPage }) => {
                   color: "secondary.dark",
                 },
               }}
-              onClick={routeToPasswordPage}
             >
-              Create an account
-            </ButtonBase>
+              <Link href="/signup" style={{ all: "unset", cursor: "pointer" }}>
+                Create an account
+              </Link>
+            </Box>
           </Box>
         </Container>
       </Grid>

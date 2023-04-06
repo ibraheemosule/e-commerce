@@ -13,9 +13,7 @@ export default memo(function Subtitle({ title, text }: DetailProp) {
       >
         {title}
       </Typography>
-      <Typography sx={{}}>
-        {text} {title === "state" && "state"}
-      </Typography>
+      <Typography>{text}</Typography>
     </Box>
   );
 });

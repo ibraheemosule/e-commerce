@@ -15,7 +15,7 @@ const FormBtn: FC<FormBtnProps> = ({
   return (
     <Box
       sx={{
-        display: "flex",
+        display: "inline-flex",
         alignItems: "center",
         position: "relative",
         pt: { xs: 5, sm: 3 },

@@ -8,7 +8,6 @@ export const authenticate = async (req: ISignup, res: NextApiResponse) => {
   const { password, email } = body;
 
   if (!cookies.token) {
-    console.log("no cookies");
     const jwtToken = generateToken({ email, password });
     if (!jwtToken) throw Error("An internal error occured");
 

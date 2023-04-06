@@ -32,11 +32,13 @@ function Layout({ children }: ILayout) {
         autoClose={2000}
         draggable={false}
         pauseOnHover={false}
+        pauseOnFocusLoss={false}
         theme="colored"
         style={{
-          maxWidth: 300,
+          maxWidth: 250,
           padding: 0,
-          cursor: "unset",
+          textTransform: "capitalize",
+          fontSize: 13,
         }}
       />
       <Box
