@@ -45,8 +45,17 @@ export default memo(function Product({ product }: { product: ProductType }) {
   const addToCart = useCallback(() => {
     if (product?.sizes && !size) {
       setError("Select a Size");
+      toast("Select a size", {
+        autoClose: 300,
+        type: "error",
+      });
       return;
     }
+
+    toast("Product added to cart", {
+      type: "success",
+      autoClose: 300,
+    });
 
     const findProduct = cartList.find(
       (prod) => prod.productId === id && prod.size === size
@@ -66,11 +75,6 @@ export default memo(function Product({ product }: { product: ProductType }) {
         mutateCartList({ productId: id, uid: nanoid(), size, quantity })
       );
     } else dispatch(mutateCartList({ productId: id, uid: nanoid(), quantity }));
-
-    toast("Product added to cart", {
-      type: "success",
-      autoClose: 300,
-    });
   }, [cartList, dispatch, id, product?.sizes, quantity, size]);
 
   const filterProductsList = useCallback(

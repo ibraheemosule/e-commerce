@@ -5,13 +5,14 @@ import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import { returnPolicy } from "./u_returnPolicy";
 
-export default memo(function SizeGuide() {
+export default memo(function ReturnPolicy() {
   return (
     <Container maxWidth="md" sx={{ py: { xs: 9, sm: 12, lg: 15 }, px: 2 }}>
       <Container
         sx={{
           bgcolor: "primary.light",
           py: 4,
+          px: 2,
         }}
       >
         <Grid container mx="auto">

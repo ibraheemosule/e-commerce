@@ -15,6 +15,7 @@ const Signup = () => {
             mx="auto"
             minHeight={350}
             py={{ xs: 4, sm: 6 }}
+            px={2}
             rowGap={2}
             bgcolor="primary.light"
             position="relative"

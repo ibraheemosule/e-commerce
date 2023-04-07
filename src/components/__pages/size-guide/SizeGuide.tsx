@@ -5,8 +5,10 @@ import Container from "@mui/material/Container";
 import Image from "next/image";
 import Box from "@mui/material/Box";
 
-export const currentYear = new Date().getFullYear();
-export const logos = ["/images/belt sizes.jpg", "/images/shoe sizes.png"];
+export const sizeGuideImage = [
+  "/images/belt sizes.jpg",
+  "/images/shoe sizes.png",
+];
 
 export default memo(function SizeGuide() {
   return (
@@ -21,7 +23,7 @@ export default memo(function SizeGuide() {
         <Grid container mx="auto">
           <Grid item xs={12}>
             <Grid container>
-              {logos.map((imageSrc, i) => (
+              {sizeGuideImage.map((imageSrc, i) => (
                 <Grid key={i} item xs={12} md={5} mx="auto" mt={2}>
                   <Box>
                     <Typography
