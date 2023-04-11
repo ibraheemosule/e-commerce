@@ -1,6 +1,7 @@
 import { phoneNumberFormats } from "./utilsData";
 import { ProductSlice } from "./ts-types/__store/typesProduct";
 import { ProductType } from "./ts-types/__store/typesProduct";
+import { toast } from "react-toastify";
 
 export const onlyAlphabet = (text: string) => {
   const re = /^[a-zA-Z ]+$/;
@@ -87,7 +88,6 @@ export const validatePhoneNumber = (number: number) => {
     );
 
     if (!checkValidity || number.toString().length !== 13) {
-      console.log("5 if");
       return false;
     }
     return true;
@@ -118,3 +118,14 @@ export const convertDate = (date: Date): string => {
   const dateTimeString = `${dateString} ${timeString}`;
   return dateTimeString;
 };
+
+export const successPopup = (message: string) =>
+  toast(message, {
+    type: "success",
+  });
+
+export const errorPopup = (message: string) =>
+  toast(message, {
+    type: "error",
+    autoClose: 5000,
+  });

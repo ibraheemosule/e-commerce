@@ -1,8 +1,7 @@
-import { FC, ReactElement, useEffect } from "react";
+import { FC, ReactElement } from "react";
 import { useSpring, animated } from "@react-spring/web";
 
 const Fade: FC<PropType> = ({ children, from = {}, to = [] }) => {
-  useEffect(() => console.log(to));
   const styles = useSpring({
     from: { opacity: "0", ...from },
     to: to.length ? to : { opacity: 1 },

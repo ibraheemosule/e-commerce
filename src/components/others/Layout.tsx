@@ -30,6 +30,7 @@ function Layout({ children }: ILayout) {
         hideProgressBar={true}
         newestOnTop={true}
         autoClose={2000}
+        limit={5}
         draggable={false}
         pauseOnHover={false}
         pauseOnFocusLoss={false}

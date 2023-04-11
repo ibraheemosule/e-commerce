@@ -29,7 +29,6 @@ export default async function signup(req: ISignup, res: NextApiResponse) {
 
     await authenticate(req, res);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password, ...rest } = user;
 
     return res.status(200).json({ data: user });
   } catch (e) {

@@ -25,7 +25,7 @@ import { useRouter } from "next/router";
 import ButtonBase from "@mui/material/ButtonBase";
 import { ProductType } from "../../../utils/ts-types/__store/typesProduct";
 import { tags } from "../../../utils/utilsData";
-import { toast } from "react-toastify";
+import { successPopup } from "../../../utils/utilsFunctions";
 
 const ProductCard: FC<ProductCardProps> = (props) => {
   const { product, img, path, cart = true, title = "View" } = props;
@@ -36,14 +36,8 @@ const ProductCard: FC<ProductCardProps> = (props) => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const ids = cartList.map((prod) => prod.productId);
 
-  const popup = () =>
-    toast(`product added to cart`, {
-      type: "success",
-      autoClose: 500,
-    });
-
   const addToCart = (size: string | number) => {
-    popup();
+    successPopup("Product added successfully");
     id && dispatch(mutateCartList({ productId: id, uid: nanoid(), size }));
     handleCloseUserMenu();
   };
@@ -55,7 +49,7 @@ const ProductCard: FC<ProductCardProps> = (props) => {
       setAnchorElUser(e.currentTarget);
       return;
     }
-    popup();
+    successPopup("Product added successfully");
 
     id && dispatch(mutateCartList({ productId: id, uid: nanoid() }));
   };

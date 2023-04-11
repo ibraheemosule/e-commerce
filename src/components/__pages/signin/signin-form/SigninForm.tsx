@@ -9,13 +9,14 @@ import FormBtn from "../../../others/btn/form-btn/FormBtn";
 import {
   validateEmail,
   validatePassword,
+  errorPopup,
 } from "../../../../utils/utilsFunctions";
 import { useAppDispatch } from "../../../../store/hooks";
 import { updateUserInfo } from "../../../../store/features/user/user-slice";
 import { UserType } from "../../../../utils/ts-types/__store/typesUser";
 import Link from "next/link";
 import { useSigninMutation } from "../../../../store/features/new-user/new-user-slice";
-import { toast } from "react-toastify";
+import { successPopup } from "../../../../utils/utilsFunctions";
 import Router from "next/router";
 import { responseError } from "../../../../utils/apiErrorResponse";
 
@@ -36,12 +37,6 @@ const SigninForm: FC<SigninFormProps> = ({ routeToPasswordPage }) => {
   const submitForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const errorPopup = (message: string) =>
-      toast(message, {
-        type: "error",
-        autoClose: 5000,
-      });
-
     try {
       if (!validateEmail(email)) throw Error("Invalid Email");
 
@@ -55,9 +50,7 @@ const SigninForm: FC<SigninFormProps> = ({ routeToPasswordPage }) => {
       }).unwrap()) as unknown as { data: UserType };
 
       dispatch(updateUserInfo(data));
-      toast("Sign in successful", {
-        type: "success",
-      });
+      successPopup("Sign in successful");
 
       Router.reload();
     } catch (e) {

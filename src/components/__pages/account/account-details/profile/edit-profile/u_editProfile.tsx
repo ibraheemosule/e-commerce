@@ -1,7 +1,7 @@
 import { userForm } from "../../../../../../utils/utilsData";
 import {
   validatePhoneNumber,
-  validateEmail,
+  onlyAlphabet,
 } from "../../../../../../utils/utilsFunctions";
 import { statesInNigeria } from "../../../../../../utils/utilsData";
 
@@ -12,8 +12,8 @@ export const validateProfileFields = (fields: DefaultFieldsType) => {
   if (!checkAllFieldsAreFilled) {
     throw Error("Some fields are empty");
   }
-  if (!validateEmail(fields.email)) {
-    throw Error("Email Format Invalid");
+  if (!onlyAlphabet(fields.firstName) || !onlyAlphabet(fields.lastName)) {
+    throw Error("Name should contain only letters");
   }
   if (!validatePhoneNumber(Number(fields.phoneNo))) {
     throw Error("Phone number is invalid");
@@ -30,15 +30,12 @@ export const fullProfile = {
   },
 };
 
-export const defaultFields = Object.keys(fullProfile).reduce(
-  (prev, key) => {
-    if (["firstName", "lastName"].includes(key)) return prev;
-    return {
-      ...prev,
-      [key]: "",
-    };
-  },
-  { email: "" } as Record<string, string>
-);
+export const defaultFields = Object.keys(fullProfile).reduce((prev, key) => {
+  if (["email"].includes(key)) return prev;
+  return {
+    ...prev,
+    [key]: "",
+  };
+}, {} as Record<string, string>);
 
 export type DefaultFieldsType = typeof defaultFields;

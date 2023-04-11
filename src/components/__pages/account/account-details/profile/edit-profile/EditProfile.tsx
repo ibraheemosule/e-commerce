@@ -18,13 +18,16 @@ import {
 import { useAppSelector, useAppDispatch } from "../../../../../../store/hooks";
 import { updateUserInfo } from "../../../../../../store/features/user/user-slice";
 import { UserType } from "../../../../../../utils/ts-types/__store/typesUser";
+import { useUpdateInfoMutation } from "../../../../../../store/features/new-user/new-user-slice";
+import { responseError } from "../../../../../../utils/apiErrorResponse";
+import { errorPopup } from "../../../../../../utils/utilsFunctions";
 
 export default memo(function EditProfile({ setEdit }: EditDetailsProp) {
   const dispatch = useAppDispatch();
   const [fields, setField] = useFillForm(defaultFields);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
   const { userInfo } = useAppSelector((state) => state.user);
+  const [updateInfo, { isLoading }] = useUpdateInfoMutation();
 
   useEffect(() => {
     Object.keys(fields).forEach((field) => {
@@ -39,26 +42,35 @@ export default memo(function EditProfile({ setEdit }: EditDetailsProp) {
     setField({ payload: value });
   };
 
-  function updateDetails(e: FormEvent) {
+  async function updateDetails(e: FormEvent) {
     e.preventDefault();
-    setLoading(true);
+
     try {
       validateProfileFields(fields);
+      await updateInfo({
+        ...fields,
+        email: userInfo.email,
+      } as UserType);
+
       dispatch(updateUserInfo(fields as unknown as UserType));
       setEdit(false);
     } catch (e) {
+      if (responseError(e)) {
+        setError(e.data.message);
+        errorPopup(e.data.message);
+        return;
+      }
       let message = "An error occurred";
       if (e instanceof Error) message = e.message;
       setError(message);
-    } finally {
-      setLoading(false);
+      errorPopup(message);
     }
   }
 
   return (
     <Box
       component="form"
-      onSubmit={updateDetails}
+      onSubmit={(e) => void updateDetails(e)}
       sx={{
         ".error-msg": {
           textAlign: "left",
@@ -88,7 +100,7 @@ export default memo(function EditProfile({ setEdit }: EditDetailsProp) {
         error={error}
         text="update details"
         btnSize="small"
-        loading={loading}
+        loading={isLoading}
         onCancel={() => void setEdit(false)}
       />
     </Box>

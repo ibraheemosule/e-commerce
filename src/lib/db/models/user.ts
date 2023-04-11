@@ -41,6 +41,8 @@ const userSchema = new Schema(
 
     city: {
       type: String,
+      minLength: 2,
+      maxLength: 25,
       required: true,
       lowercase: true,
     },
@@ -77,7 +79,6 @@ const userSchema = new Schema(
 //userSchema.plugin(mongooseLeanVirtuals);
 
 userSchema.pre("save", function (next) {
-  console.log(this.password, "here");
   if (!this.isModified("password")) return next();
 
   bcrypt.hash(this.password, 10, (err, hash) => {

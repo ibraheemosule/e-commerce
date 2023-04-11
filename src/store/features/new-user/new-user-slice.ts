@@ -42,9 +42,26 @@ export const newUserSlice = createApi({
           };
         },
       }),
+
+      updateInfo: builder.mutation<UserType, UserType>({
+        query(payload) {
+          return {
+            url: "/auth/update-info",
+            method: "PATCH",
+            body: payload,
+            headers: {
+              "Content-Type": "application/json",
+            },
+          };
+        },
+      }),
     };
   },
 });
 
-export const { useSignupMutation, useSignoutMutation, useSigninMutation } =
-  newUserSlice;
+export const {
+  useSignupMutation,
+  useSignoutMutation,
+  useSigninMutation,
+  useUpdateInfoMutation,
+} = newUserSlice;

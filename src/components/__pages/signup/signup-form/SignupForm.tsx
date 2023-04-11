@@ -13,7 +13,7 @@ import { updateUserInfo } from "../../../../store/features/user/user-slice";
 import { UserType } from "../../../../utils/ts-types/__store/typesUser";
 import { useSignupMutation } from "../../../../store/features/new-user/new-user-slice";
 import { responseError } from "../../../../utils/apiErrorResponse";
-import { toast } from "react-toastify";
+import { errorPopup, successPopup } from "../../../../utils/utilsFunctions";
 import Router from "next/router";
 
 const LoginForm = () => {
@@ -51,9 +51,7 @@ const LoginForm = () => {
 
       dispatch(updateUserInfo(rest as unknown as UserType));
 
-      toast("Sign up successful", {
-        type: "success",
-      });
+      successPopup("Sign up successful");
 
       Router.reload();
     } catch (e) {
@@ -64,10 +62,7 @@ const LoginForm = () => {
 
       let message = "An error occurred";
       if (e instanceof Error) message = e.message;
-      toast(message, {
-        type: "error",
-        autoClose: 5000,
-      });
+      errorPopup(message);
       setError(message);
     }
   };

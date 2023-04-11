@@ -23,7 +23,7 @@ const FormBtn: FC<FormBtnProps> = ({
       }}
     >
       <Btn
-        disabled={loading || !!error}
+        disabled={loading}
         size={btnSize}
         sx={{
           px: 6,
