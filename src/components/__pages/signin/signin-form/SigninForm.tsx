@@ -17,6 +17,8 @@ import Link from "next/link";
 import { useSigninMutation } from "../../../../store/features/new-user/new-user-slice";
 import { toast } from "react-toastify";
 import Router from "next/router";
+import { responseError } from "../../../../utils/apiErrorResponse";
+
 const SigninForm: FC<SigninFormProps> = ({ routeToPasswordPage }) => {
   const dispatch = useAppDispatch();
   const [email, setEmail] = useState("");
@@ -34,6 +36,12 @@ const SigninForm: FC<SigninFormProps> = ({ routeToPasswordPage }) => {
   const submitForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const errorPopup = (message: string) =>
+      toast(message, {
+        type: "error",
+        autoClose: 5000,
+      });
+
     try {
       if (!validateEmail(email)) throw Error("Invalid Email");
 
@@ -41,22 +49,26 @@ const SigninForm: FC<SigninFormProps> = ({ routeToPasswordPage }) => {
         throw Error("Incorrect Password");
       }
 
-      await signin({ email, password }).unwrap();
+      const { data } = (await signin({
+        email,
+        password,
+      }).unwrap()) as unknown as { data: UserType };
 
-      dispatch(updateUserInfo({ email } as UserType));
+      dispatch(updateUserInfo(data));
       toast("Sign in successful", {
         type: "success",
       });
 
       Router.reload();
     } catch (e) {
+      if (responseError(e)) {
+        setError(e.data.message);
+        errorPopup(e.data.message);
+        return;
+      }
       let message = "An error occurred";
       if (e instanceof Error) message = e.message;
-
-      toast(message, {
-        type: "error",
-        autoClose: 5000,
-      });
+      errorPopup(message);
 
       setError(message);
     }

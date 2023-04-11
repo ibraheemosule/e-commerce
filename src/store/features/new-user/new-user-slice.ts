@@ -12,7 +12,7 @@ export const newUserSlice = createApi({
       signin: builder.mutation<UserType, { email: string; password: string }>({
         query(payload) {
           return {
-            url: "/auth/signup",
+            url: "/auth/signin",
             method: "POST",
             body: payload,
             headers: {

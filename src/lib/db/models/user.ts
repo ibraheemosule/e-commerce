@@ -1,9 +1,9 @@
 import { UserType } from "./../../../utils/ts-types/__store/typesUser";
 import { Schema, Model, Document, models, model } from "mongoose";
-import mongooseLeanVirtuals from "mongoose-lean-virtuals";
 import bcrypt from "bcrypt";
 
 export interface IUserModel extends Document, UserType {
+  checkPassword: (password: string) => Promise<boolean>;
   password: string;
 }
 
@@ -63,20 +63,21 @@ const userSchema = new Schema(
       minLength: 8,
       required: true,
     },
-  },
-  {
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true },
   }
+  // {
+  //   toJSON: { virtuals: true },
+  //   toObject: { virtuals: true },
+  // }
 );
 
-userSchema.virtual("id").get(function () {
-  return this._id.toJSON();
-});
+// userSchema.virtual("id").get(function () {
+//   return this._id.toJSON();
+// });
 
-userSchema.plugin(mongooseLeanVirtuals);
+//userSchema.plugin(mongooseLeanVirtuals);
 
 userSchema.pre("save", function (next) {
+  console.log(this.password, "here");
   if (!this.isModified("password")) return next();
 
   bcrypt.hash(this.password, 10, (err, hash) => {
