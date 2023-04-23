@@ -11,13 +11,13 @@ export function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  // if (authPages.includes(path) && cookie) {
-  //   return NextResponse.redirect(`${req.nextUrl.origin}`);
-  // }
+  if (authPages.includes(path) && cookie) {
+    return NextResponse.redirect(`${req.nextUrl.origin}`);
+  }
 
-  // if (userPages.includes(path) && !cookie) {
-  //   return NextResponse.redirect(`${req.nextUrl.origin}/signin`);
-  // }
+  if (userPages.includes(path) && !cookie) {
+    return NextResponse.redirect(`${req.nextUrl.origin}/signin`);
+  }
 
   if (path === path.toLocaleLowerCase()) return NextResponse.next();
 
