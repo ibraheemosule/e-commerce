@@ -116,7 +116,9 @@ const SigninForm: FC<SigninFormProps> = ({ routeToPasswordPage }) => {
             </ButtonBase>
           </Box>
           <Box sx={{ display: "block", position: "relative" }}>
-            <FormBtn text="Sign in" error={error} loading={isLoading} />
+            <Box sx={{ justifyContent: "center" }}>
+              <FormBtn text="Sign in" error={error} loading={isLoading} />
+            </Box>
             <Box
               sx={{
                 mx: "auto",

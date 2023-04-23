@@ -12,7 +12,17 @@ export default async function signup(req: ISignup, res: NextApiResponse) {
     await authenticate(req, res);
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const newUser: IUserModel = await UserModel.create(req.body);
+    const newUser: IUserModel = await UserModel.create(req.body).catch((e) => {
+      let message = "An error occurred";
+
+      if (e instanceof Error) {
+        e.message.includes("duplicate")
+          ? (message = "email already exists")
+          : (message = e.message);
+      }
+
+      throw new Error(message);
+    });
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...data } = newUser;

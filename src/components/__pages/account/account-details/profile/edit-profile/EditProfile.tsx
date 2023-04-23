@@ -51,7 +51,7 @@ export default memo(function EditProfile({ setEdit }: EditDetailsProp) {
       await updateInfo({
         ...fields,
         email: userInfo.email,
-      } as UserType);
+      } as UserType).unwrap();
 
       successPopup("Details updated");
 

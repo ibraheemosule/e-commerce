@@ -15,7 +15,8 @@ const FormBtn: FC<FormBtnProps> = ({
   return (
     <Box
       sx={{
-        display: "inline-flex",
+        display: "flex",
+        justifyContent: "inherit",
         alignItems: "center",
         position: "relative",
         pt: 3,
@@ -51,9 +52,14 @@ const FormBtn: FC<FormBtnProps> = ({
         className="error-msg"
         sx={{
           position: "absolute",
-          textAlign: "center",
+          whiteSpace: "nowrap",
+          overflow: "auto",
+          msOverflowStyle: "none",
+          scrollbarWidth: "none",
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
           width: "100%",
-          whiteSpace: "pre",
           top: 0,
           color: "secondary.dark",
           fontSize: 12,

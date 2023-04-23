@@ -12,7 +12,6 @@ import { useUpdateInfoMutation } from "../../../../../store/features/new-user/ne
 import { UserType } from "../../../../../utils/ts-types/__store/typesUser";
 import { responseError } from "../../../../../utils/apiErrorResponse";
 import { useAppSelector } from "../../../../../store/hooks";
-import Router from "next/router";
 
 export default memo(function ChangePassword() {
   const [oldPassword, setOldPassword] = useState("");
@@ -50,8 +49,6 @@ export default memo(function ChangePassword() {
 
       setPasswordValues({ newPassword: "" });
       setPasswordValues({ oldPassword: "" });
-
-      Router.reload();
     } catch (e) {
       console.log(e);
       if (responseError(e)) {
@@ -90,16 +87,20 @@ export default memo(function ChangePassword() {
         <Box sx={{ maxWidth: 250 }}>
           <InputField
             placeholder="Old Password"
+            type="password"
             value={oldPassword}
             onChange={setPasswordValues}
             name="oldPassword"
           />
-          <InputField
-            placeholder="New Password"
-            value={newPassword}
-            onChange={setPasswordValues}
-            name="newPassword"
-          />
+          <Box>
+            <InputField
+              placeholder="New Password"
+              type="password"
+              value={newPassword}
+              onChange={setPasswordValues}
+              name="newPassword"
+            />
+          </Box>
         </Box>
         <FormBtn
           loading={isLoading}

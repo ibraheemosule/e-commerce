@@ -20,10 +20,10 @@ export default async function signin(req: ISignup, res: NextApiResponse) {
       .then((res: IUserModel) => res)
       .catch((e) => {
         console.log(e);
-        res.status(401).json({ message: "Unable to validate credetails" });
+        res.status(401).json({ message: "Internal error occured" });
       });
 
-    if (!user) return;
+    if (!user) throw Error("Email not found");
 
     const passwordCheck = await user?.checkPassword(req.body.password);
 

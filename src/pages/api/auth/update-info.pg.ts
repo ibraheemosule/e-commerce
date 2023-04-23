@@ -15,14 +15,26 @@ export default async function updateInfo(req: IAuthInfo, res: NextApiResponse) {
     }
 
     delete req.body.oldPassword;
-    const updateDetails = (await UserModel.findOneAndUpdate(
+
+    const updateDetails = (await UserModel.updateOne(
       { email: req.body.email },
       req.body,
       {
         new: true,
         runValidators: true,
       }
-    ).exec()) as unknown as IUserModel;
+    )
+      .exec()
+      .catch((e) => {
+        console.log(e);
+        let message = "An error occured";
+        if (e instanceof Error) {
+          e.message.includes("Validation")
+            ? (message = "Edited field failed validation")
+            : null;
+        }
+        throw new Error(message);
+      })) as unknown as IUserModel;
 
     if (req.body.password) {
       req.cookies.token = "";

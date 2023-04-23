@@ -35,6 +35,7 @@ const userSchema = new Schema(
 
     address: {
       type: String,
+      maxLength: 150,
       required: true,
       lowercase: true,
     },
@@ -88,7 +89,7 @@ userSchema.pre("save", function (next) {
   });
 });
 
-userSchema.pre("findOneAndUpdate", function (next) {
+userSchema.pre("updateOne", function (next) {
   const update = { ...(this.getUpdate() as IUserModel) };
 
   if (update.password) {

@@ -1,5 +1,6 @@
 import InputField from "../../../others/input-field/InputField";
 import Typography from "@mui/material/Typography";
+import Box from "@mui/system/Box";
 import { memo, useState, useEffect, FormEvent } from "react";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
@@ -132,7 +133,13 @@ const LoginForm = () => {
               );
             })}
           </Grid>
-          <FormBtn text="create an account" error={error} loading={isLoading} />
+          <Box sx={{ justifyContent: "center" }}>
+            <FormBtn
+              text="create an account"
+              error={error}
+              loading={isLoading}
+            />
+          </Box>
         </Container>
       </Grid>
     </>
