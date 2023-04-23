@@ -10,17 +10,17 @@ import {
 import FormBtn from "../../../../../others/btn/form-btn/FormBtn";
 import InputField from "../../../../../others/input-field/InputField";
 import useFillForm from "../../../../../others/hooks/fill-form/useFillForm";
-import {
-  defaultFields,
-  validateProfileFields,
-  fullProfile,
-} from "./u_editProfile";
+import { defaultFields, fullProfile } from "./u_editProfile";
 import { useAppSelector, useAppDispatch } from "../../../../../../store/hooks";
 import { updateUserInfo } from "../../../../../../store/features/user/user-slice";
 import { UserType } from "../../../../../../utils/ts-types/__store/typesUser";
 import { useUpdateInfoMutation } from "../../../../../../store/features/new-user/new-user-slice";
 import { responseError } from "../../../../../../utils/apiErrorResponse";
-import { errorPopup } from "../../../../../../utils/utilsFunctions";
+import {
+  errorPopup,
+  successPopup,
+} from "../../../../../../utils/utilsFunctions";
+import { userFormValidation } from "../../../../../../utils/utilsFunctions";
 
 export default memo(function EditProfile({ setEdit }: EditDetailsProp) {
   const dispatch = useAppDispatch();
@@ -46,11 +46,14 @@ export default memo(function EditProfile({ setEdit }: EditDetailsProp) {
     e.preventDefault();
 
     try {
-      validateProfileFields(fields);
+      userFormValidation(fields);
+
       await updateInfo({
         ...fields,
         email: userInfo.email,
       } as UserType);
+
+      successPopup("Details updated");
 
       dispatch(updateUserInfo(fields as unknown as UserType));
       setEdit(false);

@@ -3,13 +3,23 @@ import { memo, useState, useEffect, FormEvent } from "react";
 import Typography from "@mui/material/Typography";
 import FormBtn from "../../../../others/btn/form-btn/FormBtn";
 import InputField from "../../../../others/input-field/InputField";
-import { validatePassword } from "../../../../../utils/utilsFunctions";
+import {
+  validatePassword,
+  successPopup,
+  errorPopup,
+} from "../../../../../utils/utilsFunctions";
+import { useUpdateInfoMutation } from "../../../../../store/features/new-user/new-user-slice";
+import { UserType } from "../../../../../utils/ts-types/__store/typesUser";
+import { responseError } from "../../../../../utils/apiErrorResponse";
+import { useAppSelector } from "../../../../../store/hooks";
+import Router from "next/router";
 
 export default memo(function ChangePassword() {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [updateInfo, { isLoading }] = useUpdateInfoMutation();
+  const { email } = useAppSelector(({ user }) => user.userInfo);
 
   useEffect(() => setError(""), [oldPassword, newPassword]);
 
@@ -21,20 +31,37 @@ export default memo(function ChangePassword() {
     setNewPassword(value.newPassword);
   }
 
-  function submitPassword(e: FormEvent) {
+  async function submitPassword(e: FormEvent) {
     e.preventDefault();
-    setLoading(true);
+
     try {
       if (validatePassword(newPassword) !== "true")
         throw Error(
           `New Password must contain ${validatePassword(newPassword)}`
         );
+
+      await updateInfo({
+        email,
+        oldPassword,
+        password: newPassword,
+      } as unknown as UserType).unwrap();
+
+      successPopup("Password updated");
+
+      setPasswordValues({ newPassword: "" });
+      setPasswordValues({ oldPassword: "" });
+
+      Router.reload();
     } catch (e) {
+      console.log(e);
+      if (responseError(e)) {
+        setError(e.data.message);
+        errorPopup(e.data.message);
+        return;
+      }
       let message = "An error occured";
       if (e instanceof Error) message = e.message;
       setError(message);
-    } finally {
-      setLoading(false);
     }
   }
 
@@ -53,7 +80,7 @@ export default memo(function ChangePassword() {
       </Typography>
       <Box
         component="form"
-        onSubmit={submitPassword}
+        onSubmit={(e) => void submitPassword(e)}
         sx={{
           ".error-msg": {
             textAlign: "left",
@@ -75,7 +102,7 @@ export default memo(function ChangePassword() {
           />
         </Box>
         <FormBtn
-          loading={loading}
+          loading={isLoading}
           error={error}
           btnSize="small"
           text="submit"

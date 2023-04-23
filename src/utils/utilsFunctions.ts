@@ -2,6 +2,7 @@ import { phoneNumberFormats } from "./utilsData";
 import { ProductSlice } from "./ts-types/__store/typesProduct";
 import { ProductType } from "./ts-types/__store/typesProduct";
 import { toast } from "react-toastify";
+import { statesInNigeria } from "./utilsData";
 
 export const onlyAlphabet = (text: string) => {
   const re = /^[a-zA-Z ]+$/;
@@ -127,5 +128,47 @@ export const successPopup = (message: string) =>
 export const errorPopup = (message: string) =>
   toast(message, {
     type: "error",
-    autoClose: 5000,
+    autoClose: 2000,
   });
+
+export const userFormValidation = (fields: { [key: string]: string }) => {
+  const checkAllFieldsAreFilled = Object.keys(fields).every(
+    (field) => !!fields[field]
+  );
+
+  if (!checkAllFieldsAreFilled) {
+    throw Error("Some fields are empty");
+  }
+
+  if (fields.email) {
+    if (!validateEmail(fields.email)) {
+      throw Error("Email Format Invalid");
+    }
+  }
+
+  if (fields.password) {
+    if (fields.password !== fields.retypePassword) {
+      throw Error("Password mismatched");
+    }
+    if (validatePassword(fields.password) !== "true") {
+      throw Error(`password must contain ${validatePassword(fields.password)}`);
+    }
+  }
+
+  if (!validatePhoneNumber(Number(fields.phoneNo))) {
+    throw Error("Phone number is invalid");
+  }
+
+  if (!onlyAlphabet(fields.firstName) || !onlyAlphabet(fields.lastName)) {
+    throw Error("Name should contain only letters");
+  }
+  if (fields.firstName.length < 3 || fields.lastName.length < 3) {
+    throw Error("Name too short");
+  }
+  if (fields.firstName.length > 25 || fields.lastName.length > 25) {
+    throw Error("Name too long");
+  }
+  if (!Object.keys(statesInNigeria).includes(fields.state.toLowerCase())) {
+    throw Error("Invalid state provided");
+  }
+};

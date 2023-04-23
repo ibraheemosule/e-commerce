@@ -29,8 +29,7 @@ function Layout({ children }: ILayout) {
       <ToastContainer
         hideProgressBar={true}
         newestOnTop={true}
-        autoClose={2000}
-        limit={5}
+        autoClose={500}
         draggable={false}
         pauseOnHover={false}
         pauseOnFocusLoss={false}

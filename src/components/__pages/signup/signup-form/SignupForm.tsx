@@ -7,13 +7,16 @@ import { signupForm as form, signupFormFields } from "../u_signup";
 import useFillForm from "../../../others/hooks/fill-form/useFillForm";
 import FormBtn from "../../../others/btn/form-btn/FormBtn";
 import { validatePassword } from "../../../../utils/utilsFunctions";
-import { submitSignupForm } from "./u_signupForm";
 import { useAppDispatch } from "../../../../store/hooks";
 import { updateUserInfo } from "../../../../store/features/user/user-slice";
 import { UserType } from "../../../../utils/ts-types/__store/typesUser";
 import { useSignupMutation } from "../../../../store/features/new-user/new-user-slice";
 import { responseError } from "../../../../utils/apiErrorResponse";
-import { errorPopup, successPopup } from "../../../../utils/utilsFunctions";
+import {
+  errorPopup,
+  successPopup,
+  userFormValidation,
+} from "../../../../utils/utilsFunctions";
 import Router from "next/router";
 
 const LoginForm = () => {
@@ -41,7 +44,7 @@ const LoginForm = () => {
     e.preventDefault();
 
     try {
-      submitSignupForm(fields);
+      userFormValidation(fields);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, retypePassword, ...rest } = fields;
 

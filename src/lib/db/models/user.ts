@@ -12,23 +12,23 @@ const userSchema = new Schema(
     firstName: {
       type: String,
       required: true,
-      minLength: 2,
-      maxLength: 40,
+      minLength: 3,
+      maxLength: 25,
       lowercase: true,
     },
 
     lastName: {
       type: String,
       required: true,
-      minLength: 2,
-      maxLength: 40,
+      minLength: 3,
+      maxLength: 25,
       lowercase: true,
     },
 
     email: {
       type: String,
       required: true,
-      minLength: 10,
+      minLength: 12,
       unique: true,
       lowercase: true,
     },
@@ -84,17 +84,21 @@ userSchema.pre("save", function (next) {
   bcrypt.hash(this.password, 10, (err, hash) => {
     if (err) return next(err);
     this.password = hash;
-    next();
+    return next();
   });
 });
 
-userSchema.pre<IUserModel>("updateOne", function (next) {
-  if (!this.isModified("password")) return next();
-  bcrypt.hash(this.password, 10, (err, hash) => {
-    if (err) return next(err);
-    this.password = hash;
-    next();
-  });
+userSchema.pre("findOneAndUpdate", function (next) {
+  const update = { ...(this.getUpdate() as IUserModel) };
+
+  if (update.password) {
+    bcrypt.hash(update.password, 10, (err, hash) => {
+      if (err) return next(err);
+      update.password = hash;
+      this.setUpdate(update);
+      next();
+    });
+  } else next();
 });
 
 userSchema.methods.checkPassword = async function (password: string) {

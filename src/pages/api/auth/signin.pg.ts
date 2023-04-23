@@ -2,12 +2,15 @@ import { NextApiResponse, NextApiRequest } from "next";
 import { authenticate } from "./auth";
 import { UserType } from "../../../utils/ts-types/__store/typesUser";
 import { UserModel, IUserModel } from "../../../lib/db/models/user";
+import dbConnect from "../../../lib/db/dbConnect";
 export interface ISignup extends NextApiRequest {
   body: UserType & { password: string };
 }
 
-export default async function signup(req: ISignup, res: NextApiResponse) {
+export default async function signin(req: ISignup, res: NextApiResponse) {
   try {
+    await dbConnect();
+
     const user = await UserModel.findOne(
       {
         email: req.body.email,
@@ -15,8 +18,9 @@ export default async function signup(req: ISignup, res: NextApiResponse) {
       { id: 0, __v: 0 }
     )
       .then((res: IUserModel) => res)
-      .catch(() => {
-        res.status(401).json({ message: "incorrect Email or server error" });
+      .catch((e) => {
+        console.log(e);
+        res.status(401).json({ message: "Unable to validate credetails" });
       });
 
     if (!user) return;
@@ -27,8 +31,10 @@ export default async function signup(req: ISignup, res: NextApiResponse) {
 
     user.password = "";
 
+    delete user._id;
+    delete user.__v;
+
     await authenticate(req, res);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
     return res.status(200).json({ data: user });
   } catch (e) {
