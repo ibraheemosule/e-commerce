@@ -1,9 +1,7 @@
-import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
-import { store, persistor } from "../store/store";
+// import { PersistGate } from "redux-persist/integration/react";
+import { store } from "../store/store";
 import Layout from "../components/others/Layout";
-import { memo } from "react";
 import Head from "next/head";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,6 +9,7 @@ import { CacheProvider, EmotionCache } from "@emotion/react";
 import theme from "../utils/theme";
 import createEmotionCache from "../utils/createEmotionCache";
 import { StyledEngineProvider } from "@mui/material/styles";
+import { AppProps } from "next/app";
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -43,4 +42,4 @@ const MyApp = (props: MyAppProps) => {
   );
 };
 
-export default memo(MyApp);
+export default MyApp;

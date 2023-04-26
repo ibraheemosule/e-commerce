@@ -100,7 +100,7 @@ const Nav: FC<NavbarProps> = (props) => {
               }}
             >
               <Box sx={{ display: { xs: "none", md: "block" } }}>
-                <UserMenu />
+                <UserMenu signin={props.signin} />
               </Box>
               <CartIcon />
             </Box>

@@ -4,8 +4,27 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Btn from "../../../others/btn/Btn";
 import ButtonBase from "@mui/material/ButtonBase";
+import { useAppSelector } from "../../../../store/hooks";
+import Router from "next/router";
 
 const Fail = () => {
+  const { cartList, immutableProducts } = useAppSelector(
+    ({ product }) => product
+  );
+
+  Router;
+  async function toPaymentOptions() {
+    await Router.push(
+      {
+        pathname: "/payment-options",
+        query: {
+          cartList: JSON.stringify(cartList),
+          immutableProducts: JSON.stringify(immutableProducts),
+        },
+      },
+      "/payment-options"
+    );
+  }
   return (
     <Box
       sx={{
@@ -15,14 +34,18 @@ const Fail = () => {
     >
       <Image
         src="/images/error.png"
-        width={144}
-        height={144}
+        width={100}
+        height={100}
         alt="success icon"
       />
       <Typography component="h5" variant="h5">
         Could not confirm payment
       </Typography>
-      <Btn>Retry Payment</Btn>
+
+      <Btn onClick={() => void toPaymentOptions()} sx={{ mt: 2 }}>
+        Retry Payment
+      </Btn>
+
       <ButtonBase
         sx={{
           display: "block",

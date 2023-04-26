@@ -7,6 +7,7 @@ import {
   validatePassword,
   successPopup,
   errorPopup,
+  sessionExpired,
 } from "../../../../../utils/utilsFunctions";
 import { useUpdateInfoMutation } from "../../../../../store/features/new-user/new-user-slice";
 import { UserType } from "../../../../../utils/ts-types/__store/typesUser";
@@ -34,6 +35,9 @@ export default memo(function ChangePassword() {
     e.preventDefault();
 
     try {
+      if (validatePassword(oldPassword) !== "true")
+        throw Error(`Current password is incorrect`);
+
       if (validatePassword(newPassword) !== "true")
         throw Error(
           `New Password must contain ${validatePassword(newPassword)}`
@@ -50,14 +54,23 @@ export default memo(function ChangePassword() {
       setPasswordValues({ newPassword: "" });
       setPasswordValues({ oldPassword: "" });
     } catch (e) {
-      console.log(e);
       if (responseError(e)) {
+        const noAuth = e.data.message.includes("not authenticated");
+
+        if (noAuth) {
+          await sessionExpired();
+          return;
+        }
+
         setError(e.data.message);
         errorPopup(e.data.message);
-        return;
       }
+
       let message = "An error occured";
-      if (e instanceof Error) message = e.message;
+
+      if (e instanceof Error) {
+        message = e.message;
+      }
       setError(message);
     }
   }
@@ -86,7 +99,7 @@ export default memo(function ChangePassword() {
       >
         <Box sx={{ maxWidth: 250 }}>
           <InputField
-            placeholder="Old Password"
+            placeholder="Current Password"
             type="password"
             value={oldPassword}
             onChange={setPasswordValues}

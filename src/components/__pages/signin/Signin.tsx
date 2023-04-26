@@ -1,10 +1,16 @@
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import SigninForm from "./signin-form/SigninForm";
-import { memo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import dynamic from "next/dynamic";
 import LazyLoader from "../../others/lazy-loader/LazyLoader";
+import { persistor } from "../../../store/store";
+import {
+  userDefaultState,
+  resetState,
+} from "../../../store/features/user/user-slice";
+import { useAppDispatch } from "../../../store/hooks";
 
 const ForgotPassword = dynamic(
   () => import("./forgot-password/ForgotPassword"),
@@ -12,9 +18,18 @@ const ForgotPassword = dynamic(
 );
 
 const Signin = () => {
-  const [showPasswordPage, setShowPasswordPage] = useState(false),
+  const dispatch = useAppDispatch(),
+    [showPasswordPage, setShowPasswordPage] = useState(false),
     routeToPasswordPage = () => setShowPasswordPage((prev) => !prev),
     PageJsx = showPasswordPage ? ForgotPassword : SigninForm;
+
+  useEffect(() => {
+    void (async () => {
+      dispatch(resetState(userDefaultState));
+      await persistor.flush();
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>

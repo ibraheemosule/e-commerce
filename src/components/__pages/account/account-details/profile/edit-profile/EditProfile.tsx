@@ -18,6 +18,7 @@ import { useUpdateInfoMutation } from "../../../../../../store/features/new-user
 import { responseError } from "../../../../../../utils/apiErrorResponse";
 import {
   errorPopup,
+  sessionExpired,
   successPopup,
 } from "../../../../../../utils/utilsFunctions";
 import { userFormValidation } from "../../../../../../utils/utilsFunctions";
@@ -59,12 +60,23 @@ export default memo(function EditProfile({ setEdit }: EditDetailsProp) {
       setEdit(false);
     } catch (e) {
       if (responseError(e)) {
+        const noAuth = e.data.message.includes("not authenticated");
+
+        if (noAuth) {
+          await sessionExpired();
+          return;
+        }
+
         setError(e.data.message);
         errorPopup(e.data.message);
         return;
       }
+
       let message = "An error occurred";
-      if (e instanceof Error) message = e.message;
+
+      if (e instanceof Error) {
+        message = e.message;
+      }
       setError(message);
       errorPopup(message);
     }

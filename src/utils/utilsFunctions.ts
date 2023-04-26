@@ -3,6 +3,7 @@ import { ProductSlice } from "./ts-types/__store/typesProduct";
 import { ProductType } from "./ts-types/__store/typesProduct";
 import { toast } from "react-toastify";
 import { statesInNigeria } from "./utilsData";
+import Router from "next/router";
 
 export const onlyAlphabet = (text: string) => {
   const re = /^[a-zA-Z ]+$/;
@@ -58,7 +59,9 @@ export const paginateFunction = ({
   };
 };
 
-export const calculateTotalPrice = (state: ProductSlice) => {
+export const calculateTotalPrice = (
+  state: Pick<ProductSlice, "cartList" | "immutableProducts">
+) => {
   const priceSum = state.cartList.reduce((prev, next) => {
     const product = state.immutableProducts.filter(
       (prod) => prod.id === next.productId
@@ -171,4 +174,15 @@ export const userFormValidation = (fields: { [key: string]: string }) => {
   if (!Object.keys(statesInNigeria).includes(fields.state.toLowerCase())) {
     throw Error("Invalid state provided");
   }
+};
+
+export const sessionExpired = async () => {
+  errorPopup("session expired");
+
+  await Router.push({
+    pathname: "/signin",
+    query: {
+      session: "session expired",
+    },
+  });
 };

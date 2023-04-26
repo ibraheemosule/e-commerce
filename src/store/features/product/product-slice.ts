@@ -77,6 +77,11 @@ export const productSlice = createSlice({
       state.totalPrice = calculateTotalPrice(state);
     },
 
+    resetCartList(state) {
+      state.cartList = [];
+      state.totalPrice = calculateTotalPrice(state);
+    },
+
     removeFromCartList(state, { payload }: PayloadAction<CartType>) {
       state.cartList = state.cartList.filter(
         (prod) => prod.uid !== payload.uid
@@ -157,5 +162,6 @@ export const {
   setLastPaginatedNumber,
   resetProductsList,
   removeFromCartList,
+  resetCartList,
 } = productSlice.actions;
 export default productSlice.reducer;

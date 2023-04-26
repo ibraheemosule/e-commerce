@@ -33,6 +33,7 @@ export default async function signup(req: ISignup, res: NextApiResponse) {
 
     return res.status(200).json({ data });
   } catch (e) {
+    console.log(e);
     let message = "Internal Error Occurred";
     if (e instanceof Error) message = e.message;
     return res

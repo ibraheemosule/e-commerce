@@ -7,19 +7,22 @@ import { PaystackButton } from "react-paystack";
 import { useAppSelector, useAppDispatch } from "../../../store/hooks";
 import { updateOrders } from "../../../store/features/user/user-slice";
 import { useRouter } from "next/router";
+import { resetCartList } from "../../../store/features/product/product-slice";
+import {
+  CartType,
+  ProductType,
+} from "../../../utils/ts-types/__store/typesProduct";
 
-export default memo(function PaymentOptions() {
+export default memo(function PaymentOptions({ price, cart, list }: PropType) {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { totalPrice, cartList, immutableProducts } = useAppSelector(
-    (state) => state.product
-  );
   const { userInfo } = useAppSelector(({ user }) => user);
 
   const paymentSuccess = async () => {
-    const order = createOrder(cartList, immutableProducts, totalPrice);
+    const order = createOrder(cart, list, price);
 
     dispatch(updateOrders(order));
+    dispatch(resetCartList());
 
     await router.push("/payment-status");
   };
@@ -29,8 +32,8 @@ export default memo(function PaymentOptions() {
   };
 
   const props = {
-    email: userInfo.email,
-    amount: totalPrice * 100,
+    email: userInfo.email || "test@gmail.com",
+    amount: Math.round(price * 100),
     publicKey: "pk_test_17c88efeaeb964faa66cda7e2e09f018d1aa172d",
     text: "Pay With Paystack",
     onSuccess: () => paymentSuccess(),
@@ -63,3 +66,9 @@ export default memo(function PaymentOptions() {
     </>
   );
 });
+
+type PropType = {
+  price: number;
+  cart: CartType[];
+  list: ProductType[];
+};

@@ -1,7 +1,9 @@
 import { useSignoutMutation } from "../../../../store/features/new-user/new-user-slice";
 import { useAppDispatch } from "../../../../store/hooks";
-import { userDefaultState } from "../../../../store/features/user/user-slice";
-import { resetState } from "../../../../store/features/user/user-slice";
+import {
+  resetState,
+  userDefaultState,
+} from "../../../../store/features/user/user-slice";
 import { useEffect } from "react";
 import { persistor } from "../../../../store/store";
 import Router from "next/router";

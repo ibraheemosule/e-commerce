@@ -14,8 +14,8 @@ const Success = () => {
       >
         <Image
           src="/images/success.png"
-          width={144}
-          height={144}
+          width={100}
+          height={100}
           alt="success icon"
         />
         <Typography component="h5" variant="h5">
