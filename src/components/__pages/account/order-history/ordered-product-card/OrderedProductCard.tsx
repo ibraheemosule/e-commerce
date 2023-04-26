@@ -44,7 +44,7 @@ const OrderedProductCard: FC<OrderedProductCardProps> = ({ product }) => {
       >
         <Box sx={{ mt: 1 }}>
           <Image
-            src={product.images[0]}
+            src={product.image}
             alt={`${product.name}`}
             width={50}
             height={50}

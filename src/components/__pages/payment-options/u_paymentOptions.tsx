@@ -35,12 +35,16 @@ export const createOrder = (
 ): OrderType => {
   const products = cartList.map((item) => {
     const product = productsList.find((prod) => prod.id === item.productId)!;
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { uid, productId, quantity, ...rest } = item;
+
     return {
-      quantity: quantity || 1,
+      quantity: item.quantity || 1,
       size: item.size,
-      ...product,
+      image: product.images[0],
+      id: product.id,
+      tag: product.tag,
+      gender: product.gender,
+      name: product.name,
+      price: product.price,
     };
   });
 

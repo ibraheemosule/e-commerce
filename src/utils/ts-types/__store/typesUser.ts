@@ -1,5 +1,3 @@
-import { ProductType } from "./typesProduct";
-
 export type UserType = {
   firstName: string;
   lastName: string;
@@ -26,9 +24,15 @@ export type DeliveryDetailsType = {
   state: string;
 };
 
-export type PastPurchaseProductType = ProductType & {
+export type PastPurchaseProductType = {
   size?: string | number;
   quantity: number;
+  image: string;
+  id: string;
+  tag: string;
+  gender: "male" | "female" | "unisex";
+  name: string;
+  price: number;
 };
 
 export interface OrderType {

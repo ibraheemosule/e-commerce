@@ -7,8 +7,22 @@ import { primaryMain } from "../../../../../utils/theme";
 import Divider from "@mui/material/Divider";
 import Btn from "../../../../others/btn/Btn";
 import ArrowRightAlt from "@mui/icons-material/ArrowRightAlt";
+import { useAppDispatch } from "../../../../../store/hooks";
+import {
+  mutateProductsList,
+  resetProductsList,
+} from "../../../../../store/features/product/product-slice";
+import Router from "next/router";
 
-const SlideCard: FC<SlideCardProps> = ({ title, img }) => {
+const SlideCard: FC<SlideCardProps> = ({ title, img, tag }) => {
+  const dispatch = useAppDispatch();
+
+  const filterProductsList = async (tag: string) => {
+    dispatch(resetProductsList());
+    dispatch(mutateProductsList({ filterValue: tag }));
+    await Router.push("/products");
+  };
+
   return (
     <>
       <Box
@@ -77,7 +91,11 @@ const SlideCard: FC<SlideCardProps> = ({ title, img }) => {
             />
           </Box>
           <Box sx={{ mt: "25px" }}>
-            <Btn variant="contained" endIcon={<ArrowRightAlt />}>
+            <Btn
+              onClick={() => void filterProductsList(tag)}
+              variant="contained"
+              endIcon={<ArrowRightAlt />}
+            >
               Shop Here
             </Btn>
           </Box>
@@ -90,6 +108,7 @@ const SlideCard: FC<SlideCardProps> = ({ title, img }) => {
 interface SlideCardProps {
   title: string;
   img: string;
+  tag: string;
 }
 
 export default memo(SlideCard);

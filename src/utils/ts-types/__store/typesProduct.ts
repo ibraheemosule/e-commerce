@@ -6,7 +6,7 @@ export type ProductType = {
   id: string;
   images: string[];
   sizes?: (string | number)[];
-  gender: string;
+  gender: "male" | "female" | "unisex";
 };
 
 export interface ProductSlice {

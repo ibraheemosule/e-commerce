@@ -109,7 +109,9 @@ const ProductCard: FC<ProductCardProps> = (props) => {
             </Btn>
 
             <Menu
-              sx={{ mt: "39px" }}
+              sx={{
+                mt: "39px",
+              }}
               elevation={3}
               id="menu-appbar"
               anchorEl={anchorElUser}
@@ -190,12 +192,6 @@ const ProductCard: FC<ProductCardProps> = (props) => {
                     borderColor: "secondary.main",
                     borderStyle: "dashed",
                     cursor: "pointer",
-
-                    a: {
-                      all: "unset",
-                      display: "block",
-                      padding: "0 8px",
-                    },
                   }}
                 >
                   <ButtonBase
