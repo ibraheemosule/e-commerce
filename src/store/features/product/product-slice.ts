@@ -100,7 +100,7 @@ export const productSlice = createSlice({
         Object.values(payload)[0];
 
       state.products = state.immutableProducts.filter((prod) =>
-        prod.name.includes(state.searchValue)
+        prod.name.toLowerCase().includes(state.searchValue.toLowerCase())
       );
 
       if (state.genderValue) {
