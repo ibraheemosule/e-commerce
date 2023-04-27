@@ -7,7 +7,7 @@ import { OrderType } from "../../../../../utils/ts-types/__store/typesUser";
 export default memo(function OrderList({ order }: { order: OrderType }) {
   return (
     <Box>
-      {order.pastPurchases?.map((product, i) => (
+      {order.items?.map((product, i) => (
         <OrderedProductCard key={i} product={product} />
       ))}
 
@@ -22,7 +22,7 @@ export default memo(function OrderList({ order }: { order: OrderType }) {
             fontWeight: 500,
           }}
         >
-          Delivery fee excluded
+          Delivery fee included
         </Typography>
       </Box>
     </Box>

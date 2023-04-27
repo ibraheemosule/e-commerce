@@ -1,12 +1,12 @@
 import { generateToken, verifyToken } from "../../../lib/jwt/jwt";
-import { ISignup } from "./signup.pg";
 import { NextApiResponse } from "next";
 import { setCookie } from "../../../lib/cookie/cookie";
 import dbConnect from "../../../lib/db/dbConnect";
+import { IReq } from "../../../utils/ts-types/api-types";
 
 const authPages = ["/api/auth/signup", "/api/auth/signin"];
 
-export const authenticate = async (req: ISignup, res: NextApiResponse) => {
+export const authenticate = async (req: IReq, res: NextApiResponse) => {
   const { cookies, body } = req;
   const { password, email } = body;
 

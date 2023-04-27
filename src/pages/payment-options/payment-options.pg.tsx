@@ -7,7 +7,7 @@ import {
   ProductType,
 } from "../../utils/ts-types/__store/typesProduct";
 
-export default function PaymentMethodPage({ price, cart, list }: PropType) {
+export default function PaymentMethodPage({ amount, cart, list }: PropType) {
   return (
     <>
       <Head>
@@ -19,7 +19,7 @@ export default function PaymentMethodPage({ price, cart, list }: PropType) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <PaymentOptions price={price} cart={cart} list={list} />
+      <PaymentOptions amount={amount} cart={cart} list={list} />
     </>
   );
 }
@@ -50,15 +50,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     immutableProducts: JSON.parse(immutableProducts) as ProductType[],
   };
 
-  const price = calculateTotalPrice(product);
+  const amount = calculateTotalPrice(product);
 
   return {
-    props: { price, list: product.immutableProducts, cart: product.cartList },
+    props: { amount, list: product.immutableProducts, cart: product.cartList },
   };
 };
 
 type PropType = {
-  price: number;
+  amount: number;
   cart: CartType[];
   list: ProductType[];
 };

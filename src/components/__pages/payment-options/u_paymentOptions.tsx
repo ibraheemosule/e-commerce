@@ -2,7 +2,10 @@ import {
   CartType,
   ProductType,
 } from "../../../utils/ts-types/__store/typesProduct";
-import { OrderType } from "../../../utils/ts-types/__store/typesUser";
+import {
+  OrderType,
+  DeliveryDetailsType,
+} from "../../../utils/ts-types/__store/typesUser";
 
 export const btnWrapperStyles = {
   mt: 3,
@@ -31,7 +34,9 @@ export const btnWrapperStyles = {
 export const createOrder = (
   cartList: CartType[],
   productsList: ProductType[],
-  amount: number
+  amount: number,
+  email: string,
+  deliveryDetails: DeliveryDetailsType
 ): OrderType => {
   const products = cartList.map((item) => {
     const product = productsList.find((prod) => prod.id === item.productId)!;
@@ -49,8 +54,10 @@ export const createOrder = (
   });
 
   return {
-    pastPurchases: products,
-    createdAt: new Date().toISOString(),
+    buyer: email,
+    items: products,
+    time: new Date().toISOString(),
+    deliveryDetails,
     amount,
   };
 };

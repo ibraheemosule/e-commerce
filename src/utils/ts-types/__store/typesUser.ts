@@ -15,16 +15,9 @@ export interface UserSlice {
   orders: OrderType[];
 }
 
-export type DeliveryDetailsType = {
-  address: string;
-  lastName: string;
-  firstName: string;
-  phoneNo: string;
-  city: string;
-  state: string;
-};
+export type DeliveryDetailsType = Omit<UserType, "email">;
 
-export type PastPurchaseProductType = {
+export type PurchaseProductType = {
   size?: string | number;
   quantity: number;
   image: string;
@@ -36,7 +29,9 @@ export type PastPurchaseProductType = {
 };
 
 export interface OrderType {
-  pastPurchases: PastPurchaseProductType[];
-  createdAt: string;
+  buyer: string;
+  items: PurchaseProductType[];
+  time: string;
   amount: number;
+  deliveryDetails: DeliveryDetailsType;
 }

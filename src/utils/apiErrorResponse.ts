@@ -12,3 +12,13 @@ export function responseError(error: unknown): error is ApiErrorResponse {
     typeof (error as any).status === "number"
   );
 }
+
+export function requestFailed(e: unknown) {
+  if (responseError(e)) {
+    return e.data.message;
+  }
+
+  let message = "An error occurred";
+  if (e instanceof Error) message = e.message;
+  return message;
+}

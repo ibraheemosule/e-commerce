@@ -1,27 +1,24 @@
-import { NextApiResponse, NextApiRequest } from "next";
+import { NextApiResponse } from "next";
 import { authenticate } from "./auth";
-import { UserType } from "../../../utils/ts-types/__store/typesUser";
 import { UserModel, IUserModel } from "../../../lib/db/models/user";
 import dbConnect from "../../../lib/db/dbConnect";
-export interface ISignup extends NextApiRequest {
-  body: UserType & { password: string };
-}
+import { IReq } from "../../../utils/ts-types/api-types";
 
-export default async function signin(req: ISignup, res: NextApiResponse) {
+export default async function signin(req: IReq, res: NextApiResponse) {
   try {
     await dbConnect();
 
-    const user = await UserModel.findOne(
+    const user = (await UserModel.findOne(
       {
         email: req.body.email,
       },
-      { id: 0, __v: 0 }
+      { _id: 0, __v: 0 }
     )
-      .then((res: IUserModel) => res)
+      .exec()
       .catch((e) => {
         console.log(e);
         res.status(401).json({ message: "Internal error occured" });
-      });
+      })) as IUserModel;
 
     if (!user) throw Error("Email not found");
 
@@ -31,12 +28,11 @@ export default async function signin(req: ISignup, res: NextApiResponse) {
 
     user.password = "";
 
-    delete user._id;
-    delete user.__v;
-
     await authenticate(req, res);
 
-    return res.status(200).json({ data: user });
+    return res.status(200).json({
+      data: user,
+    });
   } catch (e) {
     console.log(e);
     let message = "Internal server error";

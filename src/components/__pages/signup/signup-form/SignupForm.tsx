@@ -12,7 +12,7 @@ import { useAppDispatch } from "../../../../store/hooks";
 import { updateUserInfo } from "../../../../store/features/user/user-slice";
 import { UserType } from "../../../../utils/ts-types/__store/typesUser";
 import { useSignupMutation } from "../../../../store/features/new-user/new-user-slice";
-import { responseError } from "../../../../utils/apiErrorResponse";
+import { requestFailed } from "../../../../utils/apiErrorResponse";
 import {
   errorPopup,
   successPopup,
@@ -59,15 +59,8 @@ const LoginForm = () => {
 
       Router.reload();
     } catch (e) {
-      if (responseError(e)) {
-        setError(e.data.message);
-        return;
-      }
-
-      let message = "An error occurred";
-      if (e instanceof Error) message = e.message;
-      errorPopup(message);
-      setError(message);
+      errorPopup(requestFailed(e));
+      setError(requestFailed(e));
     }
   };
 

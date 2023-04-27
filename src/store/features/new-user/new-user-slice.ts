@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { UserType } from "../../../utils/ts-types/__store/typesUser";
+import { UserType, OrderType } from "../../../utils/ts-types/__store/typesUser";
 
 export const newUserSlice = createApi({
   reducerPath: "api",
@@ -55,6 +55,29 @@ export const newUserSlice = createApi({
           };
         },
       }),
+      getOrder: builder.query<{ data: OrderType[] }, { email: string }>({
+        query({ email }) {
+          return {
+            url: `/order/get-order?email=${email}`,
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          };
+        },
+      }),
+      postOrder: builder.mutation<OrderType, OrderType>({
+        query(payload) {
+          return {
+            url: "/order/post-order",
+            method: "POST",
+            body: payload,
+            headers: {
+              "Content-Type": "application/json",
+            },
+          };
+        },
+      }),
     };
   },
 });
@@ -64,4 +87,6 @@ export const {
   useSignoutMutation,
   useSigninMutation,
   useUpdateInfoMutation,
+  useGetOrderQuery,
+  usePostOrderMutation,
 } = newUserSlice;

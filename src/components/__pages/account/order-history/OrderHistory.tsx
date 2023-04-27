@@ -7,10 +7,14 @@ import { useAppSelector } from "../../../../store/hooks";
 import Accordion from "../../../others/accordion/Accordion";
 import OrderList from "./order-list/OrderList";
 import { convertDate } from "../../../../utils/utilsFunctions";
+import { useGetOrderQuery } from "../../../../store/features/new-user/new-user-slice";
 
 export default memo(function OrderHistory() {
-  const { orders } = useAppSelector(({ user }) => user);
+  const { userInfo } = useAppSelector(({ user }) => user);
   const [expanded, setExpanded] = useState<number | false>(false);
+  const { data, isError } = useGetOrderQuery({
+    email: userInfo.email,
+  });
 
   return (
     <Grid
@@ -27,9 +31,15 @@ export default memo(function OrderHistory() {
       <Typography component="h4" variant="h5" sx={{ color: "secondary.main" }}>
         Order History
       </Typography>
-      {orders.length ? (
+      {!data ? (
+        isError ? (
+          <NoOrders text={"Could not load orders"} />
+        ) : (
+          <NoOrders text="loading" />
+        )
+      ) : data.data.length ? (
         <Box sx={{ mt: 2 }}>
-          {orders.map((order, i) => (
+          {data.data.map((order, i) => (
             <Accordion
               title={
                 <Box
@@ -38,12 +48,37 @@ export default memo(function OrderHistory() {
                     flexWrap: "wrap",
                   }}
                 >
-                  <Typography sx={{ mr: 2, color: "secondary.dark" }}>
-                    Ordered on:
-                  </Typography>
-                  <Typography>
-                    {convertDate(new Date(order.createdAt))}
-                  </Typography>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                    }}
+                  >
+                    <Typography
+                      sx={{ mr: 1, color: "secondary.dark", fontSize: 13 }}
+                    >
+                      Ordered on:
+                    </Typography>
+                    <Typography sx={{ fontSize: 13 }}>
+                      {convertDate(new Date(order.time))}
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      width: "100%",
+                      flexWrap: "wrap",
+                    }}
+                  >
+                    <Typography
+                      sx={{ mr: 1, color: "secondary.dark", fontSize: 13 }}
+                    >
+                      To:
+                    </Typography>
+                    <Typography
+                      sx={{ fontSize: 13 }}
+                    >{`${order.deliveryDetails.firstName} ${order.deliveryDetails.lastName}`}</Typography>
+                  </Box>
                 </Box>
               }
               key={i}
@@ -57,7 +92,7 @@ export default memo(function OrderHistory() {
         </Box>
       ) : (
         <Box sx={{ minHeight: 300, display: "grid", placeItems: "center" }}>
-          <NoOrders />
+          <NoOrders text="no orders yet" />
         </Box>
       )}
     </Grid>
