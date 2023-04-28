@@ -35,10 +35,15 @@ const ProductCard: FC<ProductCardProps> = (props) => {
   const router = useRouter();
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const ids = cartList.map((prod) => prod.productId);
+  const quantity = 1;
 
   const addToCart = (size: string | number) => {
     successPopup("Product added successfully");
-    id && dispatch(mutateCartList({ productId: id, uid: nanoid(), size }));
+
+    id &&
+      dispatch(
+        mutateCartList({ productId: id, uid: nanoid(), size, quantity })
+      );
     handleCloseUserMenu();
   };
 
@@ -51,7 +56,7 @@ const ProductCard: FC<ProductCardProps> = (props) => {
     }
     successPopup("Product added successfully");
 
-    id && dispatch(mutateCartList({ productId: id, uid: nanoid() }));
+    id && dispatch(mutateCartList({ productId: id, uid: nanoid(), quantity }));
   };
 
   const filterProductsList = async (obj: Record<string, string>) => {

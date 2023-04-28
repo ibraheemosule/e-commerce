@@ -3,6 +3,7 @@ import { UserType, OrderType } from "../../../utils/ts-types/__store/typesUser";
 
 export const newUserSlice = createApi({
   reducerPath: "api",
+  tagTypes: ["Order"],
   refetchOnMountOrArgChange: true,
   baseQuery: fetchBaseQuery({
     baseUrl: "/api",
@@ -56,6 +57,7 @@ export const newUserSlice = createApi({
         },
       }),
       getOrder: builder.query<{ data: OrderType[] }, { email: string }>({
+        providesTags: ["Order"],
         query({ email }) {
           return {
             url: `/order/get-order?email=${email}`,
@@ -67,6 +69,7 @@ export const newUserSlice = createApi({
         },
       }),
       postOrder: builder.mutation<OrderType, OrderType>({
+        invalidatesTags: ["Order"],
         query(payload) {
           return {
             url: "/order/post-order",

@@ -34,12 +34,13 @@ export const productSlice = createSlice({
     },
 
     mutateCartList(state, { payload }: PayloadAction<CartType>) {
-      const { uid, quantity } = payload;
+      const { uid, quantity, size, productId } = payload;
 
       const uids = state.cartList.map((prod) => prod.uid);
 
+      //for increasing and reducing the quantity of a particular product
       if (uids.includes(uid)) {
-        state.cartList = state.cartList.map((prod) => {
+        state.cartList = [...state.cartList].map((prod) => {
           if (prod.uid !== uid) return prod;
           return Object.assign(prod, payload);
         });
@@ -48,33 +49,65 @@ export const productSlice = createSlice({
         return;
       }
 
-      const duplicateProduct = state.cartList.some(
-        (prod) =>
-          prod.productId === payload.productId && prod.size === payload.size
-      );
+      // const duplicateProduct = state.cartList.find(
+      //   prod =>
+      //     prod.productId === payload.productId && prod.size === payload.size
+      // );
 
-      if (duplicateProduct) {
-        state.cartList = state.cartList.map((prod) => {
-          const duplicate =
-            prod.productId === payload.productId && prod.size === payload.size;
+      const newList = [...state.cartList];
 
-          if (duplicate) {
-            return {
-              ...prod,
-              quantity: (prod.quantity || 1) + (quantity || 1),
-            };
-          }
+      const checkCart = newList.find((prod) => {
+        const itExists = prod.productId === productId && prod.size === size;
 
-          return prod;
-        });
-        return;
+        if (itExists) {
+          prod.quantity += quantity;
+          return true;
+        }
+        return false;
+      });
+
+      if (!checkCart) {
+        newList.push(payload);
       }
 
-      state.cartList = [
-        ...state.cartList,
-        { ...payload, quantity: quantity || 1 },
-      ];
+      state.cartList = newList;
       state.totalPrice = calculateTotalPrice(state);
+      // for(const prod of newList){
+      //   const itExists = prod.productId === payload.productId && prod.size === payload.size
+      //   if(itExists){
+      //     prod.quantity += quantity
+      //     break;
+      //   }
+      // }
+
+      // const duplicateProduct = state.cartList.some(
+      //   prod =>
+      //     prod.productId === payload.productId && prod.size === payload.size
+      // );
+      // console.log(duplicateProduct);
+
+      // if (duplicateProduct) {
+      //   state.cartList = state.cartList.map(prod => {
+      //     const duplicate =
+      //       prod.productId === payload.productId && prod.size === payload.size;
+
+      //     if (duplicate) {
+      //       return {
+      //         ...prod,
+      //         quantity: (prod.quantity || 1) + (quantity || 1),
+      //       };
+      //     }
+
+      //     return prod;
+      //   });
+      //   return;
+      // }
+
+      // state.cartList = [
+      //   ...state.cartList,
+      //   { ...payload, quantity: quantity || 1 },
+      // ];
+      // state.totalPrice = calculateTotalPrice(state);
     },
 
     resetCartList(state) {

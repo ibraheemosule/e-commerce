@@ -49,8 +49,13 @@ const Cart = () => {
                     );
                   })} */}
                   {Children.toArray(
-                    cartList.map(({ productId }) => (
-                      <CartProductCard key={productId} id={productId} />
+                    cartList.map(({ productId, size, uid }) => (
+                      <CartProductCard
+                        key={uid}
+                        id={productId}
+                        size={size}
+                        uid={uid}
+                      />
                     ))
                   )}
                 </Grid>

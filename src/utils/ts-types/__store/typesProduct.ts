@@ -30,7 +30,7 @@ export type IMutateProducts = {
 };
 
 export type CartType = {
-  quantity?: number;
+  quantity: number;
   productId: string;
   uid: string;
   size?: string | number;
