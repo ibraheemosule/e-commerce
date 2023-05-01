@@ -152,7 +152,7 @@ const CartProductCard: FC<CartProductCardProps> = ({ id, size, uid }) => {
       </Grid>
       <Grid item xs={12} my={2} sx={{ display: "block" }}>
         <Divider />
-      </Grid>{" "}
+      </Grid>
     </>
   );
 };

@@ -1,7 +1,10 @@
 import Head from "next/head";
 import Signin from "../../components/__pages/signin/Signin";
+import { GetServerSideProps } from "next";
+import { fetchCall } from "../../lib/contentful/contentful";
 
-export default function LoginPage() {
+export default function SigninPage({ b }: { b: unknown }) {
+  console.log(b);
   return (
     <>
       <Head>
@@ -14,3 +17,32 @@ export default function LoginPage() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const b = await fetchCall(
+    `
+  query {
+    productCollection {
+      items {
+        id
+        name
+        sizes
+        tag
+        price
+        description
+        imagesCollection {
+          items {
+            url
+          }
+        }
+      }
+    }
+  } 
+  `
+  );
+  return {
+    props: {
+      b,
+    },
+  };
+};

@@ -18,7 +18,6 @@ export default function CheckoutPage() {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const referrer = await Promise.resolve(context.req.headers.referer || "/");
-
   if (!referrer.endsWith("/cart")) {
     return {
       redirect: {
