@@ -11,7 +11,7 @@ export default memo(function Subtitle({ title, text }: DetailProp) {
           fontSize: 14,
         }}
       >
-        {title}
+        {title === "email" ? "Email" : title}
       </Typography>
       <Typography>{text}</Typography>
     </Box>

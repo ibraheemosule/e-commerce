@@ -1,16 +1,36 @@
-import { createClient } from "contentful";
+const env = process.env.NODE_ENV === "production";
 
-const token = process.env.CONTENTFUL_TOKEN as string;
-const id = process.env.CONTENTFUL_SPACE_ID as string;
+const baseUrl = process.env.CONTENTFUL_BASE_URL as string;
 
-const client = createClient({
-  space: id,
-  accessToken: token,
-});
+const branch = env ? "master" : "staging";
+const token = env
+  ? (process.env.CONTENTFUL_TOKEN as string)
+  : (process.env.CONTENTFUL_STAGING_TOKEN as string);
 
-const getContent = async (type: string) =>
-  await client.getEntries({
-    content_type: type,
-  });
+console.log(token, branch);
 
-export default getContent;
+export const fetchCall = async (
+  query: string,
+  variables: Record<string, string> = {}
+) => {
+  try {
+    const req = await fetch(`${baseUrl}/${branch}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        query,
+        variables,
+      }),
+    });
+
+    const data: unknown = await req.json();
+    return data;
+  } catch (e) {
+    if (e instanceof Error) console.log(e.message);
+    else console.log("an error occured");
+    return e;
+  }
+};

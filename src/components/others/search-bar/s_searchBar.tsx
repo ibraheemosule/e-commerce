@@ -53,7 +53,7 @@ export const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export const listStyle = {
   zIndex: 2,
   backgroundColor: "primary.light",
-  color: "primary.dark",
+  color: "rgba(0,0,0, 0.3)",
   borderRadius: 1,
   position: "absolute",
   maxHeight: "150px",
@@ -66,6 +66,10 @@ export const listStyle = {
   boxShadow: "2px 5px 46px -14px rgba(0,0,0,1)",
   webkitBoxShadow: "2px 5px 46px -14px rgba(0,0,0,1)",
   mozBoxShadow: "2px 5px 46px -14px rgba(0,0,0,1)",
+
+  ".css-1nkwcz-MuiTypography-root": {
+    color: "primary.dark",
+  },
   ".css-fbv8zl-MuiTypography-root": {
     color: "primary.dark",
   },

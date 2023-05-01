@@ -7,6 +7,11 @@ import productSliceReducer from "./features/product/product-slice";
 import { newUserSlice } from "./features/new-user/new-user-slice";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
 
+// if (process.env.NODE_ENV === "production") {
+//   window.__REDUX_DEVTOOLS_EXTENSION__ &&
+//     window.__REDUX_DEVTOOLS_EXTENSION__.disconnect();
+// }
+
 export const persistConfig = {
   key: "root",
   storage,

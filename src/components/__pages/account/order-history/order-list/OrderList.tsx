@@ -1,24 +1,20 @@
 import { memo } from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/system/Box";
-
 import OrderedProductCard from "../ordered-product-card/OrderedProductCard";
-import { useAppSelector } from "../../../../../store/hooks";
 import { OrderType } from "../../../../../utils/ts-types/__store/typesUser";
 
 export default memo(function OrderList({ order }: { order: OrderType }) {
-  const { totalPrice } = useAppSelector(({ product }) => product);
-
   return (
     <Box>
-      {order.pastPurchases?.map((product, i) => (
+      {order.items?.map((product, i) => (
         <OrderedProductCard key={i} product={product} />
       ))}
 
       <Box sx={{ textAlign: "right" }}>
         <Typography>
           <span style={{ marginRight: 8 }}>Amount:</span>
-          &#8358;{totalPrice.toFixed(2)}
+          &#8358;{order.amount.toFixed(2)}
         </Typography>
         <Typography
           sx={{
@@ -26,7 +22,7 @@ export default memo(function OrderList({ order }: { order: OrderType }) {
             fontWeight: 500,
           }}
         >
-          Delivery fee excluded
+          Delivery fee included
         </Typography>
       </Box>
     </Box>

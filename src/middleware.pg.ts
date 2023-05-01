@@ -10,7 +10,6 @@ export function middleware(req: NextRequest) {
   if (path.startsWith("/_next")) {
     return NextResponse.next();
   }
-
   if (authPages.includes(path) && cookie) {
     return NextResponse.redirect(`${req.nextUrl.origin}`);
   }

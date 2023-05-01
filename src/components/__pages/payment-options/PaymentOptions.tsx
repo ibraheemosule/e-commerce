@@ -6,36 +6,66 @@ import { createOrder, btnWrapperStyles } from "./u_paymentOptions";
 import { PaystackButton } from "react-paystack";
 import { useAppSelector, useAppDispatch } from "../../../store/hooks";
 import { updateOrders } from "../../../store/features/user/user-slice";
-import { useRouter } from "next/router";
+import Router from "next/router";
+import { resetCartList } from "../../../store/features/product/product-slice";
+import {
+  CartType,
+  ProductType,
+} from "../../../utils/ts-types/__store/typesProduct";
+import { usePostOrderMutation } from "../../../store/features/new-user/new-user-slice";
+import { successPopup, errorPopup } from "../../../utils/utilsFunctions";
+import { requestFailed } from "../../../utils/apiErrorResponse";
 
-export default memo(function PaymentOptions() {
-  const router = useRouter();
+const PAYSTACK_KEY = process.env.NEXT_PUBLIC_PAYSTACK_KEY as string;
+
+export default memo(function PaymentOptions({ amount, cart, list }: PropType) {
   const dispatch = useAppDispatch();
-  const { totalPrice, cartList, immutableProducts } = useAppSelector(
-    (state) => state.product
-  );
-  const { userInfo } = useAppSelector(({ user }) => user);
+  const { userInfo, deliveryDetails } = useAppSelector(({ user }) => user);
+  const [postOrder] = usePostOrderMutation();
 
   const paymentSuccess = async () => {
-    const order = createOrder(cartList, immutableProducts, totalPrice);
+    const order = createOrder(
+      cart,
+      list,
+      amount,
+      userInfo.email,
+      deliveryDetails
+    );
 
-    dispatch(updateOrders(order));
+    console.log(order);
 
-    await router.push("/payment-status");
+    try {
+      await postOrder(order).unwrap();
+
+      successPopup("Payment successful");
+
+      dispatch(updateOrders(order));
+      dispatch(resetCartList());
+
+      await Router.push("/payment-status");
+    } catch (e) {
+      errorPopup(requestFailed(e));
+    }
   };
 
-  const paymentError = async () => {
-    await router.push("/payment-status");
+  const paymentError = async (message?: string) => {
+    if (message) {
+      errorPopup(message);
+    } else {
+      errorPopup("Unable to confirm");
+    }
+
+    await Router.push("/payment-status");
   };
 
   const props = {
     email: userInfo.email,
-    amount: totalPrice * 100,
-    publicKey: "pk_test_17c88efeaeb964faa66cda7e2e09f018d1aa172d",
+    amount: Math.round(amount * 100),
+    publicKey: PAYSTACK_KEY,
     text: "Pay With Paystack",
     onSuccess: () => paymentSuccess(),
     onFailure: () => paymentError(),
-    onClose: () => paymentError(),
+    onClose: () => paymentError("Payment process not completed"),
   };
 
   return (
@@ -63,3 +93,9 @@ export default memo(function PaymentOptions() {
     </>
   );
 });
+
+type PropType = {
+  amount: number;
+  cart: CartType[];
+  list: ProductType[];
+};

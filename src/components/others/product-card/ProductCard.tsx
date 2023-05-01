@@ -25,7 +25,7 @@ import { useRouter } from "next/router";
 import ButtonBase from "@mui/material/ButtonBase";
 import { ProductType } from "../../../utils/ts-types/__store/typesProduct";
 import { tags } from "../../../utils/utilsData";
-import { toast } from "react-toastify";
+import { successPopup } from "../../../utils/utilsFunctions";
 
 const ProductCard: FC<ProductCardProps> = (props) => {
   const { product, img, path, cart = true, title = "View" } = props;
@@ -35,16 +35,15 @@ const ProductCard: FC<ProductCardProps> = (props) => {
   const router = useRouter();
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const ids = cartList.map((prod) => prod.productId);
-
-  const popup = () =>
-    toast(`product added to cart`, {
-      type: "success",
-      autoClose: 500,
-    });
+  const quantity = 1;
 
   const addToCart = (size: string | number) => {
-    popup();
-    id && dispatch(mutateCartList({ productId: id, uid: nanoid(), size }));
+    successPopup("Product added successfully");
+
+    id &&
+      dispatch(
+        mutateCartList({ productId: id, uid: nanoid(), size, quantity })
+      );
     handleCloseUserMenu();
   };
 
@@ -55,9 +54,9 @@ const ProductCard: FC<ProductCardProps> = (props) => {
       setAnchorElUser(e.currentTarget);
       return;
     }
-    popup();
+    successPopup("Product added successfully");
 
-    id && dispatch(mutateCartList({ productId: id, uid: nanoid() }));
+    id && dispatch(mutateCartList({ productId: id, uid: nanoid(), quantity }));
   };
 
   const filterProductsList = async (obj: Record<string, string>) => {
@@ -115,7 +114,9 @@ const ProductCard: FC<ProductCardProps> = (props) => {
             </Btn>
 
             <Menu
-              sx={{ mt: "39px" }}
+              sx={{
+                mt: "39px",
+              }}
               elevation={3}
               id="menu-appbar"
               anchorEl={anchorElUser}
@@ -196,12 +197,6 @@ const ProductCard: FC<ProductCardProps> = (props) => {
                     borderColor: "secondary.main",
                     borderStyle: "dashed",
                     cursor: "pointer",
-
-                    a: {
-                      all: "unset",
-                      display: "block",
-                      padding: "0 8px",
-                    },
                   }}
                 >
                   <ButtonBase

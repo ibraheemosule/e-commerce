@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Account from "../../components/__pages/account/Account";
 
-export default function ProductsPage() {
+export default function AccountPage() {
   return (
     <>
       <Head>

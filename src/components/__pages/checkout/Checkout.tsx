@@ -8,11 +8,13 @@ import { useAppSelector, useAppDispatch } from "../../../store/hooks";
 import { changeDeliveryDetails } from "../../../store/features/user/user-slice";
 import { DeliveryDetailsType } from "../../../utils/ts-types/__store/typesUser";
 import Btn from "../../others/btn/Btn";
-import Link from "next/link";
+import Router from "next/router";
 
 export default memo(function Checkout() {
   const dispatch = useAppDispatch();
-  const { totalPrice } = useAppSelector((state) => state.product);
+  const { totalPrice, cartList, immutableProducts } = useAppSelector(
+    (state) => state.product
+  );
   const { userInfo, deliveryDetails } = useAppSelector(({ user }) => user);
   const [addressOption, setAddressOption] = useState("default");
 
@@ -27,6 +29,19 @@ export default memo(function Checkout() {
     dispatch(changeDeliveryDetails({} as DeliveryDetailsType));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [addressOption]);
+
+  async function toPaymentOptions() {
+    await Router.push(
+      {
+        pathname: "/payment-options",
+        query: {
+          cartList: JSON.stringify(cartList),
+          immutableProducts: JSON.stringify(immutableProducts),
+        },
+      },
+      "/payment-options"
+    );
+  }
 
   return (
     <>
@@ -71,15 +86,17 @@ export default memo(function Checkout() {
                     >
                       &#8358;{totalPrice.toFixed(2)}
                     </Typography>
-                    <Link
+                    {/* <Link
                       href="/payment-options"
                       style={{
                         all: "unset",
                         display: "block",
                       }}
-                    >
-                      <Btn size="small">Proceed</Btn>
-                    </Link>
+                    > */}
+                    <Btn onClick={() => void toPaymentOptions()} size="small">
+                      Proceed
+                    </Btn>
+                    {/* </Link> */}
                   </Box>
                 </Container>
               )}

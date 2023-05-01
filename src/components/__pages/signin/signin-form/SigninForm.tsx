@@ -9,14 +9,17 @@ import FormBtn from "../../../others/btn/form-btn/FormBtn";
 import {
   validateEmail,
   validatePassword,
+  errorPopup,
 } from "../../../../utils/utilsFunctions";
 import { useAppDispatch } from "../../../../store/hooks";
 import { updateUserInfo } from "../../../../store/features/user/user-slice";
 import { UserType } from "../../../../utils/ts-types/__store/typesUser";
 import Link from "next/link";
 import { useSigninMutation } from "../../../../store/features/new-user/new-user-slice";
-import { toast } from "react-toastify";
+import { successPopup } from "../../../../utils/utilsFunctions";
 import Router from "next/router";
+import { responseError } from "../../../../utils/apiErrorResponse";
+
 const SigninForm: FC<SigninFormProps> = ({ routeToPasswordPage }) => {
   const dispatch = useAppDispatch();
   const [email, setEmail] = useState("");
@@ -41,22 +44,24 @@ const SigninForm: FC<SigninFormProps> = ({ routeToPasswordPage }) => {
         throw Error("Incorrect Password");
       }
 
-      await signin({ email, password }).unwrap();
+      const { data } = (await signin({
+        email,
+        password,
+      }).unwrap()) as unknown as { data: UserType };
 
-      dispatch(updateUserInfo({ email } as UserType));
-      toast("Sign in successful", {
-        type: "success",
-      });
+      dispatch(updateUserInfo(data));
+      successPopup("Sign in successful");
 
       Router.reload();
     } catch (e) {
+      if (responseError(e)) {
+        setError(e.data.message);
+        errorPopup(e.data.message);
+        return;
+      }
       let message = "An error occurred";
       if (e instanceof Error) message = e.message;
-
-      toast(message, {
-        type: "error",
-        autoClose: 5000,
-      });
+      errorPopup(message);
 
       setError(message);
     }
@@ -111,7 +116,9 @@ const SigninForm: FC<SigninFormProps> = ({ routeToPasswordPage }) => {
             </ButtonBase>
           </Box>
           <Box sx={{ display: "block", position: "relative" }}>
-            <FormBtn text="Sign in" error={error} loading={isLoading} />
+            <Box sx={{ justifyContent: "center" }}>
+              <FormBtn text="Sign in" error={error} loading={isLoading} />
+            </Box>
             <Box
               sx={{
                 mx: "auto",

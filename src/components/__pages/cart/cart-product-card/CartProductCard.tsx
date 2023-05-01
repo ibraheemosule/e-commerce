@@ -19,13 +19,13 @@ import { useRouter } from "next/router";
 import TagBtn from "../../../others/btn/tag-btn/TagBtn";
 import { toast } from "react-toastify";
 
-const CartProductCard: FC<CartProductCardProps> = ({ id }) => {
+const CartProductCard: FC<CartProductCardProps> = ({ id, size, uid }) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { immutableProducts, cartList } = useAppSelector(
     (state) => state.product
   );
-  const cart = cartList.find((prod) => prod.productId === id)!;
+  const cart = cartList.find((prod) => prod.uid === uid)!;
   const [quantity, setQuantity] = useState(cart?.quantity ?? 1);
 
   const removeFromCart = () => {
@@ -55,7 +55,7 @@ const CartProductCard: FC<CartProductCardProps> = ({ id }) => {
   const filters = {
     genderValue: product.gender,
     filterValue: product.tag,
-    size: cart?.size,
+    size: size,
   };
 
   return (
@@ -152,13 +152,15 @@ const CartProductCard: FC<CartProductCardProps> = ({ id }) => {
       </Grid>
       <Grid item xs={12} my={2} sx={{ display: "block" }}>
         <Divider />
-      </Grid>{" "}
+      </Grid>
     </>
   );
 };
 
 interface CartProductCardProps {
   id: string;
+  size?: string | number;
+  uid: string;
 }
 
 export default memo(CartProductCard);

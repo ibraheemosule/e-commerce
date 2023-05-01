@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import Box from "@mui/system/Box";
-import { Children, memo, useState, useCallback } from "react";
+import { Children, memo, useState, useCallback, useEffect } from "react";
 import Image from "next/image";
 import ButtonBase from "@mui/material/ButtonBase";
 import Typography from "@mui/material/Typography";
@@ -41,6 +41,11 @@ export default memo(function Product({ product }: { product: ProductType }) {
   const id = product?.id;
   const fade = useFade(showDescription);
   const imageAnimation = useFade(selectedImg);
+  const inCart = ids.includes(id);
+
+  useEffect(() => {
+    if (inCart) setError("Product is already in the cart list");
+  }, [inCart]);
 
   const addToCart = useCallback(() => {
     if (product?.sizes && !size) {
@@ -271,7 +276,7 @@ export default memo(function Product({ product }: { product: ProductType }) {
               mt: 3,
             }}
           >
-            {ids.includes(id) ? "Buy More" : "add to cart"}
+            {inCart ? "Buy More" : "add to cart"}
           </Btn>
           <Typography sx={{ color: "secondary.dark", fontSize: 12, mt: 1 }}>
             {error}

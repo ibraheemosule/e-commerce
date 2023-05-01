@@ -16,7 +16,6 @@ import ContactIcon from "@mui/icons-material/Call";
 import navWrapper from "../wrapper/wrapper";
 import { NavbarProps } from "../wrapper/wrapper";
 import Box from "@mui/material/Box";
-import { useAppSelector } from "../../../../../store/hooks";
 import {
   drawerWidth,
   mainNavList,
@@ -27,7 +26,6 @@ import useSignout from "../../../hooks/signout/useSignout";
 import ButtonBase from "@mui/material/ButtonBase";
 
 const Nav: FC<NavbarProps> = (props) => {
-  const { email } = useAppSelector(({ user }) => user.userInfo);
   const { signout } = useSignout();
 
   return (
@@ -99,7 +97,7 @@ const Nav: FC<NavbarProps> = (props) => {
           </List>
           <Divider />
           <List>
-            {(email ? signedInMenu : notSignedInMenu).map(
+            {(props.signin ? signedInMenu : notSignedInMenu).map(
               ({ name, href, Icon }) => (
                 <StyledListItem key={name} disablePadding>
                   {name === "sign out" ? (

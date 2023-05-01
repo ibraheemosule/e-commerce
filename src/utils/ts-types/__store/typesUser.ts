@@ -1,5 +1,3 @@
-import { ProductType } from "./typesProduct";
-
 export type UserType = {
   firstName: string;
   lastName: string;
@@ -17,22 +15,23 @@ export interface UserSlice {
   orders: OrderType[];
 }
 
-export type DeliveryDetailsType = {
-  address: string;
-  lastName: string;
-  firstName: string;
-  phoneNo: string;
-  city: string;
-  state: string;
-};
+export type DeliveryDetailsType = Omit<UserType, "email">;
 
-export type PastPurchaseProductType = ProductType & {
+export type PurchaseProductType = {
   size?: string | number;
   quantity: number;
+  image: string;
+  id: string;
+  tag: string;
+  gender: "male" | "female" | "unisex";
+  name: string;
+  price: number;
 };
 
 export interface OrderType {
-  pastPurchases: PastPurchaseProductType[];
-  createdAt: string;
+  buyer: string;
+  items: PurchaseProductType[];
+  time: string;
   amount: number;
+  deliveryDetails: DeliveryDetailsType;
 }

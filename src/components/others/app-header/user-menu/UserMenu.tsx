@@ -6,7 +6,6 @@ import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import WindowIcon from "@mui/icons-material/Window";
-import { useAppSelector } from "../../../../store/hooks";
 import Link from "next/link";
 import { signedInMenu, notSignedInMenu } from "../navbar/u_navbar";
 import ButtonBase from "@mui/material/ButtonBase";
@@ -22,8 +21,7 @@ const btnStyle = {
   padding: ".5rem 1rem",
 };
 
-export default function UserMenu() {
-  const { email } = useAppSelector(({ user }) => user.userInfo);
+export default function UserMenu({ signin }: { signin: boolean }) {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const { signout } = useSignout();
 
@@ -36,8 +34,11 @@ export default function UserMenu() {
   return (
     <Box sx={{ flexGrow: 0 }}>
       <Tooltip title="Open settings">
-        <IconButton onClick={openUserMenu} sx={{ px: 0, py: email ? 0 : null }}>
-          {email ? (
+        <IconButton
+          onClick={openUserMenu}
+          sx={{ px: 0, py: signin ? 0 : null }}
+        >
+          {signin ? (
             <Avatar
               sx={{ backgroundColor: "secondary.main", color: "primary.dark" }}
               alt="B"
@@ -70,7 +71,7 @@ export default function UserMenu() {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        {(email ? signedInMenu : notSignedInMenu).map(({ name, href }) => (
+        {(signin ? signedInMenu : notSignedInMenu).map(({ name, href }) => (
           <MenuItem
             key={name}
             sx={{ padding: 0 }}

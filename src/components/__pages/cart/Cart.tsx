@@ -1,18 +1,19 @@
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import Box from "@mui/system/Box";
-import { memo, Children } from "react";
+import { memo } from "react";
 import Typography from "@mui/material/Typography";
 import Btn from "../../others/btn/Btn";
 import CartProductCard from "./cart-product-card/CartProductCard";
 import { useAppSelector } from "../../../store/hooks";
 import Link from "next/link";
-// import useFade from "../../others/hooks/fade-transition/useFade";
-// import { CartType } from "../../../utils/ts-types/__store/typesProduct";
+import useFade from "../../others/hooks/fade-transition/useFade";
+import { CartType } from "../../../utils/ts-types/__store/typesProduct";
+import { animated } from "@react-spring/web";
 
 const Cart = () => {
   const { cartList, totalPrice } = useAppSelector((state) => state.product);
-  // const fade = useFade<CartType[]>(cartList, true);
+  const fade = useFade<CartType[]>(cartList, true);
 
   return (
     <>
@@ -36,23 +37,31 @@ const Cart = () => {
                 }}
               >
                 <Grid container sx={{ pt: 6, pb: { md: 6 } }}>
-                  {/* {fade((props, item) => {
+                  {fade((props, item) => {
                     const cart = item as unknown as CartType;
                     return (
                       item && (
-                        <CartProductCard
-                          key={cart.productId}
-                          id={cart.productId}
-                          style={props}
-                        />
+                        <animated.div style={{ ...props, width: "100%" }}>
+                          <CartProductCard
+                            key={cart.uid}
+                            id={cart.productId}
+                            size={cart.size}
+                            uid={cart.uid}
+                          />
+                        </animated.div>
                       )
                     );
-                  })} */}
-                  {Children.toArray(
-                    cartList.map(({ productId }) => (
-                      <CartProductCard key={productId} id={productId} />
+                  })}
+                  {/* {Children.toArray(
+                    cartList.map(({ productId, size, uid }) => (
+                      <CartProductCard
+                        key={uid}
+                        id={productId}
+                        size={size}
+                        uid={uid}
+                      />
                     ))
-                  )}
+                  )} */}
                 </Grid>
               </Grid>
               <Grid

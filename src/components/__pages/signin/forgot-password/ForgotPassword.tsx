@@ -78,7 +78,9 @@ const ForgotPassword: FC<ForgotPasswordProps> = ({ routeToPasswordPage }) => {
           />
         </Container>
         <Box>
-          <FormBtn text="Reset Password" error={error} loading={loading} />
+          <Box sx={{ justifyContent: "center" }}>
+            <FormBtn text="Reset Password" error={error} loading={loading} />
+          </Box>
           <Typography
             component="p"
             sx={{

@@ -12,7 +12,7 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/router";
 import TagBtn from "../../../../others/btn/tag-btn/TagBtn";
-import { PastPurchaseProductType } from "../../../../../utils/ts-types/__store/typesUser";
+import { PurchaseProductType } from "../../../../../utils/ts-types/__store/typesUser";
 
 const OrderedProductCard: FC<OrderedProductCardProps> = ({ product }) => {
   const router = useRouter();
@@ -44,7 +44,7 @@ const OrderedProductCard: FC<OrderedProductCardProps> = ({ product }) => {
       >
         <Box sx={{ mt: 1 }}>
           <Image
-            src={product.images[0]}
+            src={product.image}
             alt={`${product.name}`}
             width={50}
             height={50}
@@ -103,7 +103,7 @@ const OrderedProductCard: FC<OrderedProductCardProps> = ({ product }) => {
 };
 
 interface OrderedProductCardProps {
-  product: PastPurchaseProductType;
+  product: PurchaseProductType;
 }
 
 export default memo(OrderedProductCard);

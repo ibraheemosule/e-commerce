@@ -1,10 +1,12 @@
 import { generateToken, verifyToken } from "../../../lib/jwt/jwt";
-import { ISignup } from "./signup.pg";
 import { NextApiResponse } from "next";
 import { setCookie } from "../../../lib/cookie/cookie";
 import dbConnect from "../../../lib/db/dbConnect";
+import { IReq } from "../../../utils/ts-types/api-types";
 
-export const authenticate = async (req: ISignup, res: NextApiResponse) => {
+const authPages = ["/api/auth/signup", "/api/auth/signin"];
+
+export const authenticate = async (req: IReq, res: NextApiResponse) => {
   const { cookies, body } = req;
   const { password, email } = body;
 
@@ -14,17 +16,19 @@ export const authenticate = async (req: ISignup, res: NextApiResponse) => {
     throw Error("Internal Error Occurred");
   }
 
-  if (!cookies.token) {
+  if (!cookies.token && req.url && authPages.includes(req.url)) {
     const jwtToken = generateToken({ email, password });
     if (!jwtToken) throw Error("An internal error occured");
 
-    res.setHeader("Set-Cookie", setCookie(jwtToken));
+    const cookie = setCookie(jwtToken);
+
+    res.setHeader("Set-Cookie", cookie);
     return;
   }
 
-  const userInfo = await verifyToken(cookies.token);
+  const userInfo = cookies.token && (await verifyToken(cookies.token));
 
-  if (!userInfo) throw Error("Unauthorized");
+  if (!userInfo) throw Error("not authenticated");
 
   return userInfo;
 };

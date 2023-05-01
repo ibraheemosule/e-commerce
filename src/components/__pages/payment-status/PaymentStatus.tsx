@@ -1,5 +1,5 @@
 import Container from "@mui/material/Container";
-import { memo, useState } from "react";
+import { memo } from "react";
 import dynamic from "next/dynamic";
 import { useAppSelector } from "../../../store/hooks";
 
@@ -7,10 +7,7 @@ const Success = dynamic(() => import("./success/Success"));
 const Error = dynamic(() => import("./fail/Fail"));
 
 const Payment = () => {
-  const [paymentStatus] = useState("paid");
-  const { cartList, immutableProducts } = useAppSelector(
-    ({ product }) => product
-  );
+  const { cartList } = useAppSelector(({ product }) => product);
 
   // const createOrder = () => {
   //   return cartList.map(item => {
@@ -33,7 +30,7 @@ const Payment = () => {
     <>
       <Container maxWidth="md" sx={{ py: { xs: 9, sm: 12, lg: 15 }, px: 2 }}>
         <Container sx={{ bgcolor: "primary.light", p: 3, py: 8 }}>
-          {paymentStatus === "paid" ? <Success /> : <Error />}
+          {cartList.length === 0 ? <Success /> : <Error />}
         </Container>
       </Container>
     </>

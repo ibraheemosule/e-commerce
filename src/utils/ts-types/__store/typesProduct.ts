@@ -6,7 +6,7 @@ export type ProductType = {
   id: string;
   images: string[];
   sizes?: (string | number)[];
-  gender: string;
+  gender: "male" | "female" | "unisex";
 };
 
 export interface ProductSlice {
@@ -30,7 +30,7 @@ export type IMutateProducts = {
 };
 
 export type CartType = {
-  quantity?: number;
+  quantity: number;
   productId: string;
   uid: string;
   size?: string | number;

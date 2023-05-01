@@ -1,5 +1,6 @@
 import InputField from "../../../others/input-field/InputField";
 import Typography from "@mui/material/Typography";
+import Box from "@mui/system/Box";
 import { memo, useState, useEffect, FormEvent } from "react";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
@@ -7,13 +8,16 @@ import { signupForm as form, signupFormFields } from "../u_signup";
 import useFillForm from "../../../others/hooks/fill-form/useFillForm";
 import FormBtn from "../../../others/btn/form-btn/FormBtn";
 import { validatePassword } from "../../../../utils/utilsFunctions";
-import { submitSignupForm } from "./u_signupForm";
 import { useAppDispatch } from "../../../../store/hooks";
 import { updateUserInfo } from "../../../../store/features/user/user-slice";
 import { UserType } from "../../../../utils/ts-types/__store/typesUser";
 import { useSignupMutation } from "../../../../store/features/new-user/new-user-slice";
-import { responseError } from "../../../../utils/apiErrorResponse";
-import { toast } from "react-toastify";
+import { requestFailed } from "../../../../utils/apiErrorResponse";
+import {
+  errorPopup,
+  successPopup,
+  userFormValidation,
+} from "../../../../utils/utilsFunctions";
 import Router from "next/router";
 
 const LoginForm = () => {
@@ -41,7 +45,7 @@ const LoginForm = () => {
     e.preventDefault();
 
     try {
-      submitSignupForm(fields);
+      userFormValidation(fields);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, retypePassword, ...rest } = fields;
 
@@ -51,24 +55,12 @@ const LoginForm = () => {
 
       dispatch(updateUserInfo(rest as unknown as UserType));
 
-      toast("Sign up successful", {
-        type: "success",
-      });
+      successPopup("Sign up successful");
 
       Router.reload();
     } catch (e) {
-      if (responseError(e)) {
-        setError(e.data.message);
-        return;
-      }
-
-      let message = "An error occurred";
-      if (e instanceof Error) message = e.message;
-      toast(message, {
-        type: "error",
-        autoClose: 5000,
-      });
-      setError(message);
+      errorPopup(requestFailed(e));
+      setError(requestFailed(e));
     }
   };
 
@@ -134,7 +126,13 @@ const LoginForm = () => {
               );
             })}
           </Grid>
-          <FormBtn text="create an account" error={error} loading={isLoading} />
+          <Box sx={{ justifyContent: "center" }}>
+            <FormBtn
+              text="create an account"
+              error={error}
+              loading={isLoading}
+            />
+          </Box>
         </Container>
       </Grid>
     </>

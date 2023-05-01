@@ -12,7 +12,17 @@ export default async function signup(req: ISignup, res: NextApiResponse) {
     await authenticate(req, res);
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const newUser: IUserModel = await UserModel.create(req.body);
+    const newUser: IUserModel = await UserModel.create(req.body).catch((e) => {
+      let message = "An error occurred";
+
+      if (e instanceof Error) {
+        e.message.includes("duplicate")
+          ? (message = "email already exists")
+          : (message = e.message);
+      }
+
+      throw new Error(message);
+    });
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...data } = newUser;
@@ -23,8 +33,7 @@ export default async function signup(req: ISignup, res: NextApiResponse) {
 
     return res.status(200).json({ data });
   } catch (e) {
-    // res.setHeader("Set-Cookie", setCookie("", -1));
-    // return res.status(200).json({ message: "successful sign out" });
+    console.log(e);
     let message = "Internal Error Occurred";
     if (e instanceof Error) message = e.message;
     return res
