@@ -4,8 +4,9 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import List from "@mui/material/List";
 import Link from "next/link";
-import { StyledListItem, socialContact, customerService } from "./u_appFooter";
-import ContactForm from "./contact-form/ContactForm";
+import { StyledListItem, customerService } from "./u_appFooter";
+import ContactForm from "../contact-form/ContactForm";
+import SocialContacts from "../social-contacts/SocialContacts";
 
 const AppFooter = () => {
   return (
@@ -19,7 +20,9 @@ const AppFooter = () => {
     >
       <Container id="contact" maxWidth="lg">
         <Grid container justifyContent="space-between" rowGap={6}>
-          <ContactForm />
+          <Grid item xs={12} sm={4} lg={3.5}>
+            <ContactForm bg="dark" maxWidth="25ch" />
+          </Grid>
           <Grid item xs={12} sm={3.5} lg={3}>
             <Typography
               component="h4"
@@ -47,16 +50,7 @@ const AppFooter = () => {
               Contact Us
             </Typography>
             <Box sx={{ display: "inline-flex", mt: 2 }}>
-              {socialContact.map(({ color, Icon, href }) => (
-                <StyledListItem
-                  key={color}
-                  sx={{ mr: { xs: 2, md: 3 }, color: color }}
-                >
-                  <Link href={href}>
-                    <Icon />
-                  </Link>
-                </StyledListItem>
-              ))}
+              <SocialContacts />
             </Box>
           </Grid>
         </Grid>
