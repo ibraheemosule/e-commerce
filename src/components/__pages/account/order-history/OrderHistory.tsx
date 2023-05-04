@@ -8,6 +8,7 @@ import Accordion from "../../../others/accordion/Accordion";
 import OrderList from "./order-list/OrderList";
 import { convertDate } from "../../../../utils/utilsFunctions";
 import { useGetOrderQuery } from "../../../../store/features/new-user/new-user-slice";
+import LazyLoader from "../../../others/lazy-loader/LazyLoader";
 
 export default memo(function OrderHistory() {
   const { userInfo } = useAppSelector(({ user }) => user);
@@ -35,7 +36,7 @@ export default memo(function OrderHistory() {
         isError ? (
           <NoOrders text={"Could not load orders"} />
         ) : (
-          <NoOrders text="loading" />
+          <LazyLoader />
         )
       ) : data.data.length ? (
         <Box sx={{ mt: 2 }}>

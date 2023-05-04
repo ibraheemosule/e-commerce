@@ -2,9 +2,14 @@ import Container from "@mui/material/Container";
 import { memo } from "react";
 import dynamic from "next/dynamic";
 import { useAppSelector } from "../../../store/hooks";
+import LazyLoader from "../../others/lazy-loader/LazyLoader";
 
-const Success = dynamic(() => import("./success/Success"));
-const Error = dynamic(() => import("./fail/Fail"));
+const Success = dynamic(() => import("./success/Success"), {
+  loading: LazyLoader,
+});
+const Error = dynamic(() => import("./fail/Fail"), {
+  loading: LazyLoader,
+});
 
 const Payment = () => {
   const { cartList } = useAppSelector(({ product }) => product);

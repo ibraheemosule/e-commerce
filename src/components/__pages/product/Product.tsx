@@ -44,7 +44,7 @@ export default memo(function Product({ product }: { product: ProductType }) {
   const inCart = ids.includes(id);
 
   useEffect(() => {
-    if (inCart) setError("Product is already in the cart list");
+    if (inCart) setError("Product is in the cart");
   }, [inCart]);
 
   const addToCart = useCallback(() => {
