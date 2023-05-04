@@ -1,13 +1,7 @@
-const env = process.env.NODE_ENV === "production";
-
 const baseUrl = process.env.CONTENTFUL_BASE_URL as string;
+const branch = process.env.CONTENTFUL_BRANCH as string;
 
-const branch = env ? "master" : "staging";
-const token = env
-  ? (process.env.CONTENTFUL_TOKEN as string)
-  : (process.env.CONTENTFUL_STAGING_TOKEN as string);
-
-console.log(token, branch);
+const token = process.env.CONTENTFUL_TOKEN as string;
 
 export const fetchCall = async (
   query: string,

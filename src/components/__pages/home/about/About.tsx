@@ -39,10 +39,10 @@ export default function About() {
             }}
           >
             <Image
-              src="/images/shoe.jpg"
+              src="/images/about-us.jpg"
               alt="about"
               fill
-              style={{ objectFit: "cover" }}
+              style={{ objectFit: "cover", background: "lightgray" }}
               sizes="25%"
             />
           </Box>

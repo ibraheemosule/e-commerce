@@ -2,9 +2,9 @@ import Head from "next/head";
 import Signin from "../../components/__pages/signin/Signin";
 import { GetServerSideProps } from "next";
 import { fetchCall } from "../../lib/contentful/contentful";
+import { allProductsQuery } from "../../lib/contentful/query";
 
-export default function SigninPage({ b }: { b: unknown }) {
-  console.log(b);
+export default function SigninPage() {
   return (
     <>
       <Head>
@@ -19,27 +19,7 @@ export default function SigninPage({ b }: { b: unknown }) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const b = await fetchCall(
-    `
-  query {
-    productCollection {
-      items {
-        id
-        name
-        sizes
-        tag
-        price
-        description
-        imagesCollection {
-          items {
-            url
-          }
-        }
-      }
-    }
-  } 
-  `
-  );
+  const b = await fetchCall(allProductsQuery);
   return {
     props: {
       b,
