@@ -71,13 +71,7 @@ const Nav: FC<NavbarProps> = (props) => {
                   className="nav-item"
                   // onClick={() => props.setActive(activeRouteIndex)}
                   key={text}
-                  href={
-                    text === "home"
-                      ? "/"
-                      : text !== "about"
-                      ? `/${text}`
-                      : `/#${text}`
-                  }
+                  href={text === "home" ? "/" : `/${text}`}
                 >
                   {text}
                 </Link>

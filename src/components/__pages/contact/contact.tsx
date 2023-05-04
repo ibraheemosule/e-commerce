@@ -28,7 +28,8 @@ export default memo(function Contact() {
             <Box
               sx={{
                 position: "relative",
-                aspectRatio: "1/1",
+                aspectRatio: "4/3",
+                mt: { xs: 4, sm: 2 },
               }}
             >
               <Image src="./images/undraw-contact.svg" alt="size" fill />

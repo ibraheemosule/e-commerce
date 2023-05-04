@@ -4,8 +4,7 @@ import { GetServerSideProps } from "next";
 import { fetchCall } from "../../lib/contentful/contentful";
 import { allProductsQuery } from "../../lib/contentful/query";
 
-export default function SigninPage({ b }: { b: unknown }) {
-  console.log(b, process.env.NODE_ENV);
+export default function SigninPage() {
   return (
     <>
       <Head>

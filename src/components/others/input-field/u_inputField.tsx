@@ -11,6 +11,13 @@ export const textFieldStyles = (mode?: "dark", password?: string) => {
     "#standard-size-small-label, .css-ifo6to": {
       color: mode ? "primary.main" : "primary.dark",
     },
+    ".css-1njqvka": {
+      color: mode ? "primary.main" : "primary.dark",
+    },
+
+    ".css-cskmko-MuiFormLabel-root-MuiInputLabel-root": {
+      color: mode ? "primary.main" : "primary.dark",
+    },
 
     div: {
       borderBottom: "1px solid",

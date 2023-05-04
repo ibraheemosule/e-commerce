@@ -67,15 +67,7 @@ const Nav: FC<NavbarProps> = (props) => {
             {mainNavList.map((text) => (
               <StyledListItem key={text} disablePadding>
                 {
-                  <Link
-                    href={
-                      text === "home"
-                        ? "/"
-                        : text === "products"
-                        ? "/products"
-                        : `/#${text}`
-                    }
-                  >
+                  <Link href={text === "home" ? "/" : `/${text}`}>
                     <ListItemButton>
                       <ListItemIcon>
                         {
