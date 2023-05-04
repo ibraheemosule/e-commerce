@@ -1,13 +1,13 @@
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import InputField from "../../input-field/InputField";
-import useFillForm from "../../hooks/fill-form/useFillForm";
-import { FormEvent, memo, useEffect, useState } from "react";
+import InputField from "../input-field/InputField";
+import useFillForm from "../hooks/fill-form/useFillForm";
+import { FC, FormEvent, memo, useEffect, useState } from "react";
 import { contactFormField } from "./u_contactForm";
-import { onlyAlphabet, validateEmail } from "../../../../utils/utilsFunctions";
+import { onlyAlphabet, validateEmail } from "../../../utils/utilsFunctions";
 import emailjs from "@emailjs/browser";
-import FormBtn from "../../btn/form-btn/FormBtn";
+import FormBtn from "../btn/form-btn/FormBtn";
+import { errorPopup } from "../../../utils/utilsFunctions";
 
 const formField = {
   fullName: "",
@@ -15,13 +15,19 @@ const formField = {
   message: "",
 };
 
-const ContactForm = () => {
+const ContactForm: FC<PropType> = ({ bg, maxWidth }) => {
   const [form, dispatch] = useFillForm(formField);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => setError(""), [form]);
+
+  useEffect(() => {
+    if (error) {
+      errorPopup(error);
+    }
+  }, [error]);
 
   const updateForm = (inputValue: { [key: string]: string }) => {
     dispatch({ payload: inputValue });
@@ -67,7 +73,7 @@ const ContactForm = () => {
   };
 
   return (
-    <Grid item xs={12} sm={4} lg={3.5}>
+    <>
       <Typography component="h4" variant="h5" color="secondary.main" mt={2}>
         Contact Form
       </Typography>
@@ -80,19 +86,17 @@ const ContactForm = () => {
           noValidate={false}
           autoComplete="off"
           sx={{
-            p: {
-              display: "inline-block",
-              marginRight: "auto",
-            },
+            display: maxWidth ? "inline-block" : "block",
+            marginRight: "auto",
           }}
         >
           {contactFormField.map((field) => (
-            <Box key={field.name} sx={{ maxWidth: "25ch" }}>
+            <Box key={field.name} sx={{ maxWidth: maxWidth ?? "none" }}>
               {field.name === "message" ? (
                 <InputField
                   value={form[field.name as keyof typeof form]}
                   onChange={updateForm}
-                  darkBg="dark"
+                  darkBg={bg}
                   textarea={true}
                   name={field.name}
                   placeholder={field.placeholder}
@@ -101,7 +105,7 @@ const ContactForm = () => {
                 <InputField
                   value={form[field.name as keyof typeof form]}
                   onChange={updateForm}
-                  darkBg="dark"
+                  darkBg={bg}
                   name={field.name}
                   placeholder={field.placeholder}
                 />
@@ -111,7 +115,7 @@ const ContactForm = () => {
           <FormBtn error={error} text="submit" loading={loading} />
         </Box>
       )}
-    </Grid>
+    </>
   );
 };
 
@@ -126,6 +130,11 @@ const SuccessMessage = () => {
       </Typography>
     </Box>
   );
+};
+
+type PropType = {
+  bg?: "dark";
+  maxWidth?: string;
 };
 
 export default memo(ContactForm);

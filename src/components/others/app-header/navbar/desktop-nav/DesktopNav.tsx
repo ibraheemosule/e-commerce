@@ -74,8 +74,8 @@ const Nav: FC<NavbarProps> = (props) => {
                   href={
                     text === "home"
                       ? "/"
-                      : text === "products"
-                      ? "/products"
+                      : text !== "about"
+                      ? `/${text}`
                       : `/#${text}`
                   }
                 >
