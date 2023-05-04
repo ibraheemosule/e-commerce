@@ -49,7 +49,7 @@ const OrderedProductCard: FC<OrderedProductCardProps> = ({ product }) => {
             width={50}
             height={50}
             quality={80}
-            style={{ objectFit: "cover" }}
+            style={{ objectFit: "cover", background: "lightgray" }}
           />
         </Box>
         <Box

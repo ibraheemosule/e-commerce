@@ -42,7 +42,12 @@ export default memo(function SizeGuide() {
                       my: 2,
                     }}
                   >
-                    <Image src={imageSrc} alt="size" fill />
+                    <Image
+                      src={imageSrc}
+                      alt="size"
+                      fill
+                      style={{ background: "lightgray" }}
+                    />
                   </Box>
                 </Grid>
               ))}

@@ -77,7 +77,7 @@ const CartProductCard: FC<CartProductCardProps> = ({ id, size, uid }) => {
             width={100}
             height={100}
             quality={25}
-            style={{ objectFit: "cover" }}
+            style={{ objectFit: "cover", background: "lightgray" }}
           />
           <Box sx={{ mt: 1 }}>
             <Button

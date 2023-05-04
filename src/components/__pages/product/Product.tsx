@@ -168,8 +168,10 @@ export default memo(function Product({ product }: { product: ProductType }) {
                           src={img || ""}
                           width={50}
                           height={50}
-                          style={{ objectFit: "cover" }}
-                          alt="product"
+                          style={{
+                            objectFit: "cover",
+                          }}
+                          alt={product.name}
                         />
                       </ButtonBase>
                     </>

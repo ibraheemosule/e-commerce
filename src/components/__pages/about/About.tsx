@@ -68,7 +68,7 @@ export default memo(function About() {
             >
               <Image
                 src="/images/about-us2.jpg"
-                alt="size"
+                alt="about us visual illustration"
                 fill
                 style={{ objectFit: "contain" }}
               />
