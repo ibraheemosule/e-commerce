@@ -1,8 +1,8 @@
 import Head from "next/head";
 import Signin from "../../components/__pages/signin/Signin";
-import { GetServerSideProps } from "next";
-import { fetchCall } from "../../lib/contentful/contentful";
-import { allProductsQuery } from "../../lib/contentful/query";
+// import { GetServerSideProps } from "next";
+// import { fetchCall } from "../../lib/contentful/contentful";
+// import { allProductsQuery } from "../../lib/contentful/query";
 
 export default function SigninPage() {
   return (
@@ -18,11 +18,11 @@ export default function SigninPage() {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const b = await fetchCall(allProductsQuery);
-  return {
-    props: {
-      b,
-    },
-  };
-};
+// export const getServerSideProps: GetServerSideProps = async () => {
+//   const b = await fetchCall(allProductsQuery);
+//   return {
+//     props: {
+//       b,
+//     },
+//   };
+// };
