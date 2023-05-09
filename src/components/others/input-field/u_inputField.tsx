@@ -1,42 +1,51 @@
 export const textFieldStyles = (mode?: "dark", password?: string) => {
   const paddingRight = password ? 3 : "";
 
+  const color = mode ? "primary.main" : "primary.dark";
+
   return {
     my: 1,
     width: "100%",
     ".css-1pt9orv-MuiFormLabel-root-MuiInputLabel-root": {
-      color: mode ? "primary.main" : "primary.dark",
+      color,
     },
 
-    "#standard-size-small-label, .css-ifo6to": {
-      color: mode ? "primary.main" : "primary.dark",
+    "#standard-size-small-label": {
+      color,
+    },
+
+    ".css-ifo6to": {
+      color,
     },
     ".css-1njqvka": {
-      color: mode ? "primary.main" : "primary.dark",
+      color,
+    },
+    ".css-19136mp": {
+      color,
     },
 
     ".css-cskmko-MuiFormLabel-root-MuiInputLabel-root": {
-      color: mode ? "primary.main" : "primary.dark",
+      color,
     },
 
     div: {
       borderBottom: "1px solid",
-      borderColor: mode ? "primary.main" : "primary.dark",
+      borderColor: color,
 
       fieldset: {
-        borderColor: mode ? "primary.main" : "primary.dark",
+        borderColor: color,
         "&:focus-visible": {
           outline: "none",
         },
       },
 
       "&:after": {
-        borderColor: mode ? "primary.main" : "primary.dark",
+        borderColor: color,
       },
 
       "&:hover": {
         borderBottom: "1px solid",
-        borderColor: mode ? "primary.main" : "primary.dark",
+        borderColor: color,
 
         ".MuiOutlinedInput-notchedOutline": {
           borderColor: mode ? "primary.light" : "primary.dark",
@@ -51,7 +60,7 @@ export const textFieldStyles = (mode?: "dark", password?: string) => {
     },
 
     ".css-2tbih4-MuiFormLabel-root-MuiInputLabel-root": {
-      color: mode ? "primary.main" : "primary.dark",
+      color,
     },
 
     ".css-j07ig8-MuiFormLabel-root-MuiInputLabel-root": {
@@ -59,11 +68,11 @@ export const textFieldStyles = (mode?: "dark", password?: string) => {
     },
 
     ".css-p8oq15-MuiInputBase-root-MuiInput-root:after": {
-      borderColor: mode ? "primary.main" : "primary.dark",
+      borderColor: color,
     },
 
     "& input, & textarea": {
-      color: mode ? "primary.main" : "primary.dark",
+      color,
       pr: paddingRight,
     },
   };
