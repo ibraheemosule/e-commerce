@@ -1,7 +1,7 @@
-const baseUrl = process.env.CONTENTFUL_BASE_URL as string;
-const branch = process.env.CONTENTFUL_BRANCH as string;
+const baseUrl = process.env.NEXT_PUBLIC_CONTENTFUL_BASE_URL as string;
+const branch = process.env.NEXT_PUBLIC_CONTENTFUL_BRANCH as string;
 
-const token = process.env.CONTENTFUL_TOKEN as string;
+const token = process.env.NEXT_PUBLIC_CONTENTFUL_TOKEN as string;
 
 export const fetchCall = async (
   query: string,

@@ -27,7 +27,7 @@ export default function FeaturedProducts() {
             cart={false}
             path={product.tag}
             title={product.tag}
-            img={product.images[i]}
+            img={product.images[0]}
           />
         </Grid>
       ))}

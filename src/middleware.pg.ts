@@ -18,9 +18,10 @@ export function middleware(req: NextRequest) {
     return NextResponse.redirect(`${req.nextUrl.origin}/signin`);
   }
 
-  if (path === path.toLocaleLowerCase()) return NextResponse.next();
+  // if (path === path.toLocaleLowerCase())
+  return NextResponse.next();
 
-  return NextResponse.redirect(
-    `${req.nextUrl.origin}${path.toLocaleLowerCase()}`
-  );
+  // return NextResponse.redirect(
+  //   `${req.nextUrl.origin}${path.toLocaleLowerCase()}`
+  // );
 }

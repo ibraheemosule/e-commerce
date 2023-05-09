@@ -64,6 +64,7 @@ const OrderedProductCard: FC<OrderedProductCardProps> = ({ product }) => {
           <Box>
             <Typography sx={{ color: "secondary.main" }}>
               <Link
+                shallow
                 href={`/product/${product.id}`}
                 style={{ all: "unset", display: "block", cursor: "pointer" }}
               >

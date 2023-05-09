@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { calculateTotalPrice } from "../../../utils/utilsFunctions";
 import { ProductType } from "../../../utils/ts-types/__store/typesProduct";
-import { testData } from "../../../utils/utilsData";
+
 import {
   ProductSlice,
   IMutateProducts,
@@ -9,8 +9,8 @@ import {
 } from "../../../utils/ts-types/__store/typesProduct";
 
 const productDefaultState: ProductSlice = {
-  immutableProducts: [...testData],
-  products: [...testData],
+  immutableProducts: [],
+  products: [],
   cartList: [],
   searchValue: "",
   filterValue: "",
@@ -19,6 +19,7 @@ const productDefaultState: ProductSlice = {
   totalPrice: 0,
   lastPaginatedNumber: 1,
   paginatedList: [],
+  fetching: false,
 };
 
 export const productSlice = createSlice({
@@ -26,6 +27,11 @@ export const productSlice = createSlice({
   initialState: productDefaultState,
 
   reducers: {
+    setProductsList(state, { payload }: PayloadAction<ProductType[]>) {
+      state.immutableProducts = [...payload];
+      state.products = [...payload];
+    },
+
     searchProducts(state, { payload }: PayloadAction<string>) {
       state.searchValue = payload;
       state.products = state.immutableProducts.filter((prod) =>
@@ -72,42 +78,6 @@ export const productSlice = createSlice({
 
       state.cartList = newList;
       state.totalPrice = calculateTotalPrice(state);
-      // for(const prod of newList){
-      //   const itExists = prod.productId === payload.productId && prod.size === payload.size
-      //   if(itExists){
-      //     prod.quantity += quantity
-      //     break;
-      //   }
-      // }
-
-      // const duplicateProduct = state.cartList.some(
-      //   prod =>
-      //     prod.productId === payload.productId && prod.size === payload.size
-      // );
-      // console.log(duplicateProduct);
-
-      // if (duplicateProduct) {
-      //   state.cartList = state.cartList.map(prod => {
-      //     const duplicate =
-      //       prod.productId === payload.productId && prod.size === payload.size;
-
-      //     if (duplicate) {
-      //       return {
-      //         ...prod,
-      //         quantity: (prod.quantity || 1) + (quantity || 1),
-      //       };
-      //     }
-
-      //     return prod;
-      //   });
-      //   return;
-      // }
-
-      // state.cartList = [
-      //   ...state.cartList,
-      //   { ...payload, quantity: quantity || 1 },
-      // ];
-      // state.totalPrice = calculateTotalPrice(state);
     },
 
     resetCartList(state) {
@@ -178,11 +148,14 @@ export const productSlice = createSlice({
       state.lastPaginatedNumber = 1;
     },
 
-    setPaginatedList(state, action: PayloadAction<ProductType[]>) {
-      state.paginatedList = action.payload;
+    setPaginatedList(state, { payload }: PayloadAction<ProductType[]>) {
+      state.paginatedList = payload;
     },
-    setLastPaginatedNumber(state, action: PayloadAction<number>) {
-      state.lastPaginatedNumber = action.payload;
+    setLastPaginatedNumber(state, { payload }: PayloadAction<number>) {
+      state.lastPaginatedNumber = payload;
+    },
+    setFetching(state, { payload }: PayloadAction<boolean>) {
+      state.fetching = payload;
     },
   },
 });
@@ -196,5 +169,7 @@ export const {
   resetProductsList,
   removeFromCartList,
   resetCartList,
+  setProductsList,
+  setFetching,
 } = productSlice.actions;
 export default productSlice.reducer;

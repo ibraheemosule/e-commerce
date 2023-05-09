@@ -67,6 +67,7 @@ export default function SearchBar(props: Suggestions) {
           {products.length ? (
             products?.map(({ name, tag, id, gender }, i) => (
               <Link
+                shallow
                 key={id}
                 href={`/product/${id}`}
                 style={{ all: "unset", display: "block" }}
