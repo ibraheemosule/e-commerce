@@ -113,6 +113,7 @@ const CartProductCard: FC<CartProductCardProps> = ({ id, size, uid }) => {
               color="secondary.main"
             >
               <Link
+                shallow
                 href={`/product/${id}`}
                 style={{ all: "unset", display: "block", cursor: "pointer" }}
               >

@@ -20,6 +20,7 @@ export interface ProductSlice {
   totalPrice: number;
   lastPaginatedNumber: number;
   paginatedList: ProductType[];
+  fetching: boolean;
 }
 
 export type IMutateProducts = {

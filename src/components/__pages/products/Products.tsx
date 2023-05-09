@@ -16,6 +16,7 @@ import Pagination from "../../others/pagination/Pagination";
 import useFade from "../../others/hooks/fade-transition/useFade";
 import { ProductType } from "../../../utils/ts-types/__store/typesProduct";
 import { animated } from "@react-spring/web";
+import LazyLoader from "../../others/lazy-loader/LazyLoader";
 
 const sortOptions = ["a-z", "z-a", "highest price", "lowest price"];
 const genderOptions = ["male", "female", "unisex"];
@@ -28,6 +29,7 @@ const Products = () => {
     paginatedList,
     filterValue,
     sortValue,
+    fetching,
     genderValue,
   } = useAppSelector((state) => state.product);
   const fade = useFade(paginatedList);
@@ -110,7 +112,11 @@ const Products = () => {
           </Grid>
           <Grid item xs={12} mt={6}>
             <Grid container justifyContent="center" gap={5} minHeight={200}>
-              {products.length ? (
+              {fetching ? (
+                <Box sx={{ textAlign: "center", width: "100%" }}>
+                  <LazyLoader />
+                </Box>
+              ) : products.length ? (
                 <>
                   {fade((props, item) => {
                     const product = item as unknown as ProductType;

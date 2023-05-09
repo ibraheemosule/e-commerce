@@ -6,11 +6,10 @@ import Btn from "../../../others/btn/Btn";
 import Link from "next/link";
 import LazyLoader from "../../../others/lazy-loader/LazyLoader";
 import { FC } from "react";
-import { ProductType } from "../../../../utils/ts-types/__store/typesProduct";
 
-const NoProduct: FC<NoProductProps> = ({ product }) => {
+const NoProduct: FC<NoProductProps> = ({ message }) => {
   return (
-    <Container maxWidth="md" sx={{ my: 12, p: 3 }}>
+    <Container maxWidth="md" sx={{ py: 12 }}>
       <Grid
         container
         sx={{
@@ -25,24 +24,25 @@ const NoProduct: FC<NoProductProps> = ({ product }) => {
           xs={12}
           sx={{ display: "grid", placeItems: "center", width: "100%", m: 6 }}
         >
-          {product ? <NoProductsFound /> : <LazyLoader />}
+          {message === "loading" ? (
+            <LazyLoader />
+          ) : (
+            <Box sx={{ textAlign: "center" }}>
+              <Typography component="h4" variant="h5">
+                {message}
+              </Typography>
+              <Link href="/products" style={{ all: "unset" }}>
+                <Btn sx={{ mt: 2 }}>View All Products</Btn>
+              </Link>
+            </Box>
+          )}
         </Grid>
       </Grid>
     </Container>
   );
 };
 
-const NoProductsFound = () => (
-  <Box sx={{ textAlign: "center" }}>
-    <Typography component="h4" variant="h5">
-      Out of Stock
-    </Typography>
-    <Link href="/products" style={{ all: "unset" }}>
-      <Btn sx={{ mt: 2 }}>View All Products</Btn>
-    </Link>
-  </Box>
-);
 interface NoProductProps {
-  product: ProductType;
+  message: string;
 }
 export default NoProduct;

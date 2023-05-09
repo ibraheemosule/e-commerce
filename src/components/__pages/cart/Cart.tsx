@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import Box from "@mui/system/Box";
-import { memo } from "react";
+import { memo, Children } from "react";
 import Typography from "@mui/material/Typography";
 import Btn from "../../others/btn/Btn";
 import CartProductCard from "./cart-product-card/CartProductCard";
@@ -37,7 +37,7 @@ const Cart = () => {
                 }}
               >
                 <Grid container sx={{ pt: 6, pb: { md: 6 } }}>
-                  {fade((props, item) => {
+                  {/* {fade((props, item) => {
                     const cart = item as unknown as CartType;
                     return (
                       item && (
@@ -51,8 +51,8 @@ const Cart = () => {
                         </animated.div>
                       )
                     );
-                  })}
-                  {/* {Children.toArray(
+                  })} */}
+                  {Children.toArray(
                     cartList.map(({ productId, size, uid }) => (
                       <CartProductCard
                         key={uid}
@@ -61,7 +61,7 @@ const Cart = () => {
                         uid={uid}
                       />
                     ))
-                  )} */}
+                  )}
                 </Grid>
               </Grid>
               <Grid

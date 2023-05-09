@@ -10,7 +10,7 @@ export default memo(function TagBtn(props: TagBtnProps) {
         border: "1px solid lightgray",
         fontSize: 16,
         textTransform: "capitalize",
-        color: props.disabled ? "primary.main" : "secondary.light",
+        color: props.disabled ? "primary.dark" : "secondary.light",
         padding: ".2rem .5rem",
         marginRight: "20px",
 

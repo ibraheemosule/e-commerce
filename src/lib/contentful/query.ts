@@ -5,15 +5,33 @@ query {
       id
       name
       sizes
+      gender
       tag
       price
       description
-      imagesCollection {
-        items {
-          url
-        }
+      images
+      sys {
+        id
       }
     }
   }
 } 
+`;
+
+export const oneProductQuery = `
+ query getProduct($id: String!){
+  product(id: $id) {
+    id
+    name
+    sizes
+    gender
+    tag
+    price
+    description
+    images
+    sys {
+      id
+    }
+  }
+}
 `;
