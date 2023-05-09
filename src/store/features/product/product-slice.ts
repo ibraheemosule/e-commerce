@@ -55,11 +55,6 @@ export const productSlice = createSlice({
         return;
       }
 
-      // const duplicateProduct = state.cartList.find(
-      //   prod =>
-      //     prod.productId === payload.productId && prod.size === payload.size
-      // );
-
       const newList = [...state.cartList];
 
       const checkCart = newList.find((prod) => {
