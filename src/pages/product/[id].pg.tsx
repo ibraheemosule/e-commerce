@@ -53,6 +53,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
     return {
       props: {
         message: "Server Error Occurred",
+        revalidate: 60,
       },
     };
   }
@@ -61,6 +62,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
     return {
       props: {
         message: "Not in Stock",
+        revalidate: 60,
       },
     };
   }
