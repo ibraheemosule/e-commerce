@@ -43,6 +43,18 @@ export const newUserSlice = createApi({
           };
         },
       }),
+      resetPassword: builder.mutation<{ message: string }, { email: string }>({
+        query(payload) {
+          return {
+            url: "/auth/reset-password",
+            method: "POST",
+            body: payload,
+            headers: {
+              "Content-Type": "application/json",
+            },
+          };
+        },
+      }),
 
       updateInfo: builder.mutation<UserType, UserType>({
         query(payload) {
@@ -92,4 +104,5 @@ export const {
   useUpdateInfoMutation,
   useGetOrderQuery,
   usePostOrderMutation,
+  useResetPasswordMutation,
 } = newUserSlice;

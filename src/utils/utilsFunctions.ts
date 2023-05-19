@@ -18,6 +18,12 @@ export const validateEmail = (email: string) => {
 };
 
 export const validatePassword = (password: string) => {
+  if (password.length < 8) {
+    return "minimum length of 8 characters";
+  }
+  if (password.length > 30) {
+    return "maximum length of 30 characters";
+  }
   if (!/(?=.*[A-Z])/.test(password)) {
     return "uppercase letter";
   }
@@ -27,11 +33,8 @@ export const validatePassword = (password: string) => {
   if (!/(?=.*\d)/.test(password)) {
     return "number";
   }
-  if (!/(?=.*[^A-Za-z0-9<>])/.test(password)) {
-    return "special character (excluding < and >)";
-  }
-  if (password.length < 8) {
-    return "minimum length of 8 characters";
+  if (!/(?=.*[^A-Za-z0-9])/.test(password)) {
+    return "special character";
   }
 
   return "true";
@@ -186,3 +189,6 @@ export const sessionExpired = async () => {
     },
   });
 };
+
+export const firstLetterUpperCase = (str: string) =>
+  str[0].toUpperCase() + str.slice(1);

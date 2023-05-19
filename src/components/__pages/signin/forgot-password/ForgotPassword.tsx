@@ -3,31 +3,44 @@ import InputField from "../../../others/input-field/InputField";
 import Typography from "@mui/material/Typography";
 import ButtonBase from "@mui/material/ButtonBase";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
-import { FC, memo, FormEvent, useState } from "react";
+import { FC, memo, FormEvent, useState, useEffect } from "react";
 import { validateEmail } from "../../../../utils/utilsFunctions";
 import FormBtn from "../../../others/btn/form-btn/FormBtn";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
+import { errorPopup, successPopup } from "../../../../utils/utilsFunctions";
+import { useResetPasswordMutation } from "../../../../store/features/new-user/new-user-slice";
+import { responseError } from "../../../../utils/apiErrorResponse";
 
 const ForgotPassword: FC<ForgotPasswordProps> = ({ routeToPasswordPage }) => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [resetPassword, { isLoading }] = useResetPasswordMutation();
+
+  useEffect(() => setError(""), [email]);
 
   const submitForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
 
     try {
       if (!validateEmail(email)) throw Error("Invalid Email");
 
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      const data = (await resetPassword({
+        email,
+      }).unwrap()) as unknown as { message: string };
+
+      successPopup(data.message);
     } catch (e) {
+      if (responseError(e)) {
+        setError(e.data.message);
+        errorPopup(e.data.message);
+        return;
+      }
       let message = "An error occurred";
       if (e instanceof Error) message = e.message;
+      errorPopup(message);
+
       setError(message);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -79,7 +92,7 @@ const ForgotPassword: FC<ForgotPasswordProps> = ({ routeToPasswordPage }) => {
         </Container>
         <Box>
           <Box sx={{ justifyContent: "center" }}>
-            <FormBtn text="Reset Password" error={error} loading={loading} />
+            <FormBtn text="Reset Password" error={error} loading={isLoading} />
           </Box>
           <Typography
             component="p"

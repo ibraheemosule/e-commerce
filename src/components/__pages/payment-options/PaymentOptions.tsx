@@ -1,6 +1,6 @@
 import Container from "@mui/material/Container";
 import Box from "@mui/system/Box";
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import Typography from "@mui/material/Typography";
 import { createOrder, btnWrapperStyles } from "./u_paymentOptions";
 import { PaystackButton } from "react-paystack";
@@ -23,6 +23,11 @@ export default memo(function PaymentOptions({ amount, cart, list }: PropType) {
   const { userInfo, deliveryDetails } = useAppSelector(({ user }) => user);
   const [postOrder] = usePostOrderMutation();
 
+  useEffect(() => {
+    const reload = setTimeout(() => Router.reload(), 1000 * 500);
+    return () => clearInterval(reload);
+  }, []);
+
   const paymentSuccess = async () => {
     const order = createOrder(
       cart,
@@ -31,8 +36,6 @@ export default memo(function PaymentOptions({ amount, cart, list }: PropType) {
       userInfo.email,
       deliveryDetails
     );
-
-    console.log(order);
 
     try {
       await postOrder(order).unwrap();
@@ -84,9 +87,9 @@ export default memo(function PaymentOptions({ amount, cart, list }: PropType) {
             <Box sx={btnWrapperStyles}>
               <PaystackButton className="pay-btn" {...props} />
             </Box>
-            <Box sx={btnWrapperStyles}>
+            {/* <Box sx={btnWrapperStyles}>
               <PaystackButton className="pay-btn" {...props} />
-            </Box>
+            </Box> */}
           </Box>
         </Container>
       </Container>

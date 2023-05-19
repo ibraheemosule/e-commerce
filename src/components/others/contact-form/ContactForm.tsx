@@ -54,7 +54,7 @@ const ContactForm: FC<PropType> = ({ bg, maxWidth }) => {
           process.env.NEXT_PUBLIC_EMAIL_SERVICE_ID!,
           process.env.NEXT_PUBLIC_EMAIL_TEMPLATE_ID!,
           e.currentTarget,
-          process.env.NEXT_PUBLIC_EMAIL_USER_ID
+          process.env.NEXT_PUBLIC_EMAIL_PUBLIC_KEY
         );
 
         dispatch({ payload: formField });

@@ -12,9 +12,7 @@ import Router from "next/router";
 
 export default memo(function Checkout() {
   const dispatch = useAppDispatch();
-  const { totalPrice, cartList, immutableProducts } = useAppSelector(
-    (state) => state.product
-  );
+  const { totalPrice, cartList } = useAppSelector((state) => state.product);
   const { userInfo, deliveryDetails } = useAppSelector(({ user }) => user);
   const [addressOption, setAddressOption] = useState("default");
 
@@ -31,12 +29,12 @@ export default memo(function Checkout() {
   }, [addressOption]);
 
   async function toPaymentOptions() {
+    const cart = JSON.stringify(cartList);
     await Router.push(
       {
         pathname: "/payment-options",
         query: {
-          cartList: JSON.stringify(cartList),
-          immutableProducts: JSON.stringify(immutableProducts),
+          cartList: cart,
         },
       },
       "/payment-options"

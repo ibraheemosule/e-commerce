@@ -13,7 +13,9 @@ export const textFieldStyles = (mode?: "dark", password?: string) => {
     "#standard-size-small-label": {
       color,
     },
-
+    ".css-usigld-MuiFormLabel-root-MuiInputLabel-root": {
+      color,
+    },
     ".css-ifo6to": {
       color,
     },

@@ -17,8 +17,6 @@ export default async function getOrder(req: IRequest, res: NextApiResponse) {
         res.status(401).json({ message: "Internal error occured" });
       });
 
-    console.log(data);
-
     return res.status(200).json({ data });
   } catch (e) {
     console.log(e);

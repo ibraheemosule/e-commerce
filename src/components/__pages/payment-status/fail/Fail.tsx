@@ -8,9 +8,7 @@ import { useAppSelector } from "../../../../store/hooks";
 import Router from "next/router";
 
 const Fail = () => {
-  const { cartList, immutableProducts } = useAppSelector(
-    ({ product }) => product
-  );
+  const { cartList } = useAppSelector(({ product }) => product);
 
   Router;
   async function toPaymentOptions() {
@@ -19,7 +17,6 @@ const Fail = () => {
         pathname: "/payment-options",
         query: {
           cartList: JSON.stringify(cartList),
-          immutableProducts: JSON.stringify(immutableProducts),
         },
       },
       "/payment-options"
