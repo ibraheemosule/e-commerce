@@ -16,8 +16,6 @@ export default async function updateInfo(req: IAuthInfo, res: NextApiResponse) {
   try {
     const user = await authenticate(req, res);
 
-    console.log(user);
-
     if (req.body.password && user?.password !== req.body.oldPassword) {
       return res.status(400).json({ message: "Old password is incorrect" });
     }
