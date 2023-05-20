@@ -2,7 +2,7 @@ import emailjs from "@emailjs/nodejs";
 
 const PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAIL_PUBLIC_KEY as string;
 const PRIVATE_KEY = process.env.NEXT_PUBLIC_EMAIL_PRIVATE_KEY as string;
-const WELCOME_TEMPLATE = process.env.SERVER_EMAIL_WELCOME_TEMPLATE as string;
+const TEMPLATE_ID = process.env.SERVER_EMAIL_TEMPLATE_ID as string;
 const SERVICE_ID = process.env.SERVER_SERVICE_ID as string;
 
 emailjs.init({
@@ -25,7 +25,7 @@ export const sendEmail = async (
   };
 
   try {
-    await emailjs.send(SERVICE_ID, WELCOME_TEMPLATE, emailParams);
+    await emailjs.send(SERVICE_ID, TEMPLATE_ID, emailParams);
   } catch (e) {
     console.log(e);
     if (e instanceof Error) {
