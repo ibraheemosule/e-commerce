@@ -27,7 +27,7 @@ export const authenticate = async (req: IReq, res: NextApiResponse) => {
   }
 
   const userInfo = cookies.token && (await verifyToken(cookies.token));
-  console.log(userInfo, cookies.token);
+
   if (!userInfo) throw Error("not authenticated");
 
   return userInfo;

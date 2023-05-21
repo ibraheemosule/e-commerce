@@ -45,14 +45,12 @@ export default async function updateInfo(req: IAuthInfo, res: NextApiResponse) {
     if (req.body.password) {
       req.cookies.token = "";
 
-      const a = await sendEmail(
+      await sendEmail(
         "1907Store Account Password Changed",
         "",
         user!.email,
         passwordMsg(req.body.password)
       );
-
-      console.log(a, "THIS IS THE WAY IT IS SUPPOSED TO BE");
 
       res.setHeader("Set-Cookie", setCookie("", -1));
     }

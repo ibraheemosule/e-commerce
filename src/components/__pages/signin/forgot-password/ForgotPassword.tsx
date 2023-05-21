@@ -11,11 +11,13 @@ import Container from "@mui/material/Container";
 import { errorPopup, successPopup } from "../../../../utils/utilsFunctions";
 import { useResetPasswordMutation } from "../../../../store/features/new-user/new-user-slice";
 import { responseError } from "../../../../utils/apiErrorResponse";
+import Btn from "../../../others/btn/Btn";
+import Image from "next/image";
 
 const ForgotPassword: FC<ForgotPasswordProps> = ({ routeToPasswordPage }) => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
-  const [resetPassword, { isLoading }] = useResetPasswordMutation();
+  const [resetPassword, { isLoading, isSuccess }] = useResetPasswordMutation();
 
   useEffect(() => setError(""), [email]);
 
@@ -81,34 +83,72 @@ const ForgotPassword: FC<ForgotPasswordProps> = ({ routeToPasswordPage }) => {
         component="form"
         onSubmit={(e) => void submitForm(e)}
       >
-        <Container maxWidth="xs" sx={{ display: "block" }}>
-          <InputField
-            onChange={updateValue}
-            value={email}
-            type="email"
-            name="email"
-            placeholder="Email"
-          />
-        </Container>
-        <Box>
-          <Box sx={{ justifyContent: "center" }}>
-            <FormBtn text="Reset Password" error={error} loading={isLoading} />
-          </Box>
-          <Typography
-            component="p"
-            sx={{
-              fontSize: 14,
-              mt: 3,
-              mx: "auto",
-              maxWidth: "50ch",
-            }}
-          >
-            A new password will be sent to your email to login. You are advised
-            to change this password after logging in
-          </Typography>
-        </Box>
+        {isSuccess ? (
+          <PasswordChangedSuccess routeToPasswordPage={routeToPasswordPage} />
+        ) : (
+          <>
+            <Container maxWidth="xs" sx={{ display: "block" }}>
+              <InputField
+                onChange={updateValue}
+                value={email}
+                type="email"
+                name="email"
+                placeholder="Email"
+              />
+            </Container>
+            <Box>
+              <Box sx={{ justifyContent: "center" }}>
+                <FormBtn
+                  text="Reset Password"
+                  error={error}
+                  loading={isLoading}
+                />
+              </Box>
+              <Typography
+                component="p"
+                sx={{
+                  fontSize: 14,
+                  mt: 3,
+                  mx: "auto",
+                  maxWidth: "50ch",
+                }}
+              >
+                If the provided email exists, a new password will be sent to the
+                email. You are advised to change this password once you are
+                signed in.
+              </Typography>
+            </Box>
+          </>
+        )}
       </Grid>
     </>
+  );
+};
+
+const PasswordChangedSuccess: FC<ForgotPasswordProps> = (prop) => {
+  return (
+    <Box>
+      <Image
+        src="/images/success.png"
+        width={70}
+        height={70}
+        alt="success icon"
+      />
+      <Typography
+        component="p"
+        sx={{
+          fontSize: 14,
+          mx: "auto",
+          maxWidth: "50ch",
+        }}
+      >
+        A new password has been sent to the provided email. You are advised to
+        change this password once you are signed in.
+      </Typography>
+      <Box sx={{ justifyContent: "center", mt: 3 }}>
+        <Btn onClick={prop.routeToPasswordPage}>Sign in</Btn>
+      </Box>
+    </Box>
   );
 };
 

@@ -64,6 +64,7 @@ export default memo(function ChangePassword() {
 
         setError(e.data.message);
         errorPopup(e.data.message);
+        return;
       }
 
       let message = "An error occured";
@@ -72,6 +73,7 @@ export default memo(function ChangePassword() {
         message = e.message;
       }
       setError(message);
+      errorPopup(message);
     }
   }
 
