@@ -1,5 +1,6 @@
 import { IUserModel } from "../db/models/user";
 import { firstLetterUpperCase } from "../../utils/utilsFunctions";
+import { IOrderModel } from "../db/models/order";
 
 export const accCreatedMsg = (user: IUserModel) =>
   `Thank you for signing up to our online store.
@@ -24,8 +25,24 @@ export const passwordMsg = (password: string) =>
 export const detailsUpdateMsg = `Your account details have been updated.
 If you didn't initiate this action, kindly reach out to us.`;
 
-export const confirmedOrderMsg = (id: string, orders: string) =>
-  `Your order of ID ${id} has been received.
+export const confirmedOrderMsg = (order: IOrderModel) => {
+  let productsOrdered = "";
+  order.items.forEach((item) => {
+    productsOrdered += `${item.quantity} ${item.gender} ${item.tag} ${item.name} = ₦${item.price}\n`;
+  });
+
+  return `Your order of ID ${order._id} has been received.
   
-  Products ordered are:
-  ${orders}`;
+    Products ordered are:
+    ${productsOrdered}
+    Total Amount + Shipping = ${order.amount}
+    
+    Order will be dispatched to:
+    Name: ${order.deliveryDetails.firstName} ${order.deliveryDetails.lastName}
+    Phone Number: ${order.deliveryDetails.phoneNo}
+    Address: ${order.deliveryDetails.address}
+    City: ${order.deliveryDetails.city}
+    State: ${order.deliveryDetails.state}
+    
+    Thank you for patronizing us`;
+};

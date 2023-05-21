@@ -9,8 +9,6 @@ interface IRequest extends NextApiRequest {
 }
 
 export default async function postOrder(req: IRequest, res: NextApiResponse) {
-  // delete req.body.deliveryDetails._id;
-  // delete req.body.deliveryDetails.password;
   try {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const newOrder: IOrderModel = await OrderModel.create(req.body).catch(
@@ -22,19 +20,11 @@ export default async function postOrder(req: IRequest, res: NextApiResponse) {
 
     delete newOrder.__v;
 
-    let productsOrdered = "";
-
-    newOrder.items.forEach((item) => {
-      productsOrdered += `${item.quantity} ${item.gender} ${item.tag} ${item.name} = ₦${item.price}\n`;
-    });
-
-    productsOrdered += `\nTotal Amount + Shipping = ${newOrder.amount} \n\n Thank you for patronizing us.`;
-
     await sendEmail(
       "Your Order Has Been Received",
       "",
       newOrder.buyer,
-      confirmedOrderMsg(newOrder._id as string, productsOrdered)
+      confirmedOrderMsg(newOrder)
     );
 
     return res.status(200).json({ data: newOrder.toObject() as OrderType });
