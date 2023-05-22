@@ -7,7 +7,10 @@ import Container from "@mui/material/Container";
 import { signupForm as form, signupFormFields } from "../u_signup";
 import useFillForm from "../../../others/hooks/fill-form/useFillForm";
 import FormBtn from "../../../others/btn/form-btn/FormBtn";
-import { validatePassword } from "../../../../utils/utilsFunctions";
+import {
+  formatPhoneNumber,
+  validatePassword,
+} from "../../../../utils/utilsFunctions";
 import { useAppDispatch } from "../../../../store/hooks";
 import { updateUserInfo } from "../../../../store/features/user/user-slice";
 import { UserType } from "../../../../utils/ts-types/__store/typesUser";
@@ -48,7 +51,7 @@ const LoginForm = () => {
       userFormValidation(fields);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, retypePassword, ...rest } = fields;
-
+      rest.phoneNo = formatPhoneNumber(Number(rest.phoneNo));
       await signup({ ...rest, password } as unknown as UserType & {
         password: string;
       }).unwrap();

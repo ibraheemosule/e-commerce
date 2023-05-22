@@ -18,6 +18,7 @@ import { useUpdateInfoMutation } from "../../../../../../store/features/new-user
 import { responseError } from "../../../../../../utils/apiErrorResponse";
 import {
   errorPopup,
+  formatPhoneNumber,
   sessionExpired,
   successPopup,
 } from "../../../../../../utils/utilsFunctions";
@@ -48,6 +49,9 @@ export default memo(function EditProfile({ setEdit }: EditDetailsProp) {
 
     try {
       userFormValidation(fields);
+
+      if (fields.phoneNo)
+        fields.phoneNo = formatPhoneNumber(Number(fields.phoneNo));
 
       await updateInfo({
         ...fields,

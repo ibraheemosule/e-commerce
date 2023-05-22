@@ -5,13 +5,14 @@ import { UserModel, IUserModel } from "../../../lib/db/models/user";
 import { sendEmail } from "../../../lib/email-notification/email";
 import { accCreatedMsg } from "../../../lib/email-notification/messages";
 import { firstLetterUpperCase } from "../../../utils/utilsFunctions";
+import dbConnect from "../../../lib/db/dbConnect";
 export interface ISignup extends NextApiRequest {
   body: UserType & { password: string };
 }
 
 export default async function signup(req: ISignup, res: NextApiResponse) {
   try {
-    await authenticate(req, res);
+    await dbConnect();
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const user: IUserModel = await UserModel.create(req.body).catch((e) => {
@@ -32,6 +33,8 @@ export default async function signup(req: ISignup, res: NextApiResponse) {
     delete data._id;
     delete data.id;
     delete data.__v;
+
+    await authenticate(req, res);
 
     await sendEmail(
       "1907Store Account Created",

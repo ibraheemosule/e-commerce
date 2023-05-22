@@ -39,7 +39,7 @@ export const statesInNigeria = {
   abuja: 4235,
 };
 
-export const phoneNumberFormats = ["234", "080", "070", "081", "090", "091"];
+export const phoneNumberFormats = ["234", "80", "70", "81", "90", "91"];
 
 export const userForm = {
   firstName: {

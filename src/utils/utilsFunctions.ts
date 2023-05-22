@@ -76,29 +76,37 @@ export const calculateTotalPrice = (
   return priceSum;
 };
 
-export const validatePhoneNumber = (number: number) => {
-  if (!phoneNumberFormats.includes(number.toString().slice(0, 3))) {
-    return false;
-  }
+export const validatePhoneNumber = (num: number) => {
+  const number = num.toString();
 
-  if (number.toString().length < 11 || !Number.isInteger(number)) {
-    return false;
-  }
+  if (number.startsWith("234")) {
+    const invalid =
+      number.length !== 13 || !phoneNumberFormats.includes(number.slice(3, 5));
 
-  if (number.toString().length === 11) {
+    if (invalid) return false;
+
     return true;
   }
 
-  if (number.toString().startsWith("234")) {
-    const checkValidity = phoneNumberFormats.some((format) =>
-      number.toString().startsWith(format)
-    );
-
-    if (!checkValidity || number.toString().length !== 13) {
-      return false;
-    }
-    return true;
+  if (!phoneNumberFormats.includes(number.slice(0, 2))) {
+    return false;
   }
+
+  if (number.length !== 10 || !Number.isInteger(Number(number))) {
+    return false;
+  }
+  return true;
+};
+
+export const formatPhoneNumber = (num: number) => {
+  let number = num.toString();
+  if (number) {
+    if (number.startsWith("234")) {
+      number = "0" + number.slice(3);
+    } else number = "0" + number;
+  }
+
+  return number;
 };
 
 export const formFields = (form: { [key: string]: object }) =>

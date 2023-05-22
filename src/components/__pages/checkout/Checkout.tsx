@@ -9,6 +9,7 @@ import { changeDeliveryDetails } from "../../../store/features/user/user-slice";
 import { DeliveryDetailsType } from "../../../utils/ts-types/__store/typesUser";
 import Btn from "../../others/btn/Btn";
 import Router from "next/router";
+import { formatPhoneNumber } from "../../../utils/utilsFunctions";
 
 export default memo(function Checkout() {
   const dispatch = useAppDispatch();
@@ -20,6 +21,8 @@ export default memo(function Checkout() {
     if (addressOption === "default") {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { email, ...rest } = userInfo;
+
+      rest.phoneNo = formatPhoneNumber(Number(rest.phoneNo));
       dispatch(changeDeliveryDetails(rest));
       return;
     }

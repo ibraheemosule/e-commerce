@@ -20,7 +20,7 @@ export default function About() {
             textAlign="center"
             color="secondary.main"
           >
-            About 1904 Stores
+            About 1907 Store
           </Typography>
           <Typography component="p" color="primary.dark" mt={2}>
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem
@@ -34,16 +34,16 @@ export default function About() {
         <Grid item xs={12} md={6} sx={{ mt: { xs: 4, sm: 6, md: 0 } }}>
           <Box
             sx={{
-              height: { xs: "300px", lg: "400px" },
+              height: { xs: "200px", md: "300px", lg: "400px" },
               position: "relative",
             }}
           >
             <Image
-              src="/images/about-us.jpg"
-              alt="about"
+              src="/images/logo.png"
+              alt="about us"
               fill
-              style={{ objectFit: "cover", background: "lightgray" }}
-              sizes="25%"
+              style={{ objectFit: "contain" }}
+              sizes="100%"
             />
           </Box>
         </Grid>
