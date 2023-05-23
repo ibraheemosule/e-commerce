@@ -41,6 +41,7 @@ export default function About() {
             <Image
               src="/images/logo.png"
               alt="about us"
+              priority
               fill
               style={{ objectFit: "contain" }}
               sizes="100%"
