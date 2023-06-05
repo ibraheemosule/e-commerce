@@ -10,6 +10,7 @@ import Link from "next/link";
 import { signedInMenu, notSignedInMenu } from "../navbar/u_navbar";
 import ButtonBase from "@mui/material/ButtonBase";
 import useSignout from "../../hooks/signout/useSignout";
+import { useAppSelector } from "../../../../store/hooks";
 
 const btnStyle = {
   textDecoration: "none",
@@ -22,8 +23,12 @@ const btnStyle = {
 };
 
 export default function UserMenu({ signin }: { signin: boolean }) {
+  const { userInfo } = useAppSelector(({ user }) => user);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const { signout } = useSignout();
+  const initials =
+    `${userInfo.firstName[0]?.toUpperCase()}${userInfo.lastName[0]?.toUpperCase()}` ||
+    "";
 
   const openUserMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -41,7 +46,7 @@ export default function UserMenu({ signin }: { signin: boolean }) {
           {signin ? (
             <Avatar
               sx={{ backgroundColor: "secondary.main", color: "primary.dark" }}
-              alt="B"
+              alt={initials}
               src="/static/images/avatar/2.jpg"
             />
           ) : (

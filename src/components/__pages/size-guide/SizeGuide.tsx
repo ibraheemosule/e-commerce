@@ -58,22 +58,3 @@ export default memo(function SizeGuide() {
     </Container>
   );
 });
-
-// Shoes:
-// We accept returns within 30 days of the purchase date.
-// The shoes must be in their original condition, unworn and with all tags attached.
-// The customer is responsible for the cost of return shipping unless the shoes arrived damaged or defective.
-// Refunds will be issued to the original form of payment.
-
-// Belts:
-// We accept returns within 30 days of the purchase date.
-// The belt must be in its original condition, unworn and with all tags attached.
-// The customer is responsible for the cost of return shipping unless the belt arrived damaged or defective.
-// Refunds will be issued to the original form of payment.
-
-// Bags:
-// We accept returns within 30 days of the purchase date.
-// The bag must be in its original condition, unused and with all tags attached.
-// The customer is responsible for the cost of return shipping unless the bag arrived damaged or defective.
-// Refunds will be issued to the original form of payment.
-// Please note that these are general policies and specific details may vary between different products and brands. We always strive to ensure our customers are satisfied with their purchase and are happy to answer any questions or concerns regarding returns.
