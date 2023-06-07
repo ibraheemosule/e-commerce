@@ -1,23 +1,9 @@
 import ProductCard from "../../../others/product-card/ProductCard";
 import Grid from "@mui/material/Grid";
-import { useAppSelector } from "../../../../store/hooks";
-import { useMemo } from "react";
-import { ProductType } from "../../../../utils/ts-types/__store/typesProduct";
-import { tags } from "../../../../utils/utilsData";
+import { useOneProductPerTag } from "../../../others/hooks/one-product-per-tag/useOneProductPerTag";
 
 export default function FeaturedProducts() {
-  const { immutableProducts } = useAppSelector(({ product }) => product);
-
-  const featuredProducts = useMemo(() => {
-    const products = [] as ProductType[];
-    tags.forEach((tag) => {
-      const product = immutableProducts.find((prod) => prod.tag === tag);
-      if (product) {
-        products.push(product);
-      }
-    });
-    return products;
-  }, [immutableProducts]);
+  const featuredProducts = useOneProductPerTag();
 
   return (
     <Grid container mx="auto" rowGap={9}>
