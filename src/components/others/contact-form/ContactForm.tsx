@@ -8,6 +8,7 @@ import { onlyAlphabet, validateEmail } from "../../../utils/utilsFunctions";
 import emailjs from "@emailjs/browser";
 import FormBtn from "../btn/form-btn/FormBtn";
 import { errorPopup } from "../../../utils/utilsFunctions";
+import useReCaptcha from "../hooks/recaptcha/useRecaptcha";
 
 const formField = {
   fullName: "",
@@ -20,6 +21,7 @@ const ContactForm: FC<PropType> = ({ bg, maxWidth }) => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
+  const recaptcha = useReCaptcha();
 
   useEffect(() => setError(""), [form]);
 
@@ -49,11 +51,14 @@ const ContactForm: FC<PropType> = ({ bg, maxWidth }) => {
           throw new Error("Invalid character in name field");
 
         if (!validateEmail(email)) throw new Error("Invalid email syntax");
+        const formData = e.currentTarget;
+
+        await recaptcha("contactFrom1907");
 
         await emailjs.sendForm(
           process.env.NEXT_PUBLIC_EMAIL_SERVICE_ID!,
           process.env.NEXT_PUBLIC_EMAIL_TEMPLATE_ID!,
-          e.currentTarget,
+          formData,
           process.env.NEXT_PUBLIC_EMAIL_PUBLIC_KEY
         );
 

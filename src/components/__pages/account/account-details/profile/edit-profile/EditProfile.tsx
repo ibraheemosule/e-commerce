@@ -23,6 +23,7 @@ import {
   successPopup,
 } from "../../../../../../utils/utilsFunctions";
 import { userFormValidation } from "../../../../../../utils/utilsFunctions";
+import useReCaptcha from "../../../../../others/hooks/recaptcha/useRecaptcha";
 
 export default memo(function EditProfile({ setEdit }: EditDetailsProp) {
   const dispatch = useAppDispatch();
@@ -30,6 +31,7 @@ export default memo(function EditProfile({ setEdit }: EditDetailsProp) {
   const [error, setError] = useState("");
   const { userInfo } = useAppSelector((state) => state.user);
   const [updateInfo, { isLoading }] = useUpdateInfoMutation();
+  const recaptcha = useReCaptcha();
 
   useEffect(() => {
     Object.keys(fields).forEach((field) => {
@@ -53,6 +55,7 @@ export default memo(function EditProfile({ setEdit }: EditDetailsProp) {
       if (fields.phoneNo)
         fields.phoneNo = formatPhoneNumber(Number(fields.phoneNo));
 
+      await recaptcha("editProfileFrom1907");
       await updateInfo({
         ...fields,
         email: userInfo.email,

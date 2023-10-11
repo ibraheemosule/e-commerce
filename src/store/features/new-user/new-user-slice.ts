@@ -1,5 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { UserType, OrderType } from "../../../utils/ts-types/__store/typesUser";
+import {
+  UserType,
+  OrderType,
+  IRecaptchaPayload,
+} from "../../../utils/ts-types/__store/typesUser";
 
 export const newUserSlice = createApi({
   reducerPath: "api",
@@ -10,6 +14,18 @@ export const newUserSlice = createApi({
   }),
   endpoints(builder) {
     return {
+      recaptcha: builder.mutation<{ success: boolean }, IRecaptchaPayload>({
+        query(payload) {
+          return {
+            url: "/auth/recaptcha",
+            method: "POST",
+            body: payload,
+            headers: {
+              "Content-Type": "application/json",
+            },
+          };
+        },
+      }),
       signin: builder.mutation<UserType, { email: string; password: string }>({
         query(payload) {
           return {
@@ -105,4 +121,5 @@ export const {
   useGetOrderQuery,
   usePostOrderMutation,
   useResetPasswordMutation,
+  useRecaptchaMutation,
 } = newUserSlice;

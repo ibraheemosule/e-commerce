@@ -28,10 +28,14 @@ export type PurchaseProductType = {
   price: number;
 };
 
-export interface OrderType {
+export type OrderType = {
   buyer: string;
   items: PurchaseProductType[];
   time: string;
   amount: number;
   deliveryDetails: DeliveryDetailsType;
+};
+
+export interface IRecaptchaPayload {
+  token: string;
 }

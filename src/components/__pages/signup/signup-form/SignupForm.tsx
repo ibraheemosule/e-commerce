@@ -22,6 +22,7 @@ import {
   userFormValidation,
 } from "../../../../utils/utilsFunctions";
 import Router from "next/router";
+import useReCaptcha from "../../../others/hooks/recaptcha/useRecaptcha";
 
 const LoginForm = () => {
   const dispatch = useAppDispatch();
@@ -29,6 +30,7 @@ const LoginForm = () => {
   const [error, setError] = useState("");
   const [passwordGuide, setPasswordGuide] = useState("");
   const [signup, { isLoading }] = useSignupMutation();
+  const recaptcha = useReCaptcha();
 
   useEffect(() => {
     if (validatePassword(fields.password) === "true") {
@@ -49,6 +51,7 @@ const LoginForm = () => {
 
     try {
       userFormValidation(fields);
+      await recaptcha("signupFrom1907");
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, retypePassword, ...rest } = fields;
       rest.phoneNo = formatPhoneNumber(Number(rest.phoneNo));

@@ -13,6 +13,7 @@ import { useUpdateInfoMutation } from "../../../../../store/features/new-user/ne
 import { UserType } from "../../../../../utils/ts-types/__store/typesUser";
 import { responseError } from "../../../../../utils/apiErrorResponse";
 import { useAppSelector } from "../../../../../store/hooks";
+import useReCaptcha from "../../../../others/hooks/recaptcha/useRecaptcha";
 
 export default memo(function ChangePassword() {
   const [oldPassword, setOldPassword] = useState("");
@@ -20,6 +21,7 @@ export default memo(function ChangePassword() {
   const [error, setError] = useState("");
   const [updateInfo, { isLoading }] = useUpdateInfoMutation();
   const { email } = useAppSelector(({ user }) => user.userInfo);
+  const recaptcha = useReCaptcha();
 
   useEffect(() => setError(""), [oldPassword, newPassword]);
 
@@ -42,7 +44,7 @@ export default memo(function ChangePassword() {
         throw Error(
           `New Password must contain ${validatePassword(newPassword)}`
         );
-
+      await recaptcha("changePasswordFrom1907");
       await updateInfo({
         email,
         oldPassword,

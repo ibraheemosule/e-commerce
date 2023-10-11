@@ -13,11 +13,13 @@ import { useResetPasswordMutation } from "../../../../store/features/new-user/ne
 import { responseError } from "../../../../utils/apiErrorResponse";
 import Btn from "../../../others/btn/Btn";
 import Image from "next/image";
+import useReCaptcha from "../../../others/hooks/recaptcha/useRecaptcha";
 
 const ForgotPassword: FC<ForgotPasswordProps> = ({ routeToPasswordPage }) => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [resetPassword, { isLoading, isSuccess }] = useResetPasswordMutation();
+  const recaptcha = useReCaptcha();
 
   useEffect(() => setError(""), [email]);
 
@@ -26,6 +28,8 @@ const ForgotPassword: FC<ForgotPasswordProps> = ({ routeToPasswordPage }) => {
 
     try {
       if (!validateEmail(email)) throw Error("Invalid Email");
+
+      await recaptcha("forgotPasswordFrom1907");
 
       const data = (await resetPassword({
         email,

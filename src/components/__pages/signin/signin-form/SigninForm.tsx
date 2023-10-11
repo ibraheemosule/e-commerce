@@ -19,6 +19,7 @@ import { useSigninMutation } from "../../../../store/features/new-user/new-user-
 import { successPopup } from "../../../../utils/utilsFunctions";
 import Router from "next/router";
 import { responseError } from "../../../../utils/apiErrorResponse";
+import useReCaptcha from "../../../others/hooks/recaptcha/useRecaptcha";
 
 const SigninForm: FC<SigninFormProps> = ({ routeToPasswordPage }) => {
   const dispatch = useAppDispatch();
@@ -26,6 +27,7 @@ const SigninForm: FC<SigninFormProps> = ({ routeToPasswordPage }) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [signin, { isLoading }] = useSigninMutation();
+  const recaptcha = useReCaptcha();
 
   const updateValue = (obj: { [key: string]: string }) => {
     if (obj["email"] !== undefined) setEmail(obj["email"]);
@@ -43,6 +45,8 @@ const SigninForm: FC<SigninFormProps> = ({ routeToPasswordPage }) => {
       if (validatePassword(password) !== "true") {
         throw Error("Incorrect Password");
       }
+
+      await recaptcha("signinFrom1907");
 
       const { data } = (await signin({
         email,

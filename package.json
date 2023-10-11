@@ -10,7 +10,8 @@
     "test": "jest --watch",
     "test:ci": "jest --coverage --silent --ci",
     "prepare": "husky install",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "start:mongodb": "sudo mongod --dbpath /System/Volumes/Data/data/db"
   },
   "dependencies": {
     "@emailjs/browser": "^3.10.0",
@@ -43,6 +44,7 @@
     "react-paystack": "^4.0.2",
     "react-redux": "^8.0.5",
     "react-toastify": "^9.1.2",
+    "recaptcha-v3": "^1.10.0",
     "redux-persist": "^6.0.0"
   },
   "devDependencies": {
