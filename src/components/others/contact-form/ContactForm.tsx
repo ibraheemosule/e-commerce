@@ -55,6 +55,8 @@ const ContactForm: FC<PropType> = ({ bg, maxWidth }) => {
 
         await recaptcha("contactFrom1907");
 
+        console.log(formData, "here");
+
         await emailjs.sendForm(
           process.env.NEXT_PUBLIC_EMAIL_SERVICE_ID!,
           process.env.NEXT_PUBLIC_EMAIL_TEMPLATE_ID!,
