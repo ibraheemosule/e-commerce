@@ -3,7 +3,7 @@ const branch = process.env.NEXT_PUBLIC_CONTENTFUL_BRANCH as string;
 
 const token = process.env.NEXT_PUBLIC_CONTENTFUL_TOKEN as string;
 
-export const fetchCall = async (
+export const getContentfulData = async (
   query: string,
   variables: Record<string, string> = {}
 ) => {

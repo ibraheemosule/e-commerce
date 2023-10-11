@@ -9,7 +9,7 @@ import { animated } from "@react-spring/web";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { fetchCall } from "../../lib/contentful/contentful";
+import { getContentfulData } from "../../lib/contentful/contentful";
 import { allProductsQuery } from "../../lib/contentful/query";
 import { CmsAllProductsType } from "../../utils/ts-types/contentful-types";
 import {
@@ -32,7 +32,7 @@ function Layout({ children }: ILayout) {
       void (async () => {
         dispatch(setFetching(true));
 
-        const { data } = (await fetchCall(
+        const { data } = (await getContentfulData(
           allProductsQuery
         )) as CmsAllProductsType;
 

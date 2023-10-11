@@ -3,7 +3,7 @@ import Product from "../../components/__pages/product/Product";
 import { ProductType } from "../../utils/ts-types/__store/typesProduct";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { ParsedUrlQuery } from "querystring";
-import { fetchCall } from "../../lib/contentful/contentful";
+import { getContentfulData } from "../../lib/contentful/contentful";
 import { oneProductQuery, allProductsQuery } from "../../lib/contentful/query";
 import {
   CmsAllProductsType,
@@ -31,7 +31,9 @@ export default function ProductsPage({
 }
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
-  const { data } = (await fetchCall(allProductsQuery)) as CmsAllProductsType;
+  const { data } = (await getContentfulData(
+    allProductsQuery
+  )) as CmsAllProductsType;
   const paths = data.productCollection.items.map((item) => ({
     params: { id: item.sys.id },
   }));
@@ -45,7 +47,7 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
 export const getStaticProps: GetStaticProps<Props, Params> = async ({
   params,
 }) => {
-  const { data } = (await fetchCall(oneProductQuery, {
+  const { data } = (await getContentfulData(oneProductQuery, {
     id: params!.id,
   })) as { data: { product: CmsProductType } };
 

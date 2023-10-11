@@ -8,7 +8,7 @@ import {
   ProductType,
 } from "../../utils/ts-types/__store/typesProduct";
 import { allProductsQuery } from "../../lib/contentful/query";
-import { fetchCall } from "../../lib/contentful/contentful";
+import { getContentfulData } from "../../lib/contentful/contentful";
 
 export default function PaymentMethodPage({ amount, cart, list }: PropType) {
   return (
@@ -44,7 +44,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 
-  const { data } = (await fetchCall(allProductsQuery)) as CmsAllProductsType;
+  const { data } = (await getContentfulData(
+    allProductsQuery
+  )) as CmsAllProductsType;
 
   const formatData = data.productCollection.items.map((item) => {
     item.id = item.sys?.id;
