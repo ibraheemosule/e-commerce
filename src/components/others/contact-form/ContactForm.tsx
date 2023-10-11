@@ -53,9 +53,7 @@ const ContactForm: FC<PropType> = ({ bg, maxWidth }) => {
         if (!validateEmail(email)) throw new Error("Invalid email syntax");
         const formData = e.currentTarget;
 
-        await recaptcha("contactFrom1907");
-
-        console.log(formData, "here");
+        // await recaptcha('contactFrom1907');
 
         await emailjs.sendForm(
           process.env.NEXT_PUBLIC_EMAIL_SERVICE_ID!,
