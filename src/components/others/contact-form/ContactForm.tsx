@@ -53,7 +53,7 @@ const ContactForm: FC<PropType> = ({ bg, maxWidth }) => {
         if (!validateEmail(email)) throw new Error("Invalid email syntax");
         const formData = e.currentTarget;
 
-        // await recaptcha('contactFrom1907');
+        await recaptcha("contactFrom1907");
 
         await emailjs.sendForm(
           process.env.NEXT_PUBLIC_EMAIL_SERVICE_ID!,
@@ -66,6 +66,7 @@ const ContactForm: FC<PropType> = ({ bg, maxWidth }) => {
         setError("");
         setSuccess(true);
       } catch (e) {
+        console.log(e);
         let message = "An error occured";
         if (e instanceof Error) message = e.message;
         setError(message);
