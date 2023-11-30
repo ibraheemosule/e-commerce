@@ -20,3 +20,16 @@ export interface IServerRecaptchaResponse {
   hostname: string;
   "error-codes"?: number[];
 }
+
+export interface ICreateOtpReq extends NextApiRequest {
+  body: {
+    email: string;
+  };
+}
+
+export interface IVerifyOtpReq extends NextApiRequest {
+  body: {
+    otp: string;
+    email: string;
+  };
+}

@@ -63,7 +63,7 @@ export default async function updateInfo(req: IAuthInfo, res: NextApiResponse) {
       "1907Store Account Details Updated",
       "",
       user!.email,
-      detailsUpdateMsg
+      detailsUpdateMsg()
     );
 
     return res.status(200).json({ data });

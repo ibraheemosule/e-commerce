@@ -11,6 +11,7 @@ const actions = [
   "changePasswordFrom1907",
   "forgotPasswordFrom1907",
   "contactFrom1907",
+  "verifyOtpFrom1907",
 ];
 
 const secretKey = process.env.RECAPTCHA_SECRET_KEY;
