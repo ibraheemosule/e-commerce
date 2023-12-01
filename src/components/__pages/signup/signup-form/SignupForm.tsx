@@ -18,7 +18,10 @@ import {
   SignupFormFieldsType,
 } from "../u_signup";
 import FormBtn from "../../../others/btn/form-btn/FormBtn";
-import { validatePassword } from "../../../../utils/utilsFunctions";
+import {
+  validatePassword,
+  userFormValidation,
+} from "../../../../utils/utilsFunctions";
 import { useEmailOtpMutation } from "../../../../store/features/new-user/new-user-slice";
 import { requestFailed } from "../../../../utils/apiErrorResponse";
 import { errorPopup } from "../../../../utils/utilsFunctions";
@@ -32,7 +35,8 @@ const SignUpForm: FC<SignUpFormProps> = ({
 }) => {
   const [error, setError] = useState("");
   const [passwordGuide, setPasswordGuide] = useState("");
-  const [emailOtp, { isLoading }] = useEmailOtpMutation();
+  const [emailOtp] = useEmailOtpMutation();
+  const [loading, setLoading] = useState(false);
   const recaptcha = useReCaptcha();
 
   useEffect(() => {
@@ -53,12 +57,15 @@ const SignUpForm: FC<SignUpFormProps> = ({
     e.preventDefault();
 
     try {
-      // userFormValidation(fields);
+      userFormValidation(fields);
+      setLoading(true);
       await recaptcha("signupFrom1907");
-      await emailOtp({ email: fields.email });
-
+      await emailOtp({ email: fields.email }).unwrap();
+      setLoading(false);
       routeToOtpScreen(true);
     } catch (e) {
+      console.log(e);
+      setLoading(false);
       errorPopup(requestFailed(e));
       setError(requestFailed(e));
     }
@@ -127,11 +134,7 @@ const SignUpForm: FC<SignUpFormProps> = ({
             })}
           </Grid>
           <Box sx={{ justifyContent: "center" }}>
-            <FormBtn
-              text="create an account"
-              error={error}
-              loading={isLoading}
-            />
+            <FormBtn text="create an account" error={error} loading={loading} />
           </Box>
         </Container>
       </Grid>

@@ -13,7 +13,7 @@ export default async function verifyOtp(
     const redis = await startRedis();
     const getOtp = await redis.get(email);
     if (!getOtp) throw Error("OTP session expired");
-    if (getOtp !== otp) throw Error("Invalid OTP");
+    if (JSON.parse(getOtp) !== otp) throw Error("Invalid OTP");
 
     res.status(200).json({ success: true });
     return;

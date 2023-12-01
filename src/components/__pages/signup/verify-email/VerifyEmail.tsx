@@ -21,6 +21,7 @@ import {
   formatPhoneNumber,
 } from "../../../../utils/utilsFunctions";
 import {
+  useEmailOtpMutation,
   useSignupMutation,
   useVerifyOtpMutation,
 } from "../../../../store/features/new-user/new-user-slice";
@@ -37,24 +38,36 @@ const VerifyEmail: FC<IVerifyEmailProps> = ({ routeToOtpScreen, fields }) => {
   const dispatch = useAppDispatch();
   const [error, setError] = useState("");
   const [otp, setOtp] = useState("");
+  const [loading, setLoading] = useState(false);
   const recaptcha = useReCaptcha();
-  const [verifyOtp, { isLoading }] = useVerifyOtpMutation();
-  const [signup, { isLoading: signupLoading }] = useSignupMutation();
+  const [verifyOtp] = useVerifyOtpMutation();
+  const [emailOtp] = useEmailOtpMutation();
+  const [signup] = useSignupMutation();
 
   useEffect(() => setError(""), [otp]);
+
+  const resendOtp = async () => {
+    try {
+      await emailOtp({ email: fields.email }).unwrap();
+    } catch (e) {
+      errorPopup(requestFailed(e));
+      setError(requestFailed(e));
+    }
+  };
 
   const completeSignup = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
       if (otp.length !== 6 || !Number(otp)) throw Error("Invalid OTP");
+      try {
+        userFormValidation(fields);
+      } catch {
+        routeToOtpScreen(false);
+        throw Error("Some sign up info failed validation");
+      }
 
-      // try {
-      //   userFormValidation(fields);
-      // } catch {
-      //   routeToOtpScreen(false);
-      //   throw Error('Some sign up info failed validation');
-      // }
+      setLoading(true);
 
       await recaptcha("verifyOtpFrom1907");
       await verifyOtp({ email: fields.email, otp }).unwrap();
@@ -62,17 +75,16 @@ const VerifyEmail: FC<IVerifyEmailProps> = ({ routeToOtpScreen, fields }) => {
       delete rest.retypePassword;
       rest.phoneNo = formatPhoneNumber(Number(rest.phoneNo));
 
-      return;
-
       await signup({ ...rest, password } as unknown as UserType & {
         password: string;
       }).unwrap();
 
       dispatch(updateUserInfo(rest as unknown as UserType));
-
+      setLoading(false);
       successPopup("Sign up successful");
       Router.reload();
     } catch (e) {
+      setLoading(false);
       errorPopup(requestFailed(e));
       setError(requestFailed(e));
     }
@@ -112,7 +124,18 @@ const VerifyEmail: FC<IVerifyEmailProps> = ({ routeToOtpScreen, fields }) => {
         component="form"
         onSubmit={(e) => void completeSignup(e)}
       >
-        <Container maxWidth="xs" sx={{ display: "block" }}>
+        <Typography
+          component="p"
+          sx={{
+            fontSize: 16,
+            mt: 2,
+            mx: "auto",
+            maxWidth: "50ch",
+          }}
+        >
+          Input the OTP sent to your email to complete sign up.
+        </Typography>
+        <Container maxWidth="xs" sx={{ display: "block", mt: 4 }}>
           <MuiOtpInput
             inputMode="numeric"
             length={6}
@@ -126,21 +149,20 @@ const VerifyEmail: FC<IVerifyEmailProps> = ({ routeToOtpScreen, fields }) => {
               text="Verify Email"
               btnSize="large"
               error={error}
-              loading={isLoading || signupLoading}
+              loading={loading}
             />
           </Box>
-          <Typography
-            component="p"
+          <ButtonBase
+            onClick={() => void resendOtp()}
             sx={{
               fontSize: 14,
-              mt: 3,
-              mx: "auto",
-              maxWidth: "50ch",
+              fontWeight: 600,
+              color: "secondary.main",
+              my: 3,
             }}
           >
-            Provide the one-time OTP sent to the provided email for
-            verification.
-          </Typography>
+            Resend OTP
+          </ButtonBase>
         </Box>
       </Grid>
     </>

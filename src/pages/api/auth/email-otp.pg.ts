@@ -15,11 +15,15 @@ export default async function createOtp(
 
     const client = await startRedis();
 
-    await client.setEx(email, 60 * 2, otp());
-    const getOtp = await client.get(email);
+    let getOtp;
+    getOtp = await client.get(email);
+
+    if (!getOtp) {
+      await client.setEx(email, 60 * 5, JSON.stringify(otp()));
+      getOtp = await client.get(email);
+    }
 
     if (getOtp) {
-      console.log(getOtp);
       await sendEmail("OTP from 1907Store", "Customer", email, sendOtp(getOtp));
       res.status(200).json({ otp_sent: true });
       return;

@@ -14,11 +14,11 @@ export function responseError(error: unknown): error is ApiErrorResponse {
 }
 
 export function requestFailed(e: unknown) {
+  let err = "An error occurred";
   if (responseError(e)) {
-    return e.data.message;
+    return e.data.message || err;
   }
 
-  let message = "An error occurred";
-  if (e instanceof Error) message = e.message;
-  return message;
+  if (e instanceof Error) err = e.message || err;
+  return err;
 }
