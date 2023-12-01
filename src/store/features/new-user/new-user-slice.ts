@@ -11,18 +11,39 @@ export const newUserSlice = createApi({
   refetchOnMountOrArgChange: true,
   baseQuery: fetchBaseQuery({
     baseUrl: "/api",
+    headers: {
+      "Content-Type": "application/json",
+    },
   }),
   endpoints(builder) {
     return {
+      emailOtp: builder.mutation<{ success: boolean }, { email: string }>({
+        query(payload) {
+          return {
+            url: "/auth/email-otp",
+            method: "POST",
+            body: payload,
+          };
+        },
+      }),
+      verifyOtp: builder.mutation<
+        { success: boolean },
+        { email: string; otp: string }
+      >({
+        query(payload) {
+          return {
+            url: "/auth/verify-otp",
+            method: "POST",
+            body: payload,
+          };
+        },
+      }),
       recaptcha: builder.mutation<{ success: boolean }, IRecaptchaPayload>({
         query(payload) {
           return {
             url: "/auth/recaptcha",
             method: "POST",
             body: payload,
-            headers: {
-              "Content-Type": "application/json",
-            },
           };
         },
       }),
@@ -32,9 +53,6 @@ export const newUserSlice = createApi({
             url: "/auth/signin",
             method: "POST",
             body: payload,
-            headers: {
-              "Content-Type": "application/json",
-            },
           };
         },
       }),
@@ -53,9 +71,6 @@ export const newUserSlice = createApi({
             url: "/auth/signup",
             method: "POST",
             body: payload,
-            headers: {
-              "Content-Type": "application/json",
-            },
           };
         },
       }),
@@ -65,9 +80,6 @@ export const newUserSlice = createApi({
             url: "/auth/reset-password",
             method: "POST",
             body: payload,
-            headers: {
-              "Content-Type": "application/json",
-            },
           };
         },
       }),
@@ -78,9 +90,6 @@ export const newUserSlice = createApi({
             url: "/auth/update-info",
             method: "PATCH",
             body: payload,
-            headers: {
-              "Content-Type": "application/json",
-            },
           };
         },
       }),
@@ -90,9 +99,6 @@ export const newUserSlice = createApi({
           return {
             url: `/order/get-order?email=${email}`,
             method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
           };
         },
       }),
@@ -103,9 +109,6 @@ export const newUserSlice = createApi({
             url: "/order/post-order",
             method: "POST",
             body: payload,
-            headers: {
-              "Content-Type": "application/json",
-            },
           };
         },
       }),
@@ -122,4 +125,6 @@ export const {
   usePostOrderMutation,
   useResetPasswordMutation,
   useRecaptchaMutation,
+  useEmailOtpMutation,
+  useVerifyOtpMutation,
 } = newUserSlice;

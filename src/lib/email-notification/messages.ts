@@ -22,7 +22,7 @@ export const passwordMsg = (password: string) =>
   Your new password is ${password}
   If you didn't initiate this action, kindly reach out to us.`;
 
-export const detailsUpdateMsg = `Your account details have been updated.
+export const detailsUpdateMsg = () => `Your account details have been updated.
 If you didn't initiate this action, kindly reach out to us.`;
 
 export const confirmedOrderMsg = (order: IOrderModel) => {
@@ -46,3 +46,11 @@ export const confirmedOrderMsg = (order: IOrderModel) => {
     
     Thank you for patronizing us`;
 };
+
+export const sendOtp = (otp: string) =>
+  `Verify your email at 1907Store.
+  
+Your OTP is ${otp}
+Expires in five minutes
+
+If you didn't initiate this action, Please disregard this email.`;
