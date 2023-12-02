@@ -146,7 +146,7 @@ const CartProductCard: FC<CartProductCardProps> = ({ id, size, uid }) => {
               fontWeight="400"
               color="primary.dark"
             >
-              &#8358;{(quantity * product.price).toFixed(2).toLocaleString()}
+              &#8358;{(quantity * product.price).toLocaleString()}
             </Typography>
           </Box>
         </Box>

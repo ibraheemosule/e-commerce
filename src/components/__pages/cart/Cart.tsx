@@ -7,13 +7,12 @@ import Btn from "../../others/btn/Btn";
 import CartProductCard from "./cart-product-card/CartProductCard";
 import { useAppSelector } from "../../../store/hooks";
 import Link from "next/link";
-import useFade from "../../others/hooks/fade-transition/useFade";
-import { CartType } from "../../../utils/ts-types/__store/typesProduct";
-import { animated } from "@react-spring/web";
+//import useFade from "../../others/hooks/fade-transition/useFade";
+//import { CartType } from "../../../utils/ts-types/__store/typesProduct";
 
 const Cart = () => {
   const { cartList, totalPrice } = useAppSelector((state) => state.product);
-  const fade = useFade<CartType[]>(cartList, true);
+  // const fade = useFade<CartType[]>(cartList, true);
 
   return (
     <>
@@ -82,7 +81,7 @@ const Cart = () => {
                     Subtotal:
                   </strong>{" "}
                   <Typography component="h1" variant="h5" color="primary.dark">
-                    &#8358;{totalPrice.toFixed(2).toLocaleString()}
+                    &#8358;{totalPrice.toLocaleString()}
                   </Typography>
                 </Box>
                 <Link

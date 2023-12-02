@@ -85,7 +85,7 @@ export default memo(function Checkout() {
                       color="primary.dark"
                       sx={{ mr: 2 }}
                     >
-                      &#8358;{totalPrice.toFixed(2)}
+                      &#8358;{totalPrice.toLocaleString()}
                     </Typography>
                     {/* <Link
                       href="/payment-options"

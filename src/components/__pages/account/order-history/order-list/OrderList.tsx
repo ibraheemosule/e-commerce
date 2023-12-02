@@ -14,7 +14,7 @@ export default memo(function OrderList({ order }: { order: OrderType }) {
       <Box sx={{ textAlign: "right" }}>
         <Typography>
           <span style={{ marginRight: 8 }}>Amount:</span>
-          &#8358;{order.amount.toFixed(2)}
+          &#8358;{order.amount.toLocaleString()}
         </Typography>
         <Typography
           sx={{
