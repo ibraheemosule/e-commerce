@@ -189,7 +189,7 @@ const ProductCard: FC<ProductCardProps> = (props) => {
                 }}
               >
                 <Typography variant="h6">
-                  &#8358;{price?.toFixed(2).toString()}
+                  &#8358;{price?.toLocaleString()}
                 </Typography>
                 <Box
                   sx={{

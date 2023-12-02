@@ -195,7 +195,7 @@ export default memo(function ProductDetails({
         </Box>
         <Divider />
         <Typography component="h1" variant="h6">
-          &#8358;{product.price}
+          &#8358;{product.price.toLocaleString()}
         </Typography>
         <Typography my={0.5}>
           <strong>Shipping</strong> fee calculated at checkout

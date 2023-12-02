@@ -91,7 +91,7 @@ const OrderedProductCard: FC<OrderedProductCardProps> = ({ product }) => {
           <Box>
             <Typography>
               &#8358;
-              {(product.quantity * product?.price).toFixed(2).toLocaleString()}
+              {(product.quantity * product?.price).toLocaleString()}
             </Typography>
           </Box>
         </Box>
