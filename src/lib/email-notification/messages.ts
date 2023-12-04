@@ -4,14 +4,19 @@ import { IOrderModel } from "../db/models/order";
 
 const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD as string;
 const ADMIN_PHONE_NO = process.env.ADMIN_PHONE_NO as string;
+const WEBSITE_URL = process.env.WEBSITE_URL as string;
 
 const emailContent = (body: string, name = "") => `
 <html>
 <head>
   <style>
-    h1 {
+    h1, h2 {
       font-weight: 800;
       font-size: 24px;
+    }
+
+    h2 {
+      text-align: center;
     }
 
     footer {
@@ -22,7 +27,7 @@ const emailContent = (body: string, name = "") => `
     }
 
     img {
-      width: 100px; /* Adjust the width of your logo */
+      width: 100px;
       height: auto;
     }
 
@@ -43,8 +48,7 @@ const emailContent = (body: string, name = "") => `
   </main>
 
   <footer>
-    <!-- Replace 'your-company-logo.png' with the actual path to your company logo -->
-    <img src="your-company-logo.png" alt="Company Logo">
+    <img src="../../../public/images/logo.png" alt="1907Store Logo">
 
     <p>
       1907Store<br>
@@ -55,7 +59,7 @@ const emailContent = (body: string, name = "") => `
     <p>1907Store is your one stop online store for all quality leather wears and accessories</p>
 
     <p>
-      <a href="https://www.1907Store.vercel.app">Visit Our Website</a>
+      <a href=${WEBSITE_URL}>Visit Our Website</a>
     </p>
 
     <p>
@@ -91,8 +95,8 @@ export const accCreatedMsg = (user: IUserModel) => {
 export const passwordMsg = (password: string) => {
   const message = `<p>Hello</p>
   <p style="font-size: 16px; margin-top: 10px;">
-  Your password was changed.
-  Your new password is ${password}
+  Your password was changed to<br/>
+  <h2>${password}</h2>
   If you didn't initiate this action, kindly reach out to us.
   </p>
   <footer style="background-color: yellow;>
