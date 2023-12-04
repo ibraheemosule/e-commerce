@@ -1,78 +1,7 @@
 import { IUserModel } from "../db/models/user";
 import { firstLetterUpperCase } from "../../utils/utilsFunctions";
 import { IOrderModel } from "../db/models/order";
-
-const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD as string;
-const ADMIN_PHONE_NO = process.env.ADMIN_PHONE_NO as string;
-const WEBSITE_URL = process.env.WEBSITE_URL as string;
-
-const emailContent = (body: string, name = "") => `
-<html>
-<head>
-  <style>
-    h1, h2 {
-      font-weight: 800;
-      font-size: 24px;
-    }
-
-    h2 {
-      text-align: center;
-    }
-
-    footer {
-      background-color: #333;
-      color: white;
-      text-align: center;
-      padding: 20px;
-    }
-
-    img {
-      width: 100px;
-      height: auto;
-    }
-
-    a {
-      color: #fff;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-  </style>
-</head>
-<body>
-<p>Hello ${name}</p>
-  <main>
-  ${body}
-  </main>
-
-  <footer>
-    <img src="../../../public/images/logo.png" alt="1907Store Logo">
-
-    <p>
-      1907Store<br>
-      Phone: ${ADMIN_PHONE_NO}<br>
-      Email: ${EMAIL_PASSWORD}
-    </p>
-
-    <p>1907Store is your one stop online store for all quality leather wears and accessories</p>
-
-    <p>
-      <a href=${WEBSITE_URL}>Visit Our Website</a>
-    </p>
-
-    <p>
-      Follow us on:
-      <a href="#" target="_blank">Instagram</a>
-      <span> | </span>
-      <a href="#" target="_blank">Twitter</a>
-      <span> | </span>
-      <a href="#" target="_blank">Facebook</a>
-    </p>
-  </footer>
-</body>
-</html>`;
+import { emailTemplate } from "./email-html-template";
 
 export const accCreatedMsg = (user: IUserModel) => {
   const name = `${firstLetterUpperCase(user.firstName)} ${firstLetterUpperCase(
@@ -89,26 +18,21 @@ export const accCreatedMsg = (user: IUserModel) => {
     Phone Number: ${user.phoneNo}</br></br>
     
     We look forward to your patronage`;
-  return emailContent(message, name);
+  return emailTemplate(message, name);
 };
 
 export const passwordMsg = (password: string) => {
-  const message = `<p>Hello</p>
-  <p style="font-size: 16px; margin-top: 10px;">
-  Your password was changed to<br/>
-  <h2>${password}</h2>
-  If you didn't initiate this action, kindly reach out to us.
-  </p>
-  <footer style="background-color: yellow;>
-  <h2>1907 Stores <small>Is the one stop shop to get all your quality leather wears and bags</small></h2>
-  <h4>Contact Us On</h4>
-  </footer>
+  const message = `
+  <p>
+  Your password was changed to <bold>${password}</bold></p>
+  <p>If you didn't initiate this action, kindly reach out to us.</p>
   `;
-  return emailContent(message);
+  return emailTemplate(message);
 };
 
-export const detailsUpdateMsg = () => `Your account details have been updated.
-If you didn't initiate this action, kindly reach out to us.`;
+export const detailsUpdateMsg =
+  () => `<h3>Your account details have been updated</h3></br>
+<p>If you didn't initiate this action, kindly reach out to us.</p>`;
 
 export const confirmedOrderMsg = (order: IOrderModel) => {
   let productsOrdered = "";
@@ -118,40 +42,28 @@ export const confirmedOrderMsg = (order: IOrderModel) => {
 
   return `Your order of ID ${order._id} has been received.
   
-    Products ordered are:
-    ${productsOrdered}
-    Total Amount + Shipping = ${order.amount}
+  <p>Products ordered are:
+    ${productsOrdered}</p>
+    <p>Total Amount + Shipping = <bold>${order.amount}</bold></p>
     
-    Order will be dispatched to:
-    Name: ${order.deliveryDetails.firstName} ${order.deliveryDetails.lastName}
-    Phone Number: ${order.deliveryDetails.phoneNo}
-    Address: ${order.deliveryDetails.address}
-    City: ${order.deliveryDetails.city}
-    State: ${order.deliveryDetails.state}
-    
-    Thank you for patronizing us`;
+    <p>Order will be dispatched to:</p>
+    <p>Name: ${order.deliveryDetails.firstName} ${order.deliveryDetails.lastName}</p>
+    <p>Phone Number: ${order.deliveryDetails.phoneNo}</p>
+    <p>Address: ${order.deliveryDetails.address}</p>
+    <p>City: ${order.deliveryDetails.city}</p>
+    <p>State: ${order.deliveryDetails.state}</p><br/>
+
+    <p>Thank you for patronizing us</p>`;
 };
 
-export const sendOtp = (otp: string) =>
-  `
-<html>
-  <head>
-    <style>
-      body {
-        font-family: 'Arial', sans-serif;
-        background-color: #f0f0f0;
-      }
-      h1 {
-        color: #3498db;
-      }
-      p {
-        color: #555;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Hello!</h1>
-    <p>This is a styled HTML email sent from Nodemailer.${otp}</p>
-  </body>
-</html>
-`;
+export const sendOtp = (otp: string) => {
+  const message = `
+<h1>Verify your email at 1907Store</h1>
+  
+ <h2><small>Your OTP: </small><bold>${otp}</bold></h2>
+<p>Expires in five minutes</p>
+
+<p>If you didn't initiate this action, Please disregard this email.</p>`;
+
+  return emailTemplate(message);
+};
