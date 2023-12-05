@@ -49,7 +49,7 @@ export default async function updateInfo(req: IAuthInfo, res: NextApiResponse) {
         "1907Store Account Password Changed",
         "",
         user!.email,
-        passwordMsg(req.body.password)
+        passwordMsg()
       );
 
       res.setHeader("Set-Cookie", setCookie("", -1));

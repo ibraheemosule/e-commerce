@@ -30,8 +30,8 @@ async function dbConnect() {
         console.log("Connected to DB");
         return mongoose;
       })
-      .catch(() => {
-        throw Error();
+      .catch((e) => {
+        throw Error(e as unknown as string);
       });
   }
   cached.connection = await cached.promise;

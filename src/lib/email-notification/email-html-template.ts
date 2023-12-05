@@ -6,9 +6,13 @@ export const emailTemplate = (body: string, name = "") => `
 <html>
 <head>
   <style>
-    h1, bold {
+    h1, h2, bold {
       font-weight: 800;
       font-size: 24px;
+    }
+
+    h2 {
+      font-size: 20px;
     }
 
     bold {
@@ -17,7 +21,7 @@ export const emailTemplate = (body: string, name = "") => `
 
     footer {
       background-color: #a19794;
-      color: white;
+      color: #ffffff;
       text-align: center;
       padding: 20px;
       margin-top: 30px;
@@ -39,7 +43,7 @@ export const emailTemplate = (body: string, name = "") => `
   </style>
 </head>
 <body>
-<p>Hello ${name}</p>
+<p>Hello ${name},</p>
   <main>
   ${body}
   </main>
@@ -47,13 +51,14 @@ export const emailTemplate = (body: string, name = "") => `
   <footer>
     <img src="https://res.cloudinary.com/ibraheemsulay/image/upload/v1701670813/logo_pzjrol.png" alt="1907Store Logo">
 
+   
+    <h1>1907Store</h1>
     <p>
-      1907Store<br>
       Phone: ${ADMIN_PHONE_NO}<br>
       Email: ${ADMIN_EMAIL}
     </p>
 
-    <p>1907Store is your one stop online store for all quality leather wears and accessories</p>
+    <h2>1907Store is your one stop online store for all quality leather wears and accessories</h2>
 
     <p>
       <a href=${WEBSITE_URL}>Visit Our Website</a>
