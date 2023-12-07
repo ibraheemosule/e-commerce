@@ -43,7 +43,7 @@ export const emailTemplate = (body: string, name = "") => `
   </style>
 </head>
 <body>
-<p>Hello ${name},</p>
+<p>Hello${name ? " " + name : ""},</p>
   <main>
   ${body}
   </main>

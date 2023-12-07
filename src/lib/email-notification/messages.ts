@@ -22,10 +22,10 @@ export const accCreatedMsg = (user: IUserModel) => {
   return emailTemplate(message, name);
 };
 
-export const passwordMsg = (name = "") => {
+export const passwordMsg = (password = "", name = "") => {
   const message = `
   <h2>
-  Your password was changed</h2>
+  Your password was changed ${password ? "to " + password : ""}</h2>
   <p>If you didn't initiate this action, kindly reach out to us.</p>
   `;
   return emailTemplate(message, name);
@@ -37,25 +37,28 @@ export const detailsUpdateMsg = (name: string) => {
   return emailTemplate(message, name);
 };
 
-export const confirmedOrderMsg = (order: IOrderModel, name = "") => {
+export const confirmedOrderMsg = (order: IOrderModel) => {
+  const name = `${order.deliveryDetails.firstName} ${order.deliveryDetails.lastName}`;
   let productsOrdered = "";
   order.items.forEach((item) => {
-    productsOrdered += `${item.quantity} ${item.gender} ${item.tag} ${item.name} = ₦${item.price}<br/>`;
+    productsOrdered += `${item.quantity} ${item.gender} ${item.tag} ${
+      item.name
+    } = ₦${item.price.toLocaleString()}<br/>`;
   });
 
   const message = `
   <h3>Your order of ID ${order._id} has been received.</h3>
   
-  <p>Products ordered are:<br/>
-    ${productsOrdered}</p>
-    <p>Total Amount + Shipping = <bold>${order.amount}</bold></p>
+  <h3>Products ordered are:</h3>
+  <p>${productsOrdered}</p>
+    <p>Total Amount + Shipping = <bold>${order.amount.toLocaleString()}</bold></p>
     
-    <p>Order will be dispatched to:</p>
-    <p>Name: ${order.deliveryDetails.firstName} ${order.deliveryDetails.lastName}</p>
-    <p>Phone Number: ${order.deliveryDetails.phoneNo}</p>
-    <p>Address: ${order.deliveryDetails.address}</p>
-    <p>City: ${order.deliveryDetails.city}</p>
-    <p>State: ${order.deliveryDetails.state}</p><br/>
+    <h3>Order will be dispatched to:</h3>
+    <p>Name: ${name}<br/>
+      Phone Number: ${order.deliveryDetails.phoneNo}<br/>
+      Address: ${order.deliveryDetails.address}<br/>
+      City: ${order.deliveryDetails.city}<br/>
+      State: ${order.deliveryDetails.state}</p>
 
     <p>Thank you for patronizing us</p>`;
   return emailTemplate(message, name);

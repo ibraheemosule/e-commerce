@@ -51,7 +51,7 @@ export default async function updateInfo(
       "1907Store Account Password Reset",
       "",
       req.body.email,
-      passwordMsg(req.body.firstName)
+      passwordMsg(newPassword, req.body.firstName)
     );
 
     return res.status(200).json({ message: "password reset successful" });

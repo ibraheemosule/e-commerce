@@ -41,7 +41,7 @@ function Layout({ children }: ILayout) {
           return;
         }
 
-        const formatData = data.productCollection.items.map((item) => {
+        const formatData = data?.productCollection.items.map((item) => {
           item.id = item.sys?.id;
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { sys, ...rest } = item;

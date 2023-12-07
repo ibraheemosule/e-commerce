@@ -49,13 +49,11 @@ export default async function updateInfo(req: IAuthInfo, res: NextApiResponse) {
         "1907Store Account Password Changed",
         "",
         user!.email,
-        passwordMsg()
+        passwordMsg("", req.body.firstName)
       );
 
       res.setHeader("Set-Cookie", setCookie("", -1));
     }
-
-    console.log(updateDetails);
 
     if (!updateDetails) throw Error("error occurred");
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

@@ -24,7 +24,7 @@ export default async function postOrder(req: IRequest, res: NextApiResponse) {
       "Your Order Has Been Received",
       "",
       newOrder.buyer,
-      confirmedOrderMsg(newOrder, newOrder.buyer)
+      confirmedOrderMsg(newOrder)
     );
 
     return res.status(200).json({ data: newOrder.toObject() as OrderType });
