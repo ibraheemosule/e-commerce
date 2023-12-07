@@ -47,7 +47,8 @@ export const confirmedOrderMsg = (order: IOrderModel) => {
   });
 
   const message = `
-  <h3>Your order of ID ${order._id} has been received.</h3>
+  <h3>Your order has been received.</h3>
+  <p>ID:<bold> ${order._id}</bold></p>
   
   <h3>Products ordered are:</h3>
   <p>${productsOrdered}</p>
