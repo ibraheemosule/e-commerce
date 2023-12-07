@@ -55,6 +55,8 @@ export default async function updateInfo(req: IAuthInfo, res: NextApiResponse) {
       res.setHeader("Set-Cookie", setCookie("", -1));
     }
 
+    console.log(updateDetails);
+
     if (!updateDetails) throw Error("error occurred");
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...data } = updateDetails;
@@ -63,7 +65,7 @@ export default async function updateInfo(req: IAuthInfo, res: NextApiResponse) {
       "1907Store Account Details Updated",
       "",
       user!.email,
-      detailsUpdateMsg()
+      detailsUpdateMsg(req.body.firstName)
     );
 
     return res.status(200).json({ data });

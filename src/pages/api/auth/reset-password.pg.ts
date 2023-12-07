@@ -7,7 +7,7 @@ import { validatePassword } from "../../../utils/utilsFunctions";
 import dbConnect from "../../../lib/db/dbConnect";
 
 interface IResetPassword extends NextApiRequest {
-  body: { email: string };
+  body: { email: string; firstName: string };
 }
 
 export default async function updateInfo(
@@ -51,7 +51,7 @@ export default async function updateInfo(
       "1907Store Account Password Reset",
       "",
       req.body.email,
-      passwordMsg()
+      passwordMsg(req.body.firstName)
     );
 
     return res.status(200).json({ message: "password reset successful" });

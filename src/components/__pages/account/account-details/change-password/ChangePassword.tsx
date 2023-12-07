@@ -20,7 +20,7 @@ export default memo(function ChangePassword() {
   const [newPassword, setNewPassword] = useState("");
   const [error, setError] = useState("");
   const [updateInfo, { isLoading }] = useUpdateInfoMutation();
-  const { email } = useAppSelector(({ user }) => user.userInfo);
+  const { email, firstName } = useAppSelector(({ user }) => user.userInfo);
   const recaptcha = useReCaptcha();
 
   useEffect(() => setError(""), [oldPassword, newPassword]);
@@ -47,6 +47,7 @@ export default memo(function ChangePassword() {
       await recaptcha("changePasswordFrom1907");
       await updateInfo({
         email,
+        firstName,
         oldPassword,
         password: newPassword,
       } as unknown as UserType).unwrap();

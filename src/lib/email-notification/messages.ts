@@ -22,30 +22,31 @@ export const accCreatedMsg = (user: IUserModel) => {
   return emailTemplate(message, name);
 };
 
-export const passwordMsg = () => {
+export const passwordMsg = (name = "") => {
   const message = `
   <h2>
   Your password was changed</h2>
   <p>If you didn't initiate this action, kindly reach out to us.</p>
   `;
-  return emailTemplate(message);
+  return emailTemplate(message, name);
 };
 
-export const detailsUpdateMsg = () => {
+export const detailsUpdateMsg = (name: string) => {
   const message = `<h3>Your account details have been updated</h3>
 <p>If you didn't initiate this action, kindly reach out to us.</p>`;
-  return emailTemplate(message);
+  return emailTemplate(message, name);
 };
 
-export const confirmedOrderMsg = (order: IOrderModel) => {
+export const confirmedOrderMsg = (order: IOrderModel, name = "") => {
   let productsOrdered = "";
   order.items.forEach((item) => {
-    productsOrdered += `${item.quantity} ${item.gender} ${item.tag} ${item.name} = ₦${item.price}\n`;
+    productsOrdered += `${item.quantity} ${item.gender} ${item.tag} ${item.name} = ₦${item.price}<br/>`;
   });
 
-  return `Your order of ID ${order._id} has been received.
+  const message = `
+  <h3>Your order of ID ${order._id} has been received.</h3>
   
-  <p>Products ordered are:
+  <p>Products ordered are:<br/>
     ${productsOrdered}</p>
     <p>Total Amount + Shipping = <bold>${order.amount}</bold></p>
     
@@ -57,6 +58,7 @@ export const confirmedOrderMsg = (order: IOrderModel) => {
     <p>State: ${order.deliveryDetails.state}</p><br/>
 
     <p>Thank you for patronizing us</p>`;
+  return emailTemplate(message, name);
 };
 
 export const sendOtp = (otp: string) => {
