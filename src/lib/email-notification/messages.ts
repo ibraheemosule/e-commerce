@@ -8,17 +8,17 @@ export const accCreatedMsg = (user: IUserModel) => {
     user.lastName
   )}`;
   const message = `
-    Thank you for signing up to our online store.<br/><br/><br/>
-    Here are your details<br/><br/>
+    <h2>Welcome to our online store</h2>
+    <p>Here are your details</p>
 
-    Name: ${name}<br/>
+    <p>Name: ${name}<br/>
     Email: ${user.email}<br/>
     Address: ${user.address}<br/>
     City: ${firstLetterUpperCase(user.city)}<br/>
     State: ${firstLetterUpperCase(user.state)}<br/>
-    Phone Number: ${user.phoneNo}<br/>
+    Phone Number: ${user.phoneNo}<br/></p>
     
-    We look forward to your patronage`;
+    <p>We look forward to your patronage</p>`;
   return emailTemplate(message, name);
 };
 
@@ -51,7 +51,7 @@ export const confirmedOrderMsg = (order: IOrderModel) => {
   
   <h3>Products ordered are:</h3>
   <p>${productsOrdered}</p>
-    <p>Total Amount + Shipping = <bold>${order.amount.toLocaleString()}</bold></p>
+    <p>Total Amount + Shipping = <bold>₦${order.amount.toLocaleString()}</bold></p>
     
     <h3>Order will be dispatched to:</h3>
     <p>Name: ${name}<br/>

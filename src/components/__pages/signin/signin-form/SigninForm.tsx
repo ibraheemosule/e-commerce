@@ -26,7 +26,8 @@ const SigninForm: FC<SigninFormProps> = ({ routeToPasswordPage }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [signin, { isLoading }] = useSigninMutation();
+  const [signin] = useSigninMutation();
+  const [loading, setLoading] = useState(false);
   const recaptcha = useReCaptcha();
 
   const updateValue = (obj: { [key: string]: string }) => {
@@ -40,6 +41,7 @@ const SigninForm: FC<SigninFormProps> = ({ routeToPasswordPage }) => {
     e.preventDefault();
 
     try {
+      setLoading(true);
       if (!validateEmail(email)) throw Error("Invalid Email");
 
       if (validatePassword(password) !== "true") {
@@ -55,19 +57,15 @@ const SigninForm: FC<SigninFormProps> = ({ routeToPasswordPage }) => {
 
       dispatch(updateUserInfo(data));
       successPopup("Sign in successful");
-
+      setLoading(false);
       Router.reload();
     } catch (e) {
-      if (responseError(e)) {
-        setError(e.data.message);
-        errorPopup(e.data.message);
-        return;
-      }
       let message = "An error occurred";
-      if (e instanceof Error) message = e.message;
+      if (responseError(e)) message = e.data.message;
+      else if (e instanceof Error) message = e.message;
       errorPopup(message);
-
       setError(message);
+      setLoading(false);
     }
   };
 
@@ -121,7 +119,7 @@ const SigninForm: FC<SigninFormProps> = ({ routeToPasswordPage }) => {
           </Box>
           <Box sx={{ display: "block", position: "relative" }}>
             <Box sx={{ justifyContent: "center" }}>
-              <FormBtn text="Sign in" error={error} loading={isLoading} />
+              <FormBtn text="Sign in" error={error} loading={loading} />
             </Box>
             <Box
               sx={{

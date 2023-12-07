@@ -29,8 +29,9 @@ export default memo(function EditProfile({ setEdit }: EditDetailsProp) {
   const dispatch = useAppDispatch();
   const [fields, setField] = useFillForm(defaultFields);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const { userInfo } = useAppSelector((state) => state.user);
-  const [updateInfo, { isLoading }] = useUpdateInfoMutation();
+  const [updateInfo] = useUpdateInfoMutation();
   const recaptcha = useReCaptcha();
 
   useEffect(() => {
@@ -50,6 +51,7 @@ export default memo(function EditProfile({ setEdit }: EditDetailsProp) {
     e.preventDefault();
 
     try {
+      setLoading(true);
       userFormValidation(fields);
 
       if (fields.phoneNo)
@@ -65,7 +67,9 @@ export default memo(function EditProfile({ setEdit }: EditDetailsProp) {
 
       dispatch(updateUserInfo(fields as unknown as UserType));
       setEdit(false);
+      setLoading(false);
     } catch (e) {
+      let message = "An error occured";
       if (responseError(e)) {
         const noAuth = e.data.message.includes("not authenticated");
 
@@ -73,19 +77,13 @@ export default memo(function EditProfile({ setEdit }: EditDetailsProp) {
           await sessionExpired();
           return;
         }
-
-        setError(e.data.message);
-        errorPopup(e.data.message);
-        return;
-      }
-
-      let message = "An error occurred";
-
-      if (e instanceof Error) {
+        message = e.data.message;
+      } else if (e instanceof Error) {
         message = e.message;
       }
       setError(message);
       errorPopup(message);
+      setLoading(false);
     }
   }
 
@@ -122,7 +120,7 @@ export default memo(function EditProfile({ setEdit }: EditDetailsProp) {
         error={error}
         text="update details"
         btnSize="small"
-        loading={isLoading}
+        loading={loading}
         onCancel={() => void setEdit(false)}
       />
     </Box>

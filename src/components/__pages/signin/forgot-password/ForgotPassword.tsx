@@ -18,7 +18,8 @@ import useReCaptcha from "../../../others/hooks/recaptcha/useRecaptcha";
 const ForgotPassword: FC<ForgotPasswordProps> = ({ routeToPasswordPage }) => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
-  const [resetPassword, { isLoading, isSuccess }] = useResetPasswordMutation();
+  const [loading, setLoading] = useState(false);
+  const [resetPassword, { isSuccess }] = useResetPasswordMutation();
   const recaptcha = useReCaptcha();
 
   useEffect(() => setError(""), [email]);
@@ -27,6 +28,7 @@ const ForgotPassword: FC<ForgotPasswordProps> = ({ routeToPasswordPage }) => {
     e.preventDefault();
 
     try {
+      setLoading(true);
       if (!validateEmail(email)) throw Error("Invalid Email");
 
       await recaptcha("forgotPasswordFrom1907");
@@ -36,17 +38,14 @@ const ForgotPassword: FC<ForgotPasswordProps> = ({ routeToPasswordPage }) => {
       }).unwrap()) as unknown as { message: string };
 
       successPopup(data.message);
+      setLoading(false);
     } catch (e) {
-      if (responseError(e)) {
-        setError(e.data.message);
-        errorPopup(e.data.message);
-        return;
-      }
       let message = "An error occurred";
-      if (e instanceof Error) message = e.message;
+      if (responseError(e)) message = e.data.message;
+      else if (e instanceof Error) message = e.message;
       errorPopup(message);
-
       setError(message);
+      setLoading(false);
     }
   };
 
@@ -105,7 +104,7 @@ const ForgotPassword: FC<ForgotPasswordProps> = ({ routeToPasswordPage }) => {
                 <FormBtn
                   text="Reset Password"
                   error={error}
-                  loading={isLoading}
+                  loading={loading}
                 />
               </Box>
               <Typography
