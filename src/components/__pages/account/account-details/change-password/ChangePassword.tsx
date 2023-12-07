@@ -18,8 +18,9 @@ import useReCaptcha from "../../../../others/hooks/recaptcha/useRecaptcha";
 export default memo(function ChangePassword() {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [updateInfo, { isLoading }] = useUpdateInfoMutation();
+  const [updateInfo] = useUpdateInfoMutation();
   const { email, firstName } = useAppSelector(({ user }) => user.userInfo);
   const recaptcha = useReCaptcha();
 
@@ -37,6 +38,7 @@ export default memo(function ChangePassword() {
     e.preventDefault();
 
     try {
+      setLoading(true);
       if (validatePassword(oldPassword) !== "true")
         throw Error(`Current password is incorrect`);
 
@@ -44,6 +46,7 @@ export default memo(function ChangePassword() {
         throw Error(
           `New Password must contain ${validatePassword(newPassword)}`
         );
+
       await recaptcha("changePasswordFrom1907");
       await updateInfo({
         email,
@@ -56,7 +59,10 @@ export default memo(function ChangePassword() {
 
       setPasswordValues({ newPassword: "" });
       setPasswordValues({ oldPassword: "" });
+
+      setLoading(false);
     } catch (e) {
+      let message = "An error occured";
       if (responseError(e)) {
         const noAuth = e.data.message.includes("not authenticated");
 
@@ -64,19 +70,13 @@ export default memo(function ChangePassword() {
           await sessionExpired();
           return;
         }
-
-        setError(e.data.message);
-        errorPopup(e.data.message);
-        return;
-      }
-
-      let message = "An error occured";
-
-      if (e instanceof Error) {
+        message = e.data.message;
+      } else if (e instanceof Error) {
         message = e.message;
       }
       setError(message);
       errorPopup(message);
+      setLoading(false);
     }
   }
 
@@ -121,7 +121,7 @@ export default memo(function ChangePassword() {
           </Box>
         </Box>
         <FormBtn
-          loading={isLoading}
+          loading={loading}
           error={error}
           btnSize="small"
           text="submit"
