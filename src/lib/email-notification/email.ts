@@ -1,13 +1,22 @@
 import emailjs from "@emailjs/nodejs";
+import nodemailer from "nodemailer";
 
 const PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAIL_PUBLIC_KEY as string;
 const PRIVATE_KEY = process.env.NEXT_PUBLIC_EMAIL_PRIVATE_KEY as string;
-const TEMPLATE_ID = process.env.SERVER_EMAIL_TEMPLATE_ID as string;
-const SERVICE_ID = process.env.SERVER_SERVICE_ID as string;
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL as string;
+const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD as string;
 
 emailjs.init({
   publicKey: PUBLIC_KEY,
   privateKey: PRIVATE_KEY,
+});
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: ADMIN_EMAIL,
+    pass: EMAIL_PASSWORD,
+  },
 });
 
 export const sendEmail = async (
@@ -16,16 +25,15 @@ export const sendEmail = async (
   email: string,
   message: string
 ) => {
-  const emailParams = {
-    title,
-    from_name: "1907 Store",
-    to_name: name,
-    to_email: email,
-    message,
+  const mailParams = {
+    from: "1907 Store",
+    to: email,
+    subject: title,
+    html: message,
   };
 
   try {
-    await emailjs.send(SERVICE_ID, TEMPLATE_ID, emailParams);
+    await transporter.sendMail(mailParams);
   } catch (e) {
     console.log(e);
     if (e instanceof Error) {

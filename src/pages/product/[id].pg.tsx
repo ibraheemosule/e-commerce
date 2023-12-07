@@ -34,7 +34,7 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
   const { data } = (await getContentfulData(
     allProductsQuery
   )) as CmsAllProductsType;
-  const paths = data.productCollection.items.map((item) => ({
+  const paths = data?.productCollection.items.map((item) => ({
     params: { id: item.sys.id },
   }));
 

@@ -22,7 +22,12 @@ export default async function createOtp(
         .then(() => client.get(email)));
 
     if (getOtp) {
-      await sendEmail("OTP from 1907Store", "Customer", email, sendOtp(getOtp));
+      await sendEmail(
+        "OTP from 1907Store",
+        "Customer",
+        email,
+        sendOtp(JSON.parse(getOtp) as string)
+      );
       res.status(200).json({ otp_sent: true });
       return;
     }
